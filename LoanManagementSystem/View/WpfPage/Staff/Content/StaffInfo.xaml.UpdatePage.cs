@@ -21,7 +21,15 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
             if (mode.Equals(Mode.EDIT))
             {
-                enableContent(false);
+                if (Session.SelectedEmployee != null)
+                {
+                    SetEmployeeDetails(Session.SelectedEmployee);
+                }
+            }
+            if (mode.Equals(Mode.NEW))
+            {
+                List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
+                HandleControllers.enableContent(ControlList, false, false, false, false, false);
 
                 if (Session.SelectedEmployee != null)
                 {

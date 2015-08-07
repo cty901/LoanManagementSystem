@@ -26,6 +26,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
         private static StaffInfo _instance;
         private byte[] _imageData { get; set; }
         public IList<string> ErrorList { get; set; }
+        public List<Control> ControlList { get; set; }
 
         private StaffInfo()
         {
@@ -191,14 +192,6 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 _imageData = br.ReadBytes((int)fs.Length);
 
                 ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
-            }
-        }
-
-        private void enableContent(Boolean enable)
-        {
-            foreach (TextBox tb in HandleControllers.FindVisualChildren<TextBox>(this))
-            {
-                tb.IsEnabled = enable;
             }
         }
 
