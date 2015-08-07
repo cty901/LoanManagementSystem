@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="loandbModelStoreContainer">
+          <EntitySet Name="employee" EntityType="loandbModel.Store.employee" store:Type="Tables" Schema="loandb" />
+        </EntityContainer>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="ID_TYPE" Type="set" Nullable="false" />
+          <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="LAST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="DOB" Type="datetime" Nullable="false" />
+          <Property Name="GENDER" Type="set" Nullable="false" />
+          <Property Name="NATIONALITY" Type="varchar" MaxLength="45" />
+          <Property Name="CIVIL_STATUS" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="PROFPIC" Type="longblob" />
+          <Property Name="ACCOUNT_TYPE" Type="set" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
+          <Property Name="USERNAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="PASSWORD" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="ISRESIGN" Type="bool" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="int" />
+          <Property Name="UPDATE_USER_ID" Type="int" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="loandbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="loandbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="employees" EntityType="loandbModel.employee" />
+        </EntityContainer>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ID_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="NATIONALITY" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CIVIL_STATUS" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="PROFPIC" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ACCOUNT_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ISRESIGN" Type="Boolean" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="Int32" />
+          <Property Name="UPDATE_USER_ID" Type="Int32" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="loandbModelStoreContainer" CdmEntityContainer="loandbEntities">
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="loandbModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="ID_TYPE" ColumnName="ID_TYPE" />
+                <ScalarProperty Name="ID_NUM" ColumnName="ID_NUM" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="NATIONALITY" ColumnName="NATIONALITY" />
+                <ScalarProperty Name="CIVIL_STATUS" ColumnName="CIVIL_STATUS" />
+                <ScalarProperty Name="PROFPIC" ColumnName="PROFPIC" />
+                <ScalarProperty Name="ACCOUNT_TYPE" ColumnName="ACCOUNT_TYPE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ISRESIGN" ColumnName="ISRESIGN" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
