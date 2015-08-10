@@ -1,5 +1,8 @@
 ﻿using LoanManagementSystem.DBModel;
+using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
+using LoanManagementSystem.View.WpfWindow;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +62,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 employee.ID_NUM = IDNumberTextBox.Text;
                 employee.DOB = Convert.ToDateTime(EmpBirthDayPicker.SelectedDate);                
                 employee.GENDER = getGender();
+                employee.ADDRESS = EmpAddressTextBox.Text;
 
                // employee.RELIGION = EmpReligionTextBox.Text;
                 employee.CIVIL_STATUS = EmpCivilStateTextBox.Text;                
@@ -112,7 +116,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
                 IDNumberTextBox.Text=employee.ID_NUM;
                 EmpBirthDayPicker.SelectedDate = employee.DOB;
-                setGender(employee.GENDER);
+                setGender(employee.GENDER);     
 
                 // employee.RELIGION = EmpReligionTextBox.Text;
                 EmpCivilStateTextBox.Text=employee.CIVIL_STATUS;
@@ -139,13 +143,13 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 PasswordTextBox.Text=employee.PASSWORD;
                 UserNameTextBox.Text=employee.USERNAME;
 
-                //employee.ISRESIGN = false;
+                employee.ISRESIGN = false;
 
-                //employee.STATUS = true;
-                //employee.INSERT_DATETIME = DateTime.Now;
-                //employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
-                //employee.UPDATE_DATETIME = DateTime.Now;
-                //employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+                employee.STATUS = true;
+                employee.INSERT_DATETIME = DateTime.Now;
+                employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                employee.UPDATE_DATETIME = DateTime.Now;
+                employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
             }
             catch (Exception)
             {
@@ -198,6 +202,23 @@ namespace LoanManagementSystem.View.WpfPage.Staff
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.mode==Mode.NEW)
+            {
+                employee emp = GetEmployeeDetails();
+                if (EmployeeService.InsertEmployee(emp) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
+                    QuickSearchPageStaff.Instance.RefreshPage();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
+            }
         }
     }
 }

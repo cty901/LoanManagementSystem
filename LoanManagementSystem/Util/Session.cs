@@ -42,6 +42,7 @@ namespace LoanManagementSystem.Util
                     else
                     {
                         StaffPage.Instance.ContentFrame.Content = EditProfilePage.Instance;
+                        EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.VIEW);
                     }
                     StaffPage.Instance.setMenuButtonView(1);
                 }

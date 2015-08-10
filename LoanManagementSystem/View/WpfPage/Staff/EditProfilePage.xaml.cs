@@ -39,7 +39,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                     instance = new EditProfilePage();
                 }
 
-                instance.EmployeeContentFrame.Content = new StaffInfo(Mode.NEW);
+                //instance.EmployeeContentFrame.Content = new StaffInfo(Mode.NEW);
                 //instance.ContactsContentFrame.Content = new ContactsInfo(Mode.EDIT);
                 return instance;
             }

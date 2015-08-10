@@ -97,6 +97,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoanDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
     <Compile Include="Util\HandleControllers.cs" />

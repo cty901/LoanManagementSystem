@@ -117,5 +117,9 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             }
         }
 
+        public void RefreshPage(){
+            RefreshEmployeeListByPage(1);
+        }
+
     }
 }

@@ -52,7 +52,7 @@ namespace LoanManagementSystem.View.WpfPage
         private void AddEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = EditProfilePage.Instance;
-            EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.EDIT);
+            EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.NEW);
 
             MenuDefaultEmployeeDetails.Height = 0;
             MenuAddEmployeeDetails.Height = Double.NaN;

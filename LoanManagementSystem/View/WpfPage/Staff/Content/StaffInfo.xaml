@@ -2,12 +2,27 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:LoanManagementSystem.DBModel"
       mc:Ignorable="d" 
-      d:DesignHeight="430" d:DesignWidth="760" Background="#5133AB">
-
+      d:DesignHeight="430" d:DesignWidth="760" Background="#5133AB">   
+    
+    <Page.Resources>
+        <!-- ValidatingControl Style -->
+        <Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding 
+                Path=(Validation.Errors)[0].ErrorContent, 
+                RelativeSource={x:Static RelativeSource.Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    
     <StackPanel Orientation="Vertical"  >
-        <Grid Margin="10">
+        <Grid Margin="10">            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -31,7 +46,7 @@
                 <Label Content="* First Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,0,0">
-                <TextBox x:Name="EmpFNameTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+                <TextBox x:Name="EmpFNameTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                 <Label Content="* Last Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -160,7 +175,7 @@
         </Grid>
         <DockPanel DockPanel.Dock="Right" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
-                <Button x:Name="EmployeeDetailsSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                <Button x:Name="EmployeeDetailsSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="EmployeeDetailsSaveButton_Click">
                     <StackPanel Orientation="Horizontal"  Margin="0">
                         <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
                         <Label Content="Save"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
