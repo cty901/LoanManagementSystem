@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="loandbModelStoreContainer">
           <EntitySet Name="employee" EntityType="loandbModel.Store.employee" store:Type="Tables" Schema="loandb" />
         </EntityContainer>
@@ -25,6 +25,10 @@
           <Property Name="PROFPIC" Type="longblob" />
           <Property Name="ACCOUNT_TYPE" Type="set" Nullable="false" />
           <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="70" />
+          <Property Name="PHONE_HP1" Type="varchar" MaxLength="15" />
+          <Property Name="PHONE_HP2" Type="varchar" MaxLength="15" />
+          <Property Name="PHONE_RECIDENCE" Type="varchar" MaxLength="15" />
           <Property Name="USERNAME" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="PASSWORD" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ISRESIGN" Type="bool" />
@@ -33,9 +37,9 @@
           <Property Name="UPDATE_USER_ID" Type="int" />
           <Property Name="INSERT_DATETIME" Type="datetime" />
           <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="RELIGION" Type="varchar" MaxLength="45" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="loandbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -59,6 +63,10 @@
           <Property Name="PROFPIC" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ACCOUNT_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_HP1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_HP2" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_RECIDENCE" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="ISRESIGN" Type="Boolean" />
@@ -67,6 +75,7 @@
           <Property Name="UPDATE_USER_ID" Type="Int32" />
           <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
           <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="RELIGION" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -90,6 +99,10 @@
                 <ScalarProperty Name="PROFPIC" ColumnName="PROFPIC" />
                 <ScalarProperty Name="ACCOUNT_TYPE" ColumnName="ACCOUNT_TYPE" />
                 <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE_HP1" ColumnName="PHONE_HP1" />
+                <ScalarProperty Name="PHONE_HP2" ColumnName="PHONE_HP2" />
+                <ScalarProperty Name="PHONE_RECIDENCE" ColumnName="PHONE_RECIDENCE" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="ISRESIGN" ColumnName="ISRESIGN" />
@@ -98,6 +111,7 @@
                 <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
                 <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
                 <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="RELIGION" ColumnName="RELIGION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

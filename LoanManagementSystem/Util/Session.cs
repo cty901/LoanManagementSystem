@@ -1,6 +1,7 @@
 ﻿using LoanManagementSystem.DBModel;
 using LoanManagementSystem.View.WpfPage;
 using LoanManagementSystem.View.WpfPage.Staff;
+using LoanManagementSystem.View.WpfPage.Staff.Content;
 
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace LoanManagementSystem.Util
                     else
                     {
                         StaffPage.Instance.ContentFrame.Content = EditProfilePage.Instance;
-                        EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.VIEW);
+                        EditProfilePage.Instance.EmployeeContentFrame.Content = CashBorrow.Instance;
                     }
                     StaffPage.Instance.setMenuButtonView(1);
                 }

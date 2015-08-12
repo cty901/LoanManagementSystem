@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls.Dialogs;
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
+using LoanManagementSystem.Properties;
 
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,12 @@ namespace LoanManagementSystem.View.WpfWindow
         public LoginWindow()
         {
             InitializeComponent();
+            this.UserNameTextBox.Text = Settings.Default["RecentLoginName"].ToString();
+            if (Settings.Default["RecentLoginUserProfPic"].ToString() != "")
+            {
+                byte[] ProfPic = System.Convert.FromBase64String(Settings.Default["RecentLoginUserProfPic"].ToString());
+                Util.ImageHandller.setProfImage(ProfPic, ProfPicBox);
+            }
         }
 
 
@@ -84,8 +91,8 @@ namespace LoanManagementSystem.View.WpfWindow
             string username = UserNameTextBox.Text;
             string password = PasswordTextBox.Password;
 
-            username = "sampath";
-            password = "sampath";
+            //username = "sampath";
+            //password = "sampath";
 
             try
             {
@@ -96,7 +103,7 @@ namespace LoanManagementSystem.View.WpfWindow
                     Session.LoggedEmployee = userList.SingleOrDefault();
                     Session.Account_Type = userList.SingleOrDefault().ACCOUNT_TYPE;
                     Session.EmployeeID = userList.SingleOrDefault().EMP_ID;
-                    
+                                      
                     MainWindow.Instance.Show();
                     ShouldClose = true;
                     this.Close();

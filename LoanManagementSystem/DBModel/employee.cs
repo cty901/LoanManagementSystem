@@ -27,6 +27,10 @@ namespace LoanManagementSystem.DBModel
         public byte[] PROFPIC { get; set; }
         public string ACCOUNT_TYPE { get; set; }
         public string ADDRESS { get; set; }
+        public string EMAIL { get; set; }
+        public string PHONE_HP1 { get; set; }
+        public string PHONE_HP2 { get; set; }
+        public string PHONE_RECIDENCE { get; set; }
         public string USERNAME { get; set; }
         public string PASSWORD { get; set; }
         public Nullable<bool> ISRESIGN { get; set; }
@@ -35,5 +39,6 @@ namespace LoanManagementSystem.DBModel
         public Nullable<int> UPDATE_USER_ID { get; set; }
         public Nullable<System.DateTime> INSERT_DATETIME { get; set; }
         public Nullable<System.DateTime> UPDATE_DATETIME { get; set; }
+        public string RELIGION { get; set; }
     }
 }

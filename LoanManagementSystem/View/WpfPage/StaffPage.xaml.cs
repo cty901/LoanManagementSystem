@@ -1,4 +1,5 @@
 ﻿using LoanManagementSystem.View.WpfPage.Staff;
+using LoanManagementSystem.View.WpfPage.Staff.Content;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls;
@@ -29,7 +30,7 @@ namespace LoanManagementSystem.View.WpfPage
         {
             InitializeComponent();
 
-            ContentFrame.Content = QuickSearchPageStaff.Instance;
+            ContentFrame.Content = QuickSearchPageStaff.Instance; 
 
             //var test = ManagerService.GetManagerListByUserNamePassword("Test", "Test");
 
@@ -100,6 +101,7 @@ namespace LoanManagementSystem.View.WpfPage
             {
                 ContentFrame.Content = EditProfilePage.Instance;
                 EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.EDIT);
+
             }
         }
 
@@ -139,19 +141,59 @@ namespace LoanManagementSystem.View.WpfPage
             if (type == 0)
             {
                 this.AddEmployeeButton.Visibility = System.Windows.Visibility.Visible;
-                this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Visible;
-              //  this.LeaveRequestButton.Visibility = System.Windows.Visibility.Collapsed;
-              //  this.ChangeTitleButton.Visibility = System.Windows.Visibility.Collapsed;
+                //this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Visible;
                 this.EditProfileButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.ProfileButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.CashBorrowButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.CashReturnButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.BackButtonTemp.Visibility = System.Windows.Visibility.Collapsed;
             }
             else if (type == 1)
             {
                 this.AddEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
-                this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
-               // this.LeaveRequestButton.Visibility = System.Windows.Visibility.Visible;
-               // this.ChangeTitleButton.Visibility = System.Windows.Visibility.Visible;
-                this.EditProfileButton.Visibility = System.Windows.Visibility.Visible;
+                //this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.EditProfileButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.ProfileButton.Visibility = System.Windows.Visibility.Visible;
+                this.CashBorrowButton.Visibility = System.Windows.Visibility.Visible;
+                this.CashReturnButton.Visibility = System.Windows.Visibility.Visible;
+                this.BackButtonTemp.Visibility = System.Windows.Visibility.Collapsed;
             }
+            else if (type == 2)
+            {
+                this.AddEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
+                //this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.EditProfileButton.Visibility = System.Windows.Visibility.Visible;
+                this.ProfileButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.CashBorrowButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.CashReturnButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void ProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = EditProfilePage.Instance;
+            EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.VIEW);
+            setMenuButtonView(2);
+        }
+
+        private void BackButtonTemp_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = EditProfilePage.Instance;
+            EditProfilePage.Instance.EmployeeContentFrame.Content = CashBorrow.Instance;
+            setMenuButtonView(1);
+        }
+
+        private void CashBorrowButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = EditProfilePage.Instance;
+            EditProfilePage.Instance.EmployeeContentFrame.Content = CashBorrow.Instance;
+        }
+
+        private void CashReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = EditProfilePage.Instance;
+            EditProfilePage.Instance.EmployeeContentFrame.Content = CashReturn.Instance;
         }
     }
 }

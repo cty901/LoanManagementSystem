@@ -2,6 +2,7 @@
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfWindow;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -55,22 +56,28 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             {
                 employee employee = new employee();
 
+                employee.ID = Session.SelectedEmployee.ID;
                 employee.EMP_ID = "CheckID";
                 employee.FIRST_NAME = EmpFNameTextBox.Text;
                 employee.LAST_NAME = EmpLNameTextBox.Text;
-                employee.ID_TYPE = IDTypeComboBox.SelectedValue.ToString();
+                employee.ID_TYPE=setIDType(IDTypeComboBox.Text);
                 employee.ID_NUM = IDNumberTextBox.Text;
                 employee.DOB = Convert.ToDateTime(EmpBirthDayPicker.SelectedDate);                
                 employee.GENDER = getGender();
-                employee.ADDRESS = EmpAddressTextBox.Text;
 
-               // employee.RELIGION = EmpReligionTextBox.Text;
+                employee.ADDRESS = EmpAddressTextBox.Text;
+                employee.PHONE_HP1 = EmpHandPhone1TextBox.Text;
+                employee.PHONE_HP2 = EmpHandPhone2TextBox.Text;
+                employee.PHONE_RECIDENCE = EmpRecedencePhoneTextBox.Text;
+                employee.EMAIL = EmpEmailTextBox.Text;
+
+                employee.RELIGION = EmpReligionTextBox.Text;
                 employee.CIVIL_STATUS = EmpCivilStateTextBox.Text;                
                 employee.NATIONALITY = EmpNationalityTextBox.Text;
 
                 employee.PROFPIC = _imageData;
 
-                employee.ACCOUNT_TYPE = AccountTypeComboBox.SelectedValue.ToString();
+                employee.ACCOUNT_TYPE = AccountTypeComboBox.Text;
                 employee.PASSWORD = PasswordTextBox.Text;
                 employee.USERNAME = UserNameTextBox.Text;
 
@@ -94,7 +101,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
         {
             try
             {
-                //employee.EMP_ID = "CheckID";
+                employee.EMP_ID = employee.ID.ToString();
                 EmpFNameTextBox.Text=employee.FIRST_NAME;
                 EmpLNameTextBox.Text=employee.LAST_NAME;
                 if (employee.ID_TYPE != null)
@@ -116,13 +123,20 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
                 IDNumberTextBox.Text=employee.ID_NUM;
                 EmpBirthDayPicker.SelectedDate = employee.DOB;
-                setGender(employee.GENDER);     
+                setGender(employee.GENDER);
 
-                // employee.RELIGION = EmpReligionTextBox.Text;
+                EmpAddressTextBox.Text=employee.ADDRESS;
+                EmpHandPhone1TextBox.Text=employee.PHONE_HP1;
+                EmpHandPhone2TextBox.Text=employee.PHONE_HP2;
+                EmpRecedencePhoneTextBox.Text=employee.PHONE_RECIDENCE;
+                EmpEmailTextBox.Text=employee.EMAIL;
+
+                EmpReligionTextBox.Text =employee.RELIGION;
                 EmpCivilStateTextBox.Text=employee.CIVIL_STATUS;
                 EmpNationalityTextBox.Text=employee.NATIONALITY ;
 
                 _imageData=employee.PROFPIC;
+                ImageHandller.setProfImage(_imageData,ProfPicBox);
 
                 if (employee.ACCOUNT_TYPE != null)
                 {
@@ -177,25 +191,55 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 GenderRBF.IsChecked = true;
         }
 
-        private void LoadImageButton_Click(object sender, RoutedEventArgs e)
+        private string setIDType(string id_type)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
+            if (id_type == "NIC")
             {
-                string filename = dlg.FileName;
-                FileStream fs;
-                BinaryReader br;
+                return "nic";
+            }
+            else if (id_type == "Pass Post")
+            {
+                return "pp";
+            }
+            else
+            {
+                return "dl";
+            }
 
-                fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-                br = new BinaryReader(fs);
-                _imageData = br.ReadBytes((int)fs.Length);
+        }
 
-                ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
+        private  async void LoadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool error = false;
+
+            try
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
+
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    string filename = dlg.FileName;
+                    FileStream fs;
+                    BinaryReader br;
+
+                    fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+                    br = new BinaryReader(fs);
+                    _imageData = br.ReadBytes((int)fs.Length);
+
+                    ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
+                }
+            }
+            catch
+            {
+                error = true;
+            }
+            if (error)
+            {
+                await MainWindow.Instance.ShowMessageAsync("Image Uploding Error","Image Content is Corrupted",MessageDialogStyle.Affirmative);
             }
         }
 
@@ -211,12 +255,27 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 employee emp = GetEmployeeDetails();
                 if (EmployeeService.InsertEmployee(emp) == 1)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
+                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);                   
                     QuickSearchPageStaff.Instance.RefreshPage();
                 }
                 else
                 {
                     await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
+            }
+
+            else if (this.mode == Mode.EDIT)
+            {
+                employee emp = GetEmployeeDetails();
+                if (EmployeeService.UpdateEmployee(emp) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Employe Update Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
+                    MainWindow.Instance.setLoginDeatails();
+                    QuickSearchPageStaff.Instance.RefreshPage();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Employe Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
                 }
             }
         }

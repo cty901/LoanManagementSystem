@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:LoanManagementSystem.DBModel"
       mc:Ignorable="d" 
-      d:DesignHeight="430" d:DesignWidth="760" Background="#5133AB">   
+      d:DesignHeight="480" d:DesignWidth="760" Background="#5133AB">   
     
-    <Page.Resources>
+    <!--<Page.Resources>-->
         <!-- ValidatingControl Style -->
-        <Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
+        <!--<Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="ToolTip" Value="{Binding 
@@ -18,12 +18,69 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Page.Resources>
-    
+    </Page.Resources>-->
+
+
+    <!--<Page.Resources>
+        <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="White" />
+
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="DarkGray" />
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="Black" />-->
+
+        <!--creates a textbox with a transparent disabled background-->
+        <!--<Style x:Key="DisabledTextBox" TargetType="{x:Type TextBoxBase}">            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border Name="Border" CornerRadius="0" Padding="2"  Background="{StaticResource WindowBackgroundBrush}"  BorderBrush="{StaticResource SolidBorderBrush}" BorderThickness="1">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DisabledComboBox" TargetType="{x:Type ComboBox}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ButtonBase">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Page.Resources>-->
+
+
+
     <StackPanel Orientation="Vertical"  >
         <Grid Margin="10">            
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -46,7 +103,7 @@
                 <Label Content="* First Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,0,0">
-                <TextBox x:Name="EmpFNameTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+                <TextBox x:Name="EmpFNameTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                 <Label Content="* Last Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -95,13 +152,13 @@
                 <Label Content="Religion" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="3" Grid.Column="1" Margin="0,10,0,0">
-                <TextBox x:Name="EmpReligionTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpReligionTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                 <Label Content="Nationality" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="3" Grid.Column="3" Margin="0,10,0,0">
-                <TextBox x:Name="EmpNationalityTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpNationalityTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                 <Label Content="Marital Status" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -115,7 +172,7 @@
                 <Label Content="ID Type" HorizontalAlignment="Right" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,10,0,0">
-                <ComboBox x:Name="IDTypeComboBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True">
+                <ComboBox x:Name="IDTypeComboBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True">
                     <ComboBoxItem IsSelected="True">NIC</ComboBoxItem>
                     <ComboBoxItem >Pass Port</ComboBoxItem>
                     <ComboBoxItem>Driving Licence</ComboBoxItem>
@@ -125,7 +182,7 @@
                 <Label Content="ID Number" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="4" Grid.Column="4"  Grid.ColumnSpan="2" Margin="0,10,0,0">
-                <TextBox x:Name="IDNumberTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="IDNumberTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
 
             <!--Sixth Row-->
@@ -154,7 +211,7 @@
                 <Label Content="Account Type" HorizontalAlignment="Right" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="7" Grid.Column="1" Margin="0,10,0,0">
-                <ComboBox x:Name="AccountTypeComboBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True">
+                <ComboBox x:Name="AccountTypeComboBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True">
                     <ComboBoxItem IsSelected="True">Admin</ComboBoxItem>
                     <ComboBoxItem >Staff</ComboBoxItem>
                     <ComboBoxItem>Other</ComboBoxItem>
@@ -170,8 +227,39 @@
                 <Label Content="Password" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="7" Grid.Column="5"  Margin="0,10,0,0">
-                <TextBox x:Name="PasswordTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="PasswordTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
+
+            <!--eight Row-->
+            <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
+                <Label Content="Hand Phone 1" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+            </StackPanel>
+            <Grid Grid.Row="8" Grid.Column="1" Margin="0,10,0,0">
+                <TextBox x:Name="EmpHandPhone1TextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+            </Grid>
+            <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
+                <Label Content="Hand Phone 2" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+            </StackPanel>
+            <Grid Grid.Row="8" Grid.Column="3" Margin="0,10,0,0">
+                <TextBox x:Name="EmpHandPhone2TextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+            </Grid>
+            <StackPanel Grid.Row="8" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
+                <Label Content="Recedence Phn" FontWeight="Bold" HorizontalAlignment="Center" Width="86" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+            </StackPanel>
+            <Grid Grid.Row="8" Grid.Column="5" Margin="0,10,0,0">
+                <TextBox x:Name="EmpRecedencePhoneTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+            </Grid>
+
+            <!--night Row-->
+            <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
+                <Label Content="Email" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+            </StackPanel>
+            <Grid Grid.Row="9" Grid.Column="1" Margin="0,10,0,0">
+                <TextBox x:Name="EmpEmailTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+            </Grid>
+           
+
+
         </Grid>
         <DockPanel DockPanel.Dock="Right" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">

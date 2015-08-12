@@ -9,6 +9,9 @@ using System.Windows.Media;
 
 using LoanManagementSystem.View.WpfPage;
 using MahApps.Metro.Controls.Dialogs;
+using LoanManagementSystem.Util;
+using LoanManagementSystem.Properties;
+
 
 namespace LoanManagementSystem.View.WpfWindow
 {
@@ -25,11 +28,7 @@ namespace LoanManagementSystem.View.WpfWindow
             this.ShowCloseButton = false;
 
             ContentFrame.Content = DashBoardPage.Instance;
-            //CompanyName.Content = ApplicationSettings.COMPANY_SHORT_NAME;
-
-            //CompanyName.FontFamily = new FontFamily(new Uri("pack://application:,,,/Fonts/"), "./#Dekers");
-            //CompanyNameHR.FontFamily = new FontFamily(new Uri("pack://application:,,,/Fonts/"), "./#Dekers");
-
+            setLoginDeatails();            
             instance = this;
         }
 
@@ -141,6 +140,15 @@ namespace LoanManagementSystem.View.WpfWindow
         private void HomeBtn_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = DashBoardPage.Instance;
+        }
+        public void setLoginDeatails()
+        {
+            this.EmpUserNameLable.Content = Util.LetterHandller.UppercaseFirst(Session.LoggedEmployee.USERNAME);
+            Util.ImageHandller.setProfImage(Session.LoggedEmployee.PROFPIC, this.ProfPicBox);
+
+            Settings.Default["RecentLoginName"] = Session.LoggedEmployee.USERNAME;
+            Settings.Default["RecentLoginUserProfPic"] = System.Convert.ToBase64String(Session.LoggedEmployee.PROFPIC);
+            Settings.Default.Save();
         }
     }
 }

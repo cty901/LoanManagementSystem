@@ -14,7 +14,11 @@
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Height="23" Margin="398,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" SelectionOpacity="-4" ToolTip="Insert Your User Name" TabIndex="1"/>
         <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Margin="398,219,0,0" VerticalAlignment="Top"  Width="200" ToolTip="Insert Your Password" TabIndex="2"/>
 
-        <Image HorizontalAlignment="Left" Height="90" Margin="221,166,0,0" VerticalAlignment="Top" Width="86" Source="/LoanManagementSystem;component/Images/WpfWindow/LoginWindow/User.png"/>
+        <Rectangle RadiusX="0" RadiusY="0" Width="86" Height="90" Margin="221,166,353,94">
+            <Rectangle.Fill>
+                <ImageBrush x:Name="ProfPicBox" ImageSource="/LoanManagementSystem;component/Images/WpfWindow/LoginWindow/User.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
 
         <Label HorizontalContentAlignment="Center" Style="{StaticResource SmallLabel}" Width="Auto" Margin="21,322,0,10">
             © Copyright 2015

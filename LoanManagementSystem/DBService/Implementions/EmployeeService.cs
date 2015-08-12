@@ -87,5 +87,28 @@ namespace LoanManagementSystem.DBService.Implementions
                 return 0;
             }
         }
+
+        public static int UpdateEmployee(employee employee)
+        {
+            try
+            {
+                var query = db.employees.Single(e => e.ID == employee.ID);
+                db.Entry(query).CurrentValues.SetValues(employee);
+                
+                return db.SaveChanges();               
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                return 0;
+            }
+        }
+        
     }
 }

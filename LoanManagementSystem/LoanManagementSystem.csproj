@@ -101,6 +101,8 @@
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
     <Compile Include="Util\HandleControllers.cs" />
+    <Compile Include="Util\ImageHandller.cs" />
+    <Compile Include="Util\LetterHandller.cs" />
     <Compile Include="Util\Messages.cs" />
     <Compile Include="Util\Mode.cs" />
     <Compile Include="Util\PageData.cs" />
@@ -120,6 +122,12 @@
     </Compile>
     <Compile Include="View\WpfPage\CustomerPage.xaml.cs">
       <DependentUpon>CustomerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Staff\Content\CashBorrow.xaml.cs">
+      <DependentUpon>CashBorrow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Staff\Content\CashReturn.xaml.cs">
+      <DependentUpon>CashReturn.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Staff\EditProfilePage.xaml.cs">
       <DependentUpon>EditProfilePage.xaml</DependentUpon>
@@ -185,6 +193,14 @@
     <Page Include="View\WpfPage\CustomerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Staff\Content\CashBorrow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\Staff\Content\CashReturn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WpfPage\Staff\EditProfilePage.xaml">
       <SubType>Designer</SubType>
