@@ -85,7 +85,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
                 employee.STATUS = true;
                 employee.INSERT_DATETIME = DateTime.Now;
-                employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                employee.INSERT_USER_ID = Session.LoggedEmployee.ID.;
                 employee.UPDATE_DATETIME = DateTime.Now;
                 employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
 
