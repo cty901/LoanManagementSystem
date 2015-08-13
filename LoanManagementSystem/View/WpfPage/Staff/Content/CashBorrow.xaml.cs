@@ -25,6 +25,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         private CashBorrow()
         {
             InitializeComponent();
+            FocusManager.SetFocusedElement(this,AmountTextBox);
         }
 
         public static CashBorrow Instance
