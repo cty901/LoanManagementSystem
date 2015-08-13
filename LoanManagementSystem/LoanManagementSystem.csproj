@@ -121,8 +121,10 @@
     </Compile>
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
+    <Compile Include="DBService\Implementions\Employee_CashService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
     <Compile Include="Util\HandleControllers.cs" />
+    <Compile Include="Util\IDHandller.cs" />
     <Compile Include="Util\ImageHandller.cs" />
     <Compile Include="Util\LetterHandller.cs" />
     <Compile Include="Util\Messages.cs" />

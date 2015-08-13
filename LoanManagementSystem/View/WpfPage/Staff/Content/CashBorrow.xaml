@@ -73,7 +73,7 @@
         </Grid>
         <DockPanel DockPanel.Dock="Right" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
-                <Button x:Name="CashBorrowSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" >
+                <Button x:Name="CashBorrowSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="CashBorrowSaveButton_Click" >
                     <StackPanel Orientation="Horizontal"  Margin="0">
                         <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
                         <Label Content="Save"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
