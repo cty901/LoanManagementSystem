@@ -79,7 +79,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBModel\branch.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\customer.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModel\employee.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\employee_cash.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\loan.cs">
       <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\LoanDBModel.Context.cs">
@@ -96,6 +108,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LoanDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\loan_type.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\payment.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModel\sm.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />

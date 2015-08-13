@@ -107,7 +107,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
             if (lbl.Content.ToString() != "")
             {
-                employee selected = EmployeeList.Single(c => c.ID == int.Parse(lbl.Content.ToString()));
+                employee selected = EmployeeList.Single(c => c.ID == lbl.Content.ToString());
                 Session.SelectedEmployee = selected;
             }
             else

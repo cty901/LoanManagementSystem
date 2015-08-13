@@ -29,11 +29,12 @@ namespace LoanManagementSystem.DBService.Implementions
             PagingCollection<employee> pager = new PagingCollection<employee>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
-            int id = 0;
+            string id = "0";
 
             try
             {
-                id = int.Parse(_searchText);
+               // id = int.Parse(_searchText);
+                id = _searchText;
             }
             catch (Exception)
             {
