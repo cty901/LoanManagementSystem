@@ -25,6 +25,13 @@ namespace LoanManagementSystem.DBModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<branch> branches { get; set; }
+        public DbSet<customer> customers { get; set; }
         public DbSet<employee> employees { get; set; }
+        public DbSet<employee_cash> employee_cash { get; set; }
+        public DbSet<loan> loans { get; set; }
+        public DbSet<loan_type> loan_type { get; set; }
+        public DbSet<payment> payments { get; set; }
+        public DbSet<sm> sms { get; set; }
     }
 }

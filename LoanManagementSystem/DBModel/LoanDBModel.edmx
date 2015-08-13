@@ -4,16 +4,70 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="loandbModelStoreContainer">
+          <EntitySet Name="branch" EntityType="loandbModel.Store.branch" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="customer" EntityType="loandbModel.Store.customer" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="employee" EntityType="loandbModel.Store.employee" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="employee_cash" EntityType="loandbModel.Store.employee_cash" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="loan" EntityType="loandbModel.Store.loan" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="loan_type" EntityType="loandbModel.Store.loan_type" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="payment" EntityType="loandbModel.Store.payment" store:Type="Tables" Schema="loandb" />
+          <EntitySet Name="sms" EntityType="loandbModel.Store.sms" store:Type="Tables" Schema="loandb" />
+          <AssociationSet Name="fk_employee_cash_employee" Association="loandbModel.Store.fk_employee_cash_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_cash" EntitySet="employee_cash" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_branch1" Association="loandbModel.Store.fk_loan_branch1">
+            <End Role="branch" EntitySet="branch" />
+            <End Role="loan" EntitySet="loan" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_customer1" Association="loandbModel.Store.fk_loan_customer1">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="loan" EntitySet="loan" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_employee1" Association="loandbModel.Store.fk_loan_employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="loan" EntitySet="loan" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_loan_type1" Association="loandbModel.Store.fk_loan_loan_type1">
+            <End Role="loan_type" EntitySet="loan_type" />
+            <End Role="loan" EntitySet="loan" />
+          </AssociationSet>
+          <AssociationSet Name="fk_payment_loan1" Association="loandbModel.Store.fk_payment_loan1">
+            <End Role="loan" EntitySet="loan" />
+            <End Role="payment" EntitySet="payment" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SMS_customer1" Association="loandbModel.Store.fk_SMS_customer1">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="sms" EntitySet="sms" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SMS_employee1" Association="loandbModel.Store.fk_SMS_employee1">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="sms" EntitySet="sms" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="employee">
+        <EntityType Name="branch">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="EMP_ID" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="BRANCH_ID" Type="varchar" MaxLength="10" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
+          <Property Name="PHONE" Type="varchar" MaxLength="15" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="45" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="CUSTOMER_ID" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ID_TYPE" Type="set" Nullable="false" />
           <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
@@ -22,36 +76,303 @@
           <Property Name="GENDER" Type="set" Nullable="false" />
           <Property Name="NATIONALITY" Type="varchar" MaxLength="45" />
           <Property Name="CIVIL_STATUS" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="PROFPIC" Type="longblob" />
-          <Property Name="ACCOUNT_TYPE" Type="set" Nullable="false" />
           <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
           <Property Name="EMAIL" Type="varchar" MaxLength="70" />
           <Property Name="PHONE_HP1" Type="varchar" MaxLength="15" />
           <Property Name="PHONE_HP2" Type="varchar" MaxLength="15" />
           <Property Name="PHONE_RECIDENCE" Type="varchar" MaxLength="15" />
-          <Property Name="USERNAME" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="PASSWORD" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="ISRESIGN" Type="bool" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="ISACTIVE" Type="bool" />
           <Property Name="STATUS" Type="bool" />
-          <Property Name="INSERT_USER_ID" Type="int" />
-          <Property Name="UPDATE_USER_ID" Type="int" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
           <Property Name="INSERT_DATETIME" Type="datetime" />
           <Property Name="UPDATE_DATETIME" Type="datetime" />
-          <Property Name="RELIGION" Type="varchar" MaxLength="45" />
         </EntityType>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="loandbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="loandbEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="employees" EntityType="loandbModel.employee" />
-        </EntityContainer>
         <EntityType Name="employee">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="EMP_ID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="EMP_ID" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="ID_TYPE" Type="set" Nullable="false" />
+          <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="LAST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="DOB" Type="datetime" Nullable="false" />
+          <Property Name="GENDER" Type="set" Nullable="false" />
+          <Property Name="NATIONALITY" Type="varchar" MaxLength="45" />
+          <Property Name="RELIGION" Type="varchar" MaxLength="45" />
+          <Property Name="CIVIL_STATUS" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="70" />
+          <Property Name="PHONE_HP1" Type="varchar" MaxLength="15" />
+          <Property Name="PHONE_HP2" Type="varchar" MaxLength="15" />
+          <Property Name="PHONE_RECIDENCE" Type="varchar" MaxLength="15" />
+          <Property Name="ACCOUNT_TYPE" Type="set" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="PASSWORD" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="PROFPIC" Type="longblob" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="ISRESIGN" Type="bool" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+        </EntityType>
+        <EntityType Name="employee_cash">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="BORROW_DATE_TIME" Type="datetime" />
+          <Property Name="BORROW_AMOUNT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="BORROW_REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="RETURN_DATE_TIME" Type="datetime" />
+          <Property Name="RETURN_AMOUNT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="RETURN_REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="FK_EMPLOYEE_ID" Type="varchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="loan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="LOAN_ID" Type="varchar" MaxLength="32" />
+          <Property Name="START_DATE" Type="date" />
+          <Property Name="END_DATE" Type="varchar" MaxLength="45" />
+          <Property Name="AMOUNT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="INSTALLMENT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="LOAN_STATUS" Type="bool" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="FK_EMPLOYEE_ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="FK_CUSTOMER_ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="FK_LOAN_TYPE_ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="FK_BRANCH_ID" Type="varchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="loan_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="LOAN_TYPE_ID" Type="varchar" MaxLength="10" />
+          <Property Name="AMOUNT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="INSTALLMENT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="LOAN_ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="PAYMENT_ID" Type="varchar" MaxLength="32" />
+          <Property Name="DATE_TIME" Type="datetime" />
+          <Property Name="AMOUNT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="LOAN_ID" Type="varchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="sms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="SEND_DATE_TIME" Type="datetime" />
+          <Property Name="CONTENT" Type="varchar" MaxLength="45" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="FK_EMPLOYEE_ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="FK_CUSTOMER_ID" Type="varchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <Association Name="fk_employee_cash_employee">
+          <End Role="employee" Type="loandbModel.Store.employee" Multiplicity="1" />
+          <End Role="employee_cash" Type="loandbModel.Store.employee_cash" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee_cash">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_branch1">
+          <End Role="branch" Type="loandbModel.Store.branch" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.Store.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="branch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_BRANCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_customer1">
+          <End Role="customer" Type="loandbModel.Store.customer" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.Store.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_employee1">
+          <End Role="employee" Type="loandbModel.Store.employee" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.Store.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_loan_type1">
+          <End Role="loan_type" Type="loandbModel.Store.loan_type" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.Store.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loan_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_LOAN_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_payment_loan1">
+          <End Role="loan" Type="loandbModel.Store.loan" Multiplicity="1" />
+          <End Role="payment" Type="loandbModel.Store.payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="payment">
+              <PropertyRef Name="LOAN_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SMS_customer1">
+          <End Role="customer" Type="loandbModel.Store.customer" Multiplicity="1" />
+          <End Role="sms" Type="loandbModel.Store.sms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sms">
+              <PropertyRef Name="FK_CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SMS_employee1">
+          <End Role="employee" Type="loandbModel.Store.employee" Multiplicity="1" />
+          <End Role="sms" Type="loandbModel.Store.sms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sms">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="loandbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="loandbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="branches" EntityType="loandbModel.branch" />
+          <EntitySet Name="customers" EntityType="loandbModel.customer" />
+          <EntitySet Name="employees" EntityType="loandbModel.employee" />
+          <EntitySet Name="employee_cash" EntityType="loandbModel.employee_cash" />
+          <EntitySet Name="loans" EntityType="loandbModel.loan" />
+          <EntitySet Name="loan_type" EntityType="loandbModel.loan_type" />
+          <EntitySet Name="payments" EntityType="loandbModel.payment" />
+          <EntitySet Name="sms" EntityType="loandbModel.sm" />
+          <AssociationSet Name="fk_loan_branch1" Association="loandbModel.fk_loan_branch1">
+            <End Role="branch" EntitySet="branches" />
+            <End Role="loan" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_customer1" Association="loandbModel.fk_loan_customer1">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="loan" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SMS_customer1" Association="loandbModel.fk_SMS_customer1">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="sms" EntitySet="sms" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee_cash_employee" Association="loandbModel.fk_employee_cash_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_cash" EntitySet="employee_cash" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_employee1" Association="loandbModel.fk_loan_employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="loan" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SMS_employee1" Association="loandbModel.fk_SMS_employee1">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="sms" EntitySet="sms" />
+          </AssociationSet>
+          <AssociationSet Name="fk_loan_loan_type1" Association="loandbModel.fk_loan_loan_type1">
+            <End Role="loan_type" EntitySet="loan_type" />
+            <End Role="loan" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_payment_loan1" Association="loandbModel.fk_payment_loan1">
+            <End Role="loan" EntitySet="loans" />
+            <End Role="payment" EntitySet="payments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="branch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="BRANCH_ID" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="loans" Relationship="loandbModel.fk_loan_branch1" FromRole="branch" ToRole="loan" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="CUSTOMER_ID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="ID_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
@@ -60,29 +381,299 @@
           <Property Name="GENDER" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="NATIONALITY" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="CIVIL_STATUS" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="PROFPIC" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="ACCOUNT_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="EMAIL" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_HP1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_HP2" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_RECIDENCE" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="ISRESIGN" Type="Boolean" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ISACTIVE" Type="Boolean" />
           <Property Name="STATUS" Type="Boolean" />
-          <Property Name="INSERT_USER_ID" Type="Int32" />
-          <Property Name="UPDATE_USER_ID" Type="Int32" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
           <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
-          <Property Name="RELIGION" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="loans" Relationship="loandbModel.fk_loan_customer1" FromRole="customer" ToRole="loan" />
+          <NavigationProperty Name="sms" Relationship="loandbModel.fk_SMS_customer1" FromRole="customer" ToRole="sms" />
         </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="EMP_ID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ID_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="NATIONALITY" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="RELIGION" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CIVIL_STATUS" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_HP1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_HP2" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_RECIDENCE" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="ACCOUNT_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="PROFPIC" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ISRESIGN" Type="Boolean" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="employee_cash" Relationship="loandbModel.fk_employee_cash_employee" FromRole="employee" ToRole="employee_cash" />
+          <NavigationProperty Name="loans" Relationship="loandbModel.fk_loan_employee1" FromRole="employee" ToRole="loan" />
+          <NavigationProperty Name="sms" Relationship="loandbModel.fk_SMS_employee1" FromRole="employee" ToRole="sms" />
+        </EntityType>
+        <EntityType Name="employee_cash">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="BORROW_DATE_TIME" Type="DateTime" Precision="0" />
+          <Property Name="BORROW_AMOUNT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="BORROW_REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="RETURN_DATE_TIME" Type="DateTime" Precision="0" />
+          <Property Name="RETURN_AMOUNT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="RETURN_REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="FK_EMPLOYEE_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="employee" Relationship="loandbModel.fk_employee_cash_employee" FromRole="employee_cash" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="loan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="LOAN_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="START_DATE" Type="DateTime" Precision="0" />
+          <Property Name="END_DATE" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="INSTALLMENT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="LOAN_STATUS" Type="Boolean" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="FK_EMPLOYEE_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="FK_CUSTOMER_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="FK_LOAN_TYPE_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="FK_BRANCH_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="branch" Relationship="loandbModel.fk_loan_branch1" FromRole="loan" ToRole="branch" />
+          <NavigationProperty Name="customer" Relationship="loandbModel.fk_loan_customer1" FromRole="loan" ToRole="customer" />
+          <NavigationProperty Name="employee" Relationship="loandbModel.fk_loan_employee1" FromRole="loan" ToRole="employee" />
+          <NavigationProperty Name="loan_type" Relationship="loandbModel.fk_loan_loan_type1" FromRole="loan" ToRole="loan_type" />
+          <NavigationProperty Name="payments" Relationship="loandbModel.fk_payment_loan1" FromRole="loan" ToRole="payment" />
+        </EntityType>
+        <EntityType Name="loan_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="LOAN_TYPE_ID" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="INSTALLMENT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="loans" Relationship="loandbModel.fk_loan_loan_type1" FromRole="loan_type" ToRole="loan" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="LOAN_ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="PAYMENT_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="DATE_TIME" Type="DateTime" Precision="0" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="LOAN_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="loan" Relationship="loandbModel.fk_payment_loan1" FromRole="payment" ToRole="loan" />
+        </EntityType>
+        <EntityType Name="sm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="SEND_DATE_TIME" Type="DateTime" Precision="0" />
+          <Property Name="CONTENT" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="FK_EMPLOYEE_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="FK_CUSTOMER_ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="customer" Relationship="loandbModel.fk_SMS_customer1" FromRole="sms" ToRole="customer" />
+          <NavigationProperty Name="employee" Relationship="loandbModel.fk_SMS_employee1" FromRole="sms" ToRole="employee" />
+        </EntityType>
+        <Association Name="fk_loan_branch1">
+          <End Role="branch" Type="loandbModel.branch" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="branch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_BRANCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_customer1">
+          <End Role="customer" Type="loandbModel.customer" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SMS_customer1">
+          <End Role="customer" Type="loandbModel.customer" Multiplicity="1" />
+          <End Role="sms" Type="loandbModel.sm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sms">
+              <PropertyRef Name="FK_CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee_cash_employee">
+          <End Role="employee" Type="loandbModel.employee" Multiplicity="1" />
+          <End Role="employee_cash" Type="loandbModel.employee_cash" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee_cash">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_employee1">
+          <End Role="employee" Type="loandbModel.employee" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SMS_employee1">
+          <End Role="employee" Type="loandbModel.employee" Multiplicity="1" />
+          <End Role="sms" Type="loandbModel.sm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="sms">
+              <PropertyRef Name="FK_EMPLOYEE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_loan_loan_type1">
+          <End Role="loan_type" Type="loandbModel.loan_type" Multiplicity="1" />
+          <End Role="loan" Type="loandbModel.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loan_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="loan">
+              <PropertyRef Name="FK_LOAN_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_payment_loan1">
+          <End Role="loan" Type="loandbModel.loan" Multiplicity="1" />
+          <End Role="payment" Type="loandbModel.payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="payment">
+              <PropertyRef Name="LOAN_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="loandbModelStoreContainer" CdmEntityContainer="loandbEntities">
+          <EntitySetMapping Name="branches">
+            <EntityTypeMapping TypeName="loandbModel.branch">
+              <MappingFragment StoreEntitySet="branch">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BRANCH_ID" ColumnName="BRANCH_ID" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="loandbModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="ID_TYPE" ColumnName="ID_TYPE" />
+                <ScalarProperty Name="ID_NUM" ColumnName="ID_NUM" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="NATIONALITY" ColumnName="NATIONALITY" />
+                <ScalarProperty Name="CIVIL_STATUS" ColumnName="CIVIL_STATUS" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE_HP1" ColumnName="PHONE_HP1" />
+                <ScalarProperty Name="PHONE_HP2" ColumnName="PHONE_HP2" />
+                <ScalarProperty Name="PHONE_RECIDENCE" ColumnName="PHONE_RECIDENCE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="ISACTIVE" ColumnName="ISACTIVE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="loandbModel.employee">
               <MappingFragment StoreEntitySet="employee">
@@ -95,23 +686,115 @@
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="GENDER" ColumnName="GENDER" />
                 <ScalarProperty Name="NATIONALITY" ColumnName="NATIONALITY" />
+                <ScalarProperty Name="RELIGION" ColumnName="RELIGION" />
                 <ScalarProperty Name="CIVIL_STATUS" ColumnName="CIVIL_STATUS" />
-                <ScalarProperty Name="PROFPIC" ColumnName="PROFPIC" />
-                <ScalarProperty Name="ACCOUNT_TYPE" ColumnName="ACCOUNT_TYPE" />
                 <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="PHONE_HP1" ColumnName="PHONE_HP1" />
                 <ScalarProperty Name="PHONE_HP2" ColumnName="PHONE_HP2" />
                 <ScalarProperty Name="PHONE_RECIDENCE" ColumnName="PHONE_RECIDENCE" />
+                <ScalarProperty Name="ACCOUNT_TYPE" ColumnName="ACCOUNT_TYPE" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="PROFPIC" ColumnName="PROFPIC" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="ISRESIGN" ColumnName="ISRESIGN" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
                 <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
                 <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
                 <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
-                <ScalarProperty Name="RELIGION" ColumnName="RELIGION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_cash">
+            <EntityTypeMapping TypeName="loandbModel.employee_cash">
+              <MappingFragment StoreEntitySet="employee_cash">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BORROW_DATE_TIME" ColumnName="BORROW_DATE_TIME" />
+                <ScalarProperty Name="BORROW_AMOUNT" ColumnName="BORROW_AMOUNT" />
+                <ScalarProperty Name="BORROW_REMARK" ColumnName="BORROW_REMARK" />
+                <ScalarProperty Name="RETURN_DATE_TIME" ColumnName="RETURN_DATE_TIME" />
+                <ScalarProperty Name="RETURN_AMOUNT" ColumnName="RETURN_AMOUNT" />
+                <ScalarProperty Name="RETURN_REMARK" ColumnName="RETURN_REMARK" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="FK_EMPLOYEE_ID" ColumnName="FK_EMPLOYEE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loans">
+            <EntityTypeMapping TypeName="loandbModel.loan">
+              <MappingFragment StoreEntitySet="loan">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LOAN_ID" ColumnName="LOAN_ID" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="INSTALLMENT" ColumnName="INSTALLMENT" />
+                <ScalarProperty Name="LOAN_STATUS" ColumnName="LOAN_STATUS" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="FK_EMPLOYEE_ID" ColumnName="FK_EMPLOYEE_ID" />
+                <ScalarProperty Name="FK_CUSTOMER_ID" ColumnName="FK_CUSTOMER_ID" />
+                <ScalarProperty Name="FK_LOAN_TYPE_ID" ColumnName="FK_LOAN_TYPE_ID" />
+                <ScalarProperty Name="FK_BRANCH_ID" ColumnName="FK_BRANCH_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loan_type">
+            <EntityTypeMapping TypeName="loandbModel.loan_type">
+              <MappingFragment StoreEntitySet="loan_type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LOAN_TYPE_ID" ColumnName="LOAN_TYPE_ID" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="INSTALLMENT" ColumnName="INSTALLMENT" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payments">
+            <EntityTypeMapping TypeName="loandbModel.payment">
+              <MappingFragment StoreEntitySet="payment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="DATE_TIME" ColumnName="DATE_TIME" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="LOAN_ID" ColumnName="LOAN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sms">
+            <EntityTypeMapping TypeName="loandbModel.sm">
+              <MappingFragment StoreEntitySet="sms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SEND_DATE_TIME" ColumnName="SEND_DATE_TIME" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="FK_EMPLOYEE_ID" ColumnName="FK_EMPLOYEE_ID" />
+                <ScalarProperty Name="FK_CUSTOMER_ID" ColumnName="FK_CUSTOMER_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -143,11 +143,19 @@ namespace LoanManagementSystem.View.WpfWindow
         }
         public void setLoginDeatails()
         {
+
             this.EmpUserNameLable.Content = Util.LetterHandller.UppercaseFirst(Session.LoggedEmployee.USERNAME);
             Util.ImageHandller.setProfImage(Session.LoggedEmployee.PROFPIC, this.ProfPicBox);
 
-            Settings.Default["RecentLoginName"] = Session.LoggedEmployee.USERNAME;
-            Settings.Default["RecentLoginUserProfPic"] = System.Convert.ToBase64String(Session.LoggedEmployee.PROFPIC);
+            string most_resent_logged_in_username = Session.LoggedEmployee.USERNAME;
+            Settings.Default["RecentLoginName"] = most_resent_logged_in_username;
+
+            if (Session.LoggedEmployee.PROFPIC != null)
+            {
+                string most_resent_logged_in_profilepic = System.Convert.ToBase64String(Session.LoggedEmployee.PROFPIC);
+                Settings.Default["RecentLoginUserProfPic"] = most_resent_logged_in_profilepic;
+            }
+
             Settings.Default.Save();
         }
     }
