@@ -28,6 +28,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
     public partial class CashBorrow : Page
     {
         private static CashBorrow _instance;
+        private static string type="borrow";
 
         private CashBorrow()
         {
@@ -56,7 +57,13 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
             }
             set
             {
+                if (value == 0)
+                {
+                    AmountTextBox.Text = "";
+                }
+                else
                 AmountTextBox.Text = Convert.ToString(value);
+                FocusManager.SetFocusedElement(this, AmountTextBox);
             }
         }
 
@@ -109,9 +116,10 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         {
             employee_cash emp_cash = new employee_cash();
             emp_cash.ID = IDHandller.generateID("employee_cash");
-            emp_cash.BORROW_AMOUNT = Amount;
-            emp_cash.BORROW_DATE_TIME = BorrowDateTime;
-            emp_cash.BORROW_REMARK = Remark;
+            emp_cash.TYPE = type;
+            emp_cash.AMOUNT = Amount;
+            emp_cash.TRANSACTION_DATE_TIME = BorrowDateTime;
+            emp_cash.REMARK = Remark;
 
             emp_cash.STATUS = true;
             emp_cash.INSERT_DATETIME = DateTime.Now;
@@ -129,8 +137,9 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
             employee_cash emp_cash = getEmployee_Cash();
             if (Employee_CashService.InsertEmployee_cash(emp_cash) == 1)
             {
-                await MainWindow.Instance.ShowMessageAsync("Employe_cash Insert Success", "Transaction Added Success!", MessageDialogStyle.Affirmative);
+                await MainWindow.Instance.ShowMessageAsync("Employe_cash Borrow Success", "Transaction Added Success!");
                 clearBorrowForm();
+                //await controller.CloseAsync();
             }
             else
             {

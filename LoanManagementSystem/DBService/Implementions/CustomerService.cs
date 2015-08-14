@@ -1,23 +1,22 @@
-﻿using LoanManagementSystem.DBModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using LoanManagementSystem.DBModel;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+
 namespace LoanManagementSystem.DBService.Implementions
 {
-    class Employee_CashService: GenericService<employee_cash>
+    class CustomerService:GenericService<customer>
     {
-
-        public static int InsertEmployee_cash(employee_cash employee_cash)
+        public static int InsertCustomer(customer _customer)
         {
             try
             {
-                db.employee_cash.Add(employee_cash);
+                db.customers.Add(_customer);
                 return db.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -33,12 +32,12 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        public static int UpdateEmployee_cash(employee_cash employee_cash)
+        public static int UpdateEmployee(customer _customer)
         {
             try
             {
-                var query = db.employee_cash.Single(e => e.ID == employee_cash.ID);
-                db.Entry(query).CurrentValues.SetValues(employee_cash);
+                var cus = db.customers.Single(c => c.ID == _customer.ID);
+                db.Entry(cus).CurrentValues.SetValues(_customer);
 
                 return db.SaveChanges();
             }
@@ -55,25 +54,5 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        public static int DeleteEmployee_cash(employee_cash employee_cash)
-        {
-            try
-            {
-                var query = db.employee_cash.Single(e => e.ID == employee_cash.ID);
-                db.employee_cash.Remove(query);
-                return db.SaveChanges();  
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-                return 0;
-            }
-        }
     }
 }

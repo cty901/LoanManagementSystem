@@ -1,8 +1,9 @@
 ﻿using LoanManagementSystem.DBModel;
 using LoanManagementSystem.View.WpfPage;
+using LoanManagementSystem.View.WpfPage.Customer;
+using LoanManagementSystem.View.WpfPage.Customer.Content;
 using LoanManagementSystem.View.WpfPage.Staff;
 using LoanManagementSystem.View.WpfPage.Staff.Content;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,34 @@ namespace LoanManagementSystem.Util
 
         public static employee LoggedEmployee = null;
         private static employee _selectedEmployee = null;
+        private static customer _selectedCustomer = null;
         public static Object Navigation = null;
+
+        public static customer SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set{
+                if (value != null)
+                {
+                    _selectedCustomer = value;
+                    CustomerPage.Instance.SelectedCustomerName.Content = value.FIRST_NAME;
+                    CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Visible;
+
+                    if (Navigation != null)
+                    {
+                        CustomerPage.Instance.ContentFrame.Content = Navigation;
+                    }
+                    else
+                    {
+                        CustomerPage.Instance.ContentFrame.Content = ContentPage.Instance;
+                        ContentPage.Instance.ContentFrame.Content = new DetailsPage(Mode.VIEW);
+                    }
+                    
+                }
+                _selectedCustomer = value;
+
+            }
+        }
 
         public static employee SelectedEmployee
         {

@@ -20,8 +20,12 @@ namespace LoanManagementSystem.Util
             {
                 TableNumber = "02";
             }
+            else if (TableName == "customer")
+            {
+                TableNumber = "03";
+            }
             
-            string ID = String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000);
+            string ID = String.Format("{0:d15}", (DateTime.Now.Ticks));
             ID = TableNumber + ID;
 
             return ID;

@@ -29,6 +29,7 @@ namespace LoanManagementSystem.DBModel
         public System.DateTime DOB { get; set; }
         public string GENDER { get; set; }
         public string NATIONALITY { get; set; }
+        public string RELIGION { get; set; }
         public string CIVIL_STATUS { get; set; }
         public string ADDRESS { get; set; }
         public string EMAIL { get; set; }

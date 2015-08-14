@@ -45,19 +45,19 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
             if (mode.Equals(Mode.EDIT))
             {
-                if (Session.SelectedEmployee != null)
-                {
-                    SetEmployeeDetails(Session.SelectedEmployee);
-                }
+                //if (Session.SelectedEmployee != null)
+                //{
+                //    SetEmployeeDetails(Session.SelectedEmployee);
+                //}
             }
             if (mode.Equals(Mode.VIEW))
             {
                 List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
                 HandleControllers.enableContent(ControlList, false, false, false, false, false);
 
-                if (Session.SelectedEmployee != null)
+                if (Session.SelectedCustomer != null)
                 {
-                    SetEmployeeDetails(Session.SelectedEmployee);
+                    SetCustomerDetails(Session.SelectedCustomer);
                 }
             }
             if (mode.Equals(Mode.NEW))
@@ -78,46 +78,40 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
         }
 
-        public employee GetEmployeeDetails()
+        public customer GetCustomerDetails()
         {
             try
             {
-                employee employee = new employee();
+                customer _customer = new customer();
 
-                employee.ID = Session.SelectedEmployee.ID;
-                employee.EMP_ID = "CheckID";
-                //employee.FIRST_NAME = EmpFNameTextBox.Text;
-                //employee.LAST_NAME = EmpLNameTextBox.Text;
-                employee.ID_TYPE=setIDType(IDTypeComboBox.Text);
-               // employee.ID_NUM = IDNumberTextBox.Text;
-                employee.DOB = Convert.ToDateTime(EmpBirthDayPicker.SelectedDate);                
-                employee.GENDER = getGender();
+                _customer.ID=IDHandller.generateID("customer");
+                _customer.CUSTOMER_ID = "Yet2Gen";
 
-                //employee.ADDRESS = EmpAddressTextBox.Text;
-                //employee.PHONE_HP1 = EmpHandPhone1TextBox.Text;
-                //employee.PHONE_HP2 = EmpHandPhone2TextBox.Text;
-                //employee.PHONE_RECIDENCE = EmpRecedencePhoneTextBox.Text;
-                //employee.EMAIL = EmpEmailTextBox.Text;
+                _customer.FIRST_NAME = CusFNameTextBox.Text;
+                _customer.LAST_NAME = CusLNameTextBox.Text;
+                _customer.ID_TYPE=setIDType(IDTypeComboBox.Text);
+                _customer.ID_NUM = CusIDTextBox.Text;
+                _customer.DOB = Convert.ToDateTime(CusBirthDayPicker.SelectedDate);                
+                _customer.GENDER = getGender();
 
-                //employee.RELIGION = EmpReligionTextBox.Text;
-                //employee.CIVIL_STATUS = EmpCivilStateTextBox.Text;                
-                //employee.NATIONALITY = EmpNationalityTextBox.Text;
+                _customer.ADDRESS = CusAddressTextBox.Text;
+                _customer.PHONE_HP1 = CusMobile1TextBox.Text;
+                _customer.PHONE_HP2 =CusMobile2TextBox.Text;
+                _customer.PHONE_RECIDENCE = CusResidencePhoneTextBox.Text;
 
-                employee.PROFPIC = _imageData;
+                _customer.RELIGION = CusReligionTextBox.Text;
+                _customer.CIVIL_STATUS = CusCivilStatus.Text;                
+                _customer.NATIONALITY = CusNationalityTextBox.Text;
 
-                //employee.ACCOUNT_TYPE = AccountTypeComboBox.Text;
-                //employee.PASSWORD = PasswordTextBox.Text;
-                //employee.USERNAME = UserNameTextBox.Text;
+                _customer.ISACTIVE = false;
 
-                employee.ISRESIGN = false;
+                _customer.STATUS = true;
+                _customer.INSERT_DATETIME = DateTime.Now;
+                _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                _customer.UPDATE_DATETIME = DateTime.Now;
+                _customer.UPDATE_USER_ID = Session.LoggedEmployee.ID;
 
-                employee.STATUS = true;
-                employee.INSERT_DATETIME = DateTime.Now;
-                employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
-                employee.UPDATE_DATETIME = DateTime.Now;
-                employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
-
-                return employee;
+                return _customer;
             }
             catch (Exception)
             {
@@ -125,16 +119,15 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
         }
 
-        public void SetEmployeeDetails(employee employee)
+        public void SetCustomerDetails(customer _customer)
         {
             try
             {
-                employee.EMP_ID = employee.ID.ToString();
-                //EmpFNameTextBox.Text=employee.FIRST_NAME;
-                //EmpLNameTextBox.Text=employee.LAST_NAME;
-                if (employee.ID_TYPE != null)
+                CusFNameTextBox.Text=_customer.FIRST_NAME;
+                CusLNameTextBox.Text=_customer.LAST_NAME;
+                if (_customer.ID_TYPE != null)
                 {
-                    string ID_TYPE = employee.ID_TYPE;
+                    string ID_TYPE = _customer.ID_TYPE;
                     if (ID_TYPE == "nic")
                     {
                         IDTypeComboBox.SelectedIndex = 0;
@@ -149,32 +142,25 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                     }
                 }
 
-                //IDNumberTextBox.Text=employee.ID_NUM;
-                EmpBirthDayPicker.SelectedDate = employee.DOB;
-                setGender(employee.GENDER);
+                CusIDTextBox.Text=_customer.ID_NUM;
+                CusBirthDayPicker.SelectedDate = _customer.DOB;
+                setGender(_customer.GENDER);
 
-                //EmpAddressTextBox.Text=employee.ADDRESS;
-                //EmpHandPhone1TextBox.Text=employee.PHONE_HP1;
-                //EmpHandPhone2TextBox.Text=employee.PHONE_HP2;
-                //EmpRecedencePhoneTextBox.Text=employee.PHONE_RECIDENCE;
-                //EmpEmailTextBox.Text=employee.EMAIL;
+                CusAddressTextBox.Text=_customer.ADDRESS;
+                CusMobile1TextBox.Text=_customer.PHONE_HP1;
+                CusMobile2TextBox.Text=_customer.PHONE_HP2;
+                CusResidencePhoneTextBox.Text=_customer.PHONE_RECIDENCE;
 
-                //EmpReligionTextBox.Text =employee.RELIGION;
-                //EmpCivilStateTextBox.Text=employee.CIVIL_STATUS;
-                //EmpNationalityTextBox.Text=employee.NATIONALITY ;
+                CusReligionTextBox.Text =_customer.RELIGION;
+                CusCivilStatus.Text=_customer.CIVIL_STATUS;
+                CusNationalityTextBox.Text=_customer.NATIONALITY ;
+                _customer.ISACTIVE = true;
 
-                _imageData=employee.PROFPIC;
-                ImageHandller.setProfImage(_imageData,ProfPicBox);
-
-                
-
-                employee.ISRESIGN = false;
-
-                employee.STATUS = true;
-                employee.INSERT_DATETIME = DateTime.Now;
-                employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
-                employee.UPDATE_DATETIME = DateTime.Now;
-                employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+                _customer.STATUS = true;
+                _customer.INSERT_DATETIME = DateTime.Now;
+                _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                _customer.UPDATE_DATETIME = DateTime.Now;
+                _customer.UPDATE_USER_ID = Session.LoggedEmployee.ID;
             }
             catch (Exception)
             {
@@ -219,40 +205,40 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         }
 
-        private  async void LoadImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            bool error = false;
+        //private  async void LoadImageButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    bool error = false;
 
-            try
-            {
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+        //    try
+        //    {
+        //        Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-                dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
+        //        dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
 
-                Nullable<bool> result = dlg.ShowDialog();
+        //        Nullable<bool> result = dlg.ShowDialog();
 
-                if (result == true)
-                {
-                    string filename = dlg.FileName;
-                    FileStream fs;
-                    BinaryReader br;
+        //        if (result == true)
+        //        {
+        //            string filename = dlg.FileName;
+        //            FileStream fs;
+        //            BinaryReader br;
 
-                    fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-                    br = new BinaryReader(fs);
-                    _imageData = br.ReadBytes((int)fs.Length);
+        //            fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        //            br = new BinaryReader(fs);
+        //            _imageData = br.ReadBytes((int)fs.Length);
 
-                    ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
-                }
-            }
-            catch
-            {
-                error = true;
-            }
-            if (error)
-            {
-                await MainWindow.Instance.ShowMessageAsync("Image Uploding Error","Image Content is Corrupted",MessageDialogStyle.Affirmative);
-            }
-        }
+        //            ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        error = true;
+        //    }
+        //    if (error)
+        //    {
+        //        await MainWindow.Instance.ShowMessageAsync("Image Uploding Error","Image Content is Corrupted",MessageDialogStyle.Affirmative);
+        //    }
+        //}
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -263,31 +249,21 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             if (this.mode==Mode.NEW)
             {
-                employee emp = GetEmployeeDetails();
-                if (EmployeeService.InsertEmployee(emp) == 1)
+                customer cus = GetCustomerDetails();
+                if (CustomerService.InsertCustomer(cus) == 1)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);                   
+                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);                   
                     //QuickSearchPage.Instance.RefreshPage();
                 }
                 else
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
                 }
             }
 
             else if (this.mode == Mode.EDIT)
             {
-                employee emp = GetEmployeeDetails();
-                if (EmployeeService.UpdateEmployee(emp) == 1)
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Update Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
-                    MainWindow.Instance.setLoginDeatails();
-                   // QuickSearchPage.Instance.RefreshPage();
-                }
-                else
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
-                }
+
             }
         }
 

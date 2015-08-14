@@ -120,6 +120,7 @@
       <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
+    <Compile Include="DBService\Implementions\CustomerService.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
     <Compile Include="DBService\Implementions\Employee_CashService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
@@ -140,9 +141,6 @@
     </Compile>
     <Compile Include="View\WpfPage\StaffPage.xaml.cs">
       <DependentUpon>StaffPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\WpfPage\Customer\EmployeeInfo.xaml.cs">
-      <DependentUpon>EmployeeInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Customer\Content\QuickSearchPage.xaml.cs">
       <DependentUpon>QuickSearchPage.xaml</DependentUpon>
@@ -213,10 +211,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\WpfPage\StaffPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\WpfPage\Customer\EmployeeInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

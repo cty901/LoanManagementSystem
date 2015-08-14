@@ -15,12 +15,10 @@ namespace LoanManagementSystem.DBModel
     public partial class employee_cash
     {
         public string ID { get; set; }
-        public Nullable<System.DateTime> BORROW_DATE_TIME { get; set; }
-        public Nullable<decimal> BORROW_AMOUNT { get; set; }
-        public string BORROW_REMARK { get; set; }
-        public Nullable<System.DateTime> RETURN_DATE_TIME { get; set; }
-        public Nullable<decimal> RETURN_AMOUNT { get; set; }
-        public string RETURN_REMARK { get; set; }
+        public Nullable<System.DateTime> TRANSACTION_DATE_TIME { get; set; }
+        public string TYPE { get; set; }
+        public Nullable<decimal> AMOUNT { get; set; }
+        public string REMARK { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string INSERT_USER_ID { get; set; }
         public string UPDATE_USER_ID { get; set; }

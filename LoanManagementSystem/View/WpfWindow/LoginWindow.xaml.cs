@@ -91,8 +91,8 @@ namespace LoanManagementSystem.View.WpfWindow
             string username = UserNameTextBox.Text;
             string password = PasswordTextBox.Password;
 
-            username = "sampath";
-            password = "sampath";
+            //username = "sampath";
+            //password = "sampath";
 
             try
             {
