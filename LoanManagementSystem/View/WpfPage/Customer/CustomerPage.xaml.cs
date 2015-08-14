@@ -7,9 +7,12 @@ using System.Windows.Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using LoanManagementSystem.View.WpfPage.Customer.CustomerPages;
+using LoanManagementSystem.Util;
+using LoanManagementSystem.View.WpfPage.Customer.Content;
 
 
-namespace LoanManagementSystem.View.WpfPage
+namespace LoanManagementSystem.View.WpfPage.Customer
 {
     /// <summary>
     /// Interaction logic for EmployeePage.xaml
@@ -18,16 +21,25 @@ namespace LoanManagementSystem.View.WpfPage
     {
         private static CustomerPage instance;
         public IList<string> ErrorList { get; set; }
+        private static Mode viewMode;
+
+        public static Mode ViewMode
+        {
+            get { return viewMode; }
+            set
+            {
+                viewMode = value;
+                instance.updateMenuButtonView();
+            }
+        }
+
 
         public CustomerPage()
         {
             InitializeComponent();
+            viewMode = Mode.LIST;
+            ContentFrame.Content = QuickSearchPage.Instance;
 
-     //       ContentFrame.Content = QuickSearchPage.Instance;
-
-            //var test = ManagerService.GetManagerListByUserNamePassword("Test", "Test");
-
-            //string str = test.ToString();
         }
 
         public static CustomerPage Instance
@@ -38,30 +50,20 @@ namespace LoanManagementSystem.View.WpfPage
                 {
                     instance = new CustomerPage();
                 }
-
+                instance.updateMenuButtonView();
                 return instance;
             }
         }
 
-        private void AddEmployeeButton_Click(object sender, RoutedEventArgs e)
-        {
-           // ContentFrame.Content = DetailsPage.Instance;
-
-            MenuDefaultEmployeeDetails.Height = 0;
-            MenuAddEmployeeDetails.Height = Double.NaN;
-        }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            //ContentFrame.Content = QuickSearchPage.Instance;
 
-            MenuAddEmployeeDetails.Height = 0;
-            MenuDefaultEmployeeDetails.Height = Double.NaN;
         }
 
         private void SearchEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-           // ContentFrame.Content = SearchPage.Instance;
+            // ContentFrame.Content = SearchPage.Instance;
         }
 
         private void ChangeTitleButton_Click(object sender, RoutedEventArgs e)
@@ -114,12 +116,12 @@ namespace LoanManagementSystem.View.WpfPage
 
         private void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
         {
-           // DetailsPage.Instance.SaveNewEmployeeDetails();
+            // DetailsPage.Instance.SaveNewEmployeeDetails();
         }
 
         private void SelectedEmpLogOutButton_Click(object sender, RoutedEventArgs e)
         {
-           // Session.LogOutSelectedEmployee();
+            // Session.LogOutSelectedEmployee();
         }
 
         private void Border_Loaded_1(object sender, RoutedEventArgs e)
@@ -131,20 +133,64 @@ namespace LoanManagementSystem.View.WpfPage
         {
             if (type == 0)
             {
-                this.AddEmployeeButton.Visibility = System.Windows.Visibility.Visible;
-                this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Visible;
-              //  this.LeaveRequestButton.Visibility = System.Windows.Visibility.Collapsed;
-              //  this.ChangeTitleButton.Visibility = System.Windows.Visibility.Collapsed;
+                //  this.AddEmployeeButton.Visibility = System.Windows.Visibility.Visible;
+                //  this.LeaveRequestButton.Visibility = System.Windows.Visibility.Collapsed;
+                //  this.ChangeTitleButton.Visibility = System.Windows.Visibility.Collapsed;
                 this.EditProfileButton.Visibility = System.Windows.Visibility.Collapsed;
             }
             else if (type == 1)
             {
-                this.AddEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
-                this.SearchEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
-               // this.LeaveRequestButton.Visibility = System.Windows.Visibility.Visible;
-               // this.ChangeTitleButton.Visibility = System.Windows.Visibility.Visible;
+                //  this.AddEmployeeButton.Visibility = System.Windows.Visibility.Collapsed;
+                // this.LeaveRequestButton.Visibility = System.Windows.Visibility.Visible;
+                // this.ChangeTitleButton.Visibility = System.Windows.Visibility.Visible;
                 this.EditProfileButton.Visibility = System.Windows.Visibility.Visible;
             }
         }
+
+        private void updateMenuButtonView()
+        {
+            collapseAllMenuItems();
+            if (ViewMode == Mode.LIST)
+            {
+                AddCustomerButton.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (ViewMode == Mode.NEW)
+            {
+                BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (ViewMode == Mode.VIEW)
+            {
+                BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+                EditProfileButton.Visibility = System.Windows.Visibility.Visible;
+                IssueLoanButton.Visibility = System.Windows.Visibility.Visible;
+                LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
+            }
+
+        }
+
+        private void collapseAllMenuItems()
+        {
+            foreach (Button child in MenuBar.Children)
+            {
+                child.Visibility = System.Windows.Visibility.Collapsed;
+
+            }
+        }
+
+        private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewMode = Mode.NEW;
+            ContentFrame.Content = ContentPage.Instance;
+            ContentPage.Instance.ContentFrame.Content = new DetailsPage(Mode.NEW);
+            //EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.NEW);
+
+        }
+
+        private void BackButtonTemp_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = QuickSearchPage.Instance;
+            ViewMode = Mode.LIST;
+        }
+
     }
 }

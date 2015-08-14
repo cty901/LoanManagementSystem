@@ -68,7 +68,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="EmployeeBtn" Style="{StaticResource ModuleButtonType1Red}" Height="Auto" Margin="0,10,10,10" Width="190" Click="EmployeeBtn_Click">
+                    <Button x:Name="CustomerBtn" Style="{StaticResource ModuleButtonType1Red}" Height="Auto" Margin="0,10,10,10" Width="190" Click="EmployeeBtn_Click">
                         <StackPanel Orientation="Vertical">
                             <Image Source="/LoanManagementSystem;component/Images/WpfPage/DashBoard/customericon.png" Width="100" Height="100"/>
                             <TextBlock Text="Customer" FontSize="20" Width="91" TextAlignment="Center"/>

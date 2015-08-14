@@ -11,6 +11,7 @@ namespace LoanManagementSystem.Util
         NEW, //New
         EDIT, //edit    
         DELETE, //Delete
-        VIEW//View
+        VIEW,//View
+        LIST,//List view
     };
 }

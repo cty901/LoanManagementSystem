@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using LoanManagementSystem.View.WpfPage.Customer;
 
 
 namespace LoanManagementSystem.View.WpfPage
@@ -74,9 +75,17 @@ namespace LoanManagementSystem.View.WpfPage
            // CompanyPage.Instance.ContentFrame.Content = ViewPage.Instance;
         }
 
-        private void EmployeeBtn_Click(object sender, RoutedEventArgs e)
+        private async void EmployeeBtn_Click(object sender, RoutedEventArgs e)
         {
-           // MainWindow.Instance.ContentFrame.Content = EmployeePage.Instance;
+            if (Session.Account_Type == "admin")
+            {
+                MainWindow.Instance.ContentFrame.Content = CustomerPage.Instance;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Previlages", "Error: Insufficient Previlages", MessageDialogStyle.Affirmative);
+
+            }
         }
 
         private void ReportsBtn_Click(object sender, RoutedEventArgs e)

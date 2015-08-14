@@ -45,7 +45,7 @@ namespace LoanManagementSystem.DBService.Implementions
                     (
                         e.FIRST_NAME == _searchText ||
                         e.LAST_NAME == _searchText ||
-                        //e.ID == id//|| e.hrm_contacts.Where(c => c.HOME == searche.hrm_contacts.Single().HOME)
+                        e.ID == id//|| e.hrm_contacts.Where(c => c.HOME == searche.hrm_contacts.Single().HOME)
                     )).ToList();
 
             pager.Collection = employees.Skip(offset).Take(pagesize).ToList();

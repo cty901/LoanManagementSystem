@@ -129,19 +129,25 @@
     <Compile Include="Util\PageData.cs" />
     <Compile Include="Util\PagingCollection.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="View\WpfPage\Customer\Content\ContentPage.xaml.cs">
+      <DependentUpon>ContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Customer\Content\DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\StaffPage.xaml.cs">
       <DependentUpon>StaffPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Customer\EmployeeInfo.xaml.cs">
       <DependentUpon>EmployeeInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WpfPage\Customer\QuickSearchPage.xaml.cs">
+    <Compile Include="View\WpfPage\Customer\Content\QuickSearchPage.xaml.cs">
       <DependentUpon>QuickSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\DashBoardPage.xaml.cs">
       <DependentUpon>DashBoardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WpfPage\CustomerPage.xaml.cs">
+    <Compile Include="View\WpfPage\Customer\CustomerPage.xaml.cs">
       <DependentUpon>CustomerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Staff\Content\CashBorrow.xaml.cs">
@@ -195,6 +201,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\WpfPage\Customer\Content\ContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Customer\Content\DetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\WpfPage\StaffPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,7 +217,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\WpfPage\Customer\QuickSearchPage.xaml">
+    <Page Include="View\WpfPage\Customer\Content\QuickSearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -211,7 +225,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\WpfPage\CustomerPage.xaml">
+    <Page Include="View\WpfPage\Customer\CustomerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

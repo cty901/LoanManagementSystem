@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace LoanManagementSystem.View.WpfPage.Customer.CustomerPages
+namespace LoanManagementSystem.View.WpfPage.Customer
 {
     /// <summary>
     /// Interaction logic for Employee QuickSearchPage.xaml
