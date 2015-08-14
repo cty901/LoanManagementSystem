@@ -13,6 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using LoanManagementSystem.DBModel;
+using LoanManagementSystem.Util;
+using LoanManagementSystem.DBService.Implementions;
+using LoanManagementSystem.View.WpfWindow;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+
 namespace LoanManagementSystem.View.WpfPage.Staff.Content
 {
     /// <summary>
@@ -25,6 +32,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         private CashBorrow()
         {
             InitializeComponent();
+            FocusManager.SetFocusedElement(this,AmountTextBox);
         }
 
         public static CashBorrow Instance
@@ -40,24 +48,94 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
 
         }
 
+        public decimal Amount
+        {
+            get
+            {
+                return Convert.ToDecimal(AmountTextBox.Text);
+            }
+            set
+            {
+                AmountTextBox.Text = Convert.ToString(value);
+            }
+        }
+
+        public DateTime BorrowDateTime
+        {
+            get
+            {
+                return Convert.ToDateTime(CashBorrowDayPicker.Text);
+            }
+            set
+            {
+                CashBorrowDayPicker.Text = Convert.ToString(value);
+            }
+        }
+
+        public string Remark
+        {
+            get
+            {
+                return Convert.ToString(CommentTextBox.Text);
+            }
+            set
+            {
+                CommentTextBox.Text = Convert.ToString(value);
+            }
+        }
+
+        public void clearBorrowForm()
+        {
+            Amount = Convert.ToDecimal("0");
+            Remark="";
+        }
+
         private void Amount5000Button_Click(object sender, RoutedEventArgs e)
         {
-            setAmount("5000.00");
+            Amount = Convert.ToDecimal("5000");
         }
 
         private void Amount10000Button_Click(object sender, RoutedEventArgs e)
         {
-            setAmount("10000.00");
+            Amount = Convert.ToDecimal("10000");
         }
 
         private void Amount20000Button_Click(object sender, RoutedEventArgs e)
         {
-            setAmount("20000.00");
+            Amount = Convert.ToDecimal("20000");
         }
 
-        private void setAmount(String _amount)
+        private employee_cash getEmployee_Cash()
         {
-            AmountTextBox.Text = _amount;
+            employee_cash emp_cash = new employee_cash();
+            emp_cash.ID = IDHandller.generateID("employee_cash");
+            emp_cash.BORROW_AMOUNT = Amount;
+            emp_cash.BORROW_DATE_TIME = BorrowDateTime;
+            emp_cash.BORROW_REMARK = Remark;
+
+            emp_cash.STATUS = true;
+            emp_cash.INSERT_DATETIME = DateTime.Now;
+            emp_cash.INSERT_USER_ID = Session.LoggedEmployee.ID;
+            emp_cash.UPDATE_DATETIME = DateTime.Now;
+            emp_cash.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+
+            emp_cash.FK_EMPLOYEE_ID = Session.SelectedEmployee.ID;
+
+            return emp_cash;
+        }
+                
+        private async void CashBorrowSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            employee_cash emp_cash = getEmployee_Cash();
+            if (Employee_CashService.InsertEmployee_cash(emp_cash) == 1)
+            {
+                await MainWindow.Instance.ShowMessageAsync("Employe_cash Insert Success", "Transaction Added Success!", MessageDialogStyle.Affirmative);
+                clearBorrowForm();
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Employe_cash Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+            }
         }
     }
 }

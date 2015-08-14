@@ -25,6 +25,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         private CashReturn()
         {
             InitializeComponent();
+            FocusManager.SetFocusedElement(this, AmountReturnTextBox);
         }
 
         public static CashReturn Instance

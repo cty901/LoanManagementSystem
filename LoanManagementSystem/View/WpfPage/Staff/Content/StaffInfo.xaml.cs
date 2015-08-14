@@ -167,7 +167,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             }
             catch (Exception)
             {
-                MessageBox.Show("Error");
+                //MessageBox.Show("Error");
             }
         }
 

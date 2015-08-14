@@ -77,7 +77,7 @@
             <Label Content="* Last Name" HorizontalAlignment="Right" Width="68" Margin="0,6,2,0" FlowDirection="RightToLeft" Grid.Row="2" Height="22" VerticalAlignment="Top"/>
             <TextBox x:Name="CusLNameTextBox"  Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" Grid.Row="2" VerticalAlignment="Top"/>
             <Label Content="* First Name" HorizontalAlignment="Right" Width="76" Margin="0,6,2,0" FlowDirection="RightToLeft" Height="16" VerticalAlignment="Top"/>
-            <TextBox x:Name="CusFNameTextBox"  Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" VerticalAlignment="Top" TextChanged="CusFNameTextBox_TextChanged" />
+            <TextBox x:Name="CusFNameTextBox"  Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" VerticalAlignment="Top" />
             <Label Content="Mobile1" HorizontalAlignment="Right" Width="76" Margin="0,6,0,7" FlowDirection="RightToLeft" Grid.Column="4"/>
             <Label Content="Mobile2" HorizontalAlignment="Right" Width="76" Margin="0,6" FlowDirection="RightToLeft" Grid.Column="4" Grid.Row="2"/>
             <TextBox x:Name="CusMobile2TextBox"  Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="6" Margin="2,6,0,0" Grid.Row="2" VerticalAlignment="Top"/>
