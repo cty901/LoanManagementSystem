@@ -34,6 +34,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         {
             InitializeComponent();
             FocusManager.SetFocusedElement(this,AmountTextBox);
+            setTodayTransactionList();
         }
 
         public static CashBorrow Instance
@@ -139,6 +140,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
             {
                 await MainWindow.Instance.ShowMessageAsync("Employe_cash Borrow Success", "Transaction Added Success!");
                 clearBorrowForm();
+                setTodayTransactionList();
                 //await controller.CloseAsync();
             }
             else
@@ -146,5 +148,37 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
                 await MainWindow.Instance.ShowMessageAsync("Employe_cash Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
             }
         }
+
+        public void setTodayTransactionList()
+        {
+            TodayTransactionList.ItemsSource = Session.SelectedEmployee.TRANSACTION_LIST;
+        }
+
+        private async void DeleteTodayTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            StackPanel sp = (StackPanel)button.Content;
+            Label lbl = sp.Children.OfType<Label>().FirstOrDefault();
+
+            if (lbl.Content.ToString() != "")
+            {
+                if (Employee_CashService.DeleteEmployee_cash_ByID(lbl.Content.ToString()) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Transaction", "Transaction Deleted..", MessageDialogStyle.Affirmative);
+                    setTodayTransactionList();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Transaction", "Transaction Delete Fail..Retry..", MessageDialogStyle.Affirmative);
+                }
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Transaction","Transaction Selecting Error..", MessageDialogStyle.Affirmative);
+
+            }
+        }
+
+
     }
 }

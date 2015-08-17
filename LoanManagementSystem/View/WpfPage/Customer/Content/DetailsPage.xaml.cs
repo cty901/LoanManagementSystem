@@ -45,15 +45,17 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
             if (mode.Equals(Mode.EDIT))
             {
-                //if (Session.SelectedEmployee != null)
-                //{
-                //    SetEmployeeDetails(Session.SelectedEmployee);
-                //}
+                if (Session.SelectedCustomer != null)
+                {
+                    SetCustomerDetails(Session.SelectedCustomer);
+                }
             }
             if (mode.Equals(Mode.VIEW))
             {
                 List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
                 HandleControllers.enableContent(ControlList, false, false, false, false, false);
+
+                CustomerPage.ViewMode = Mode.VIEW;
 
                 if (Session.SelectedCustomer != null)
                 {
@@ -103,7 +105,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 _customer.CIVIL_STATUS = CusCivilStatus.Text;                
                 _customer.NATIONALITY = CusNationalityTextBox.Text;
 
-                _customer.ISACTIVE = false;
+                _customer.ISACTIVE = true;
 
                 _customer.STATUS = true;
                 _customer.INSERT_DATETIME = DateTime.Now;
@@ -125,22 +127,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             {
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
                 CusLNameTextBox.Text=_customer.LAST_NAME;
-                if (_customer.ID_TYPE != null)
-                {
-                    string ID_TYPE = _customer.ID_TYPE;
-                    if (ID_TYPE == "nic")
-                    {
-                        IDTypeComboBox.SelectedIndex = 0;
-                    }
-                    else if (ID_TYPE == "dl")
-                    {
-                        IDTypeComboBox.SelectedIndex=2;
-                    }
-                    else if (ID_TYPE == "pp")
-                    {
-                        IDTypeComboBox.SelectedIndex=1;
-                    }
-                }
+
+                IDTypeComboBox.SelectedIndex = setID_Type(_customer.ID_TYPE);
 
                 CusIDTextBox.Text=_customer.ID_NUM;
                 CusBirthDayPicker.SelectedDate = _customer.DOB;
@@ -168,6 +156,33 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
         }
 
+        private int setID_Type(string ID_TYPE)
+        {
+            if (ID_TYPE != null)
+            {
+                if (string.Equals(ID_TYPE,"nic",StringComparison.OrdinalIgnoreCase))
+                {
+                    return 0;
+                }
+                else if (string.Equals(ID_TYPE, "dl", StringComparison.OrdinalIgnoreCase))
+                {
+                    return 2;
+                }
+                else if (string.Equals(ID_TYPE, "pp", StringComparison.OrdinalIgnoreCase))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         private string getGender()
         {
             string SEX = "";
@@ -182,7 +197,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         private void setGender(string gender)
         {
-            if (gender == "male")
+            if (String.Equals(gender, "male", StringComparison.OrdinalIgnoreCase))
                 CusGenderRBM.IsChecked = true;
             else
                 CusGenderRBF.IsChecked = true;
@@ -194,7 +209,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             {
                 return "nic";
             }
-            else if (id_type == "Pass Post")
+            else if (id_type == "Passport")
             {
                 return "pp";
             }
@@ -240,10 +255,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         //    }
         //}
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private async void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -252,8 +263,9 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 customer cus = GetCustomerDetails();
                 if (CustomerService.InsertCustomer(cus) == 1)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);                   
-                    //QuickSearchPage.Instance.RefreshPage();
+                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                    clearDetailsPage();
+                    QuickSearchPage.Instance.RefreshPage();
                 }
                 else
                 {
@@ -263,10 +275,42 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
             else if (this.mode == Mode.EDIT)
             {
+                customer cus = GetCustomerDetails();
+                cus.ID = Session.SelectedCustomer.ID;
 
+                if (CustomerService.UpdateCustomer(cus) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Customer Update Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                    MainWindow.Instance.setLoginDeatails();
+                    QuickSearchPage.Instance.RefreshPage();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync("Customer Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
             }
         }
 
-        
+        private void clearDetailsPage()
+        {
+            CusFNameTextBox.Clear();
+            CusLNameTextBox.Clear();
+            CusIDTextBox.Clear();
+            IDTypeComboBox.SelectedIndex=0;
+            setGender("male");
+            CusBirthDayPicker.SelectedDate = null;
+            CusNationalityTextBox.Clear();
+            CusReligionTextBox.Clear();
+            CusCivilStatus.Clear();
+            CusMobile1TextBox.Clear();
+            CusMobile2TextBox.Clear();
+            CusResidencePhoneTextBox.Clear();
+            CusAddressTextBox.Clear();
+        }
+
+        private void CustoerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            clearDetailsPage();
+        }        
     }
 }

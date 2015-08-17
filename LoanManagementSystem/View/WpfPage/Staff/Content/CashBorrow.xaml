@@ -45,7 +45,7 @@
             <Grid Grid.Row="1" Margin="0.6,10.2,0.4,34.2" Grid.RowSpan="2" Grid.Column="1">
                 <TextBox x:Name="AmountTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
-             <StackPanel Height="35" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <StackPanel Height="35" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <Button x:Name="Amount5000Button" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,10,0,2" Background="{x:Null}" Click="Amount5000Button_Click" >
                     <StackPanel Orientation="Horizontal"  Margin="0">
                         <Label Content="5000"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -62,7 +62,7 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-                
+
             <!--Third Row-->
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,14.2,0.4,4.2" HorizontalAlignment="Right" Height="16" Width="60" >
                 <Label Content="Comment" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -86,6 +86,85 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
+        </DockPanel>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="33,50,35,5" Background="Black" Height="211">
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
+                    <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
+                        <DockPanel Opacity="0.8" Margin="-2,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <DockPanel DockPanel.Dock="Top">
+                                <Label Foreground="Black" Content="Today Borrowing List" HorizontalAlignment="Left" Width="139" FontWeight="Bold" FontStyle="Italic" Height="30"/>
+                            </DockPanel>
+                            <DockPanel DockPanel.Dock="Top">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" Foreground="Black" FontWeight="Bold" Content="Date/Time" HorizontalAlignment="Left" Width="150" />
+                                    <Label Grid.Column="1" Foreground="Black" FontWeight="Bold" Content="Amount" HorizontalAlignment="Left" Width="75" />
+                                    <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Remark" HorizontalAlignment="Left" Width="150"/>
+                                    <Label Grid.Column="3" Foreground="Black" FontWeight="Bold" Content="Delete" HorizontalAlignment="Left" Width="75" ToolTip="Today borrowing status"/>
+                                </Grid>
+                            </DockPanel>
+
+                            <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel>
+                                    <StackPanel>
+                                        <ListView x:Name="TodayTransactionList" ItemsSource="{Binding TRANSACTION_LIST}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="1*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="1*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="1*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Label Grid.Column="0" Foreground="Black" Content="{Binding TRANSACTION_DATE_TIME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"/>
+                                                        <Label Grid.Column="1" Foreground="Black" Content="{Binding AMOUNT}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
+                                                        <Label Grid.Column="2" Foreground="Black" Content="{Binding REMARK}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"/>
+
+                                                        <StackPanel Grid.Column="3" Orientation="Horizontal" Width="75" HorizontalAlignment="Left"  Margin="7,0,0,0">
+                                                            <Button x:Name="DeleteTodayTransactionButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="DeleteTodayTransactionButton_Click">
+                                                                <StackPanel>
+                                                                    <Image Source="/LoanManagementSystem;component/images/WpfPage/StaffPage/money_no.png" Width="28" Height="28" Margin="-5" />
+                                                                    <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                                                                </StackPanel>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+
+                                            </ListView.ItemTemplate>
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                        </ListView>
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                </GroupBox>
+
+            </DockPanel>
         </DockPanel>
     </StackPanel>
 </Page>

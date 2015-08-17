@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Data;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfPage.Customer.Content;
+using LoanManagementSystem.View.WpfWindow;
+using MahApps.Metro.Controls.Dialogs;
 
 
 namespace LoanManagementSystem.View.WpfPage.Customer
@@ -54,12 +56,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             }
         }
 
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void updateMenuButtonView()
         {
             collapseAllMenuItems();
@@ -73,10 +69,14 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             }
             else if (ViewMode == Mode.VIEW)
             {
-                BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+               // BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
                 EditProfileButton.Visibility = System.Windows.Visibility.Visible;
                 IssueLoanButton.Visibility = System.Windows.Visibility.Visible;
                 LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (ViewMode == Mode.EDIT)
+            {
+                 BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
             }
 
         }
@@ -104,6 +104,27 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         {
             ContentFrame.Content = navigation;
             ViewMode = Mode.LIST;
+            Session.LogOutSelectedCustomer();
+        }
+
+        private void SelectedCusLogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Session.LogOutSelectedCustomer(); 
+        }
+
+        private async void EditProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Session.SelectedCustomer == null)
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, Messages.MSG_SELECT_CUSTOMER, MessageDialogStyle.Affirmative);
+                ContentFrame.Content = QuickSearchPage.Instance;
+            }
+            else
+            {
+                viewMode = Mode.EDIT;
+                CustomerPage.Instance.ContentFrame.Content = new DetailsPage(Mode.EDIT);
+                
+            }
         }
 
     }

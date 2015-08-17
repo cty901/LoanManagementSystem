@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using LoanManagementSystem.DBService.Implementions;
 
 namespace LoanManagementSystem.DBModel
 {
@@ -7,7 +8,23 @@ namespace LoanManagementSystem.DBModel
     using System.ComponentModel;
 
     public partial class employee : IValidatableObject, IDataErrorInfo,INotifyPropertyChanged
-    {  
+    {
+
+        public string FULLNAME
+        {
+            get { return FIRST_NAME + " " + LAST_NAME; }
+        }
+
+        public Boolean TODAY_BORROWING_STATUS
+        {
+            get { return Employee_CashService.Today_Borrowing_Status(this); }
+        }
+
+        public List<employee_cash> TRANSACTION_LIST
+        {
+            get { return Employee_CashService.TodayBorrowingListByEmpID(this); }
+        }
+
         //public Nullable<bool> ISRESIGN { get; set; }
         //public Nullable<bool> STATUS { get; set; }
         //public Nullable<int> INSERT_USER_ID { get; set; }
@@ -86,5 +103,7 @@ namespace LoanManagementSystem.DBModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+
     }
 }

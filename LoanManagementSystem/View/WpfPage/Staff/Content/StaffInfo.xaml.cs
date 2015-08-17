@@ -55,8 +55,14 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             try
             {
                 employee employee = new employee();
-
-                employee.ID = Session.SelectedEmployee.ID;
+                if (Session.SelectedEmployee != null)
+                {
+                    employee.ID = Session.SelectedEmployee.ID;
+                }
+                else
+                {
+                    employee.ID = IDHandller.generateID("employee");
+                }
                 employee.EMP_ID = "CheckID";
                 employee.FIRST_NAME = EmpFNameTextBox.Text;
                 employee.LAST_NAME = EmpLNameTextBox.Text;

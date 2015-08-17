@@ -4,6 +4,10 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using LoanManagementSystem.Util;
+using LoanManagementSystem.DBModel;
+using LoanManagementSystem.DBService.Implementions;
+using LoanManagementSystem.View.WpfWindow;
+using MahApps.Metro.Controls.Dialogs;
 
 
 namespace LoanManagementSystem.View.WpfPage.Customer
@@ -15,10 +19,10 @@ namespace LoanManagementSystem.View.WpfPage.Customer
     {
         private static QuickSearchPage instance;
         //public IList<string> ErrorList { get; set; }
-        //public List<Employee> EmployeeList { get; set; }
-        //public List<PageData> PagingList { get; set; }
+        public List<customer> CustomerList { get; set; }
+        public List<PageData> PagingList { get; set; }
 
-        //private PagingCollection<Employee> _PagingCollection { get; set; }
+        private PagingCollection<customer> _PagingCollection { get; set; }
 
         private bool _isSearchedPerformed = false;
         private string _searchText = "";
@@ -26,7 +30,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         private QuickSearchPage()
         {
             InitializeComponent();
-            RefreshEmployeeListByPage(1);
+            RefreshCustomerListByPage(1);
         }
 
         public static QuickSearchPage Instance
@@ -46,55 +50,84 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         {
             _isSearchedPerformed = true;
             _searchText = QuickSearchTextBox.Text;
-            RefreshEmployeeListByPage(1);
+            RefreshCustomerListByPage(1);
         }
-
-        private void RefreshEmployeeListByPage(int page)
-        {
-            //if (_isSearchedPerformed)
-            //{
-            //    _PagingCollection = EmployeeService.GetPaginatedQuickSearchedEmployeeListByPage(_searchText, page);
-            //}
-            //else
-            //{
-            //    _PagingCollection = EmployeeService.GetPaginatedEmployeeListByPage(page);
-            //}
-
-            //EmployeeList = _PagingCollection.Collection;
-            //PagingList = _PagingCollection.PagesList;
-
-            //EmployeeListView.ItemsSource = EmployeeList;
-            //EmployeeListView.Items.Refresh();
-
-            //PagingListView.ItemsSource = PagingList;
-            //PagingListView.Items.Refresh();
-        }
-
+        
         private void PaginationButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             int selectedpage = int.Parse(button.Content.ToString());
 
-            RefreshEmployeeListByPage(selectedpage);
+            RefreshCustomerListByPage(selectedpage);
         }
 
-        private void EmployeeDetailsButton_Click(object sender, RoutedEventArgs e)
+
+        private async void CustomerDetailsButton_Click(object sender, RoutedEventArgs e)
         {
-            //Button button = (Button)sender;
-            //StackPanel sp = (StackPanel)button.Content;
-            //Label lbl = sp.Children.OfType<Label>().FirstOrDefault();
+            Button button = (Button)sender;
+            StackPanel sp = (StackPanel)button.Content;
+            Label lbl = sp.Children.OfType<Label>().FirstOrDefault();
 
-            //if (lbl.Content.ToString() != "")
-            //{
-            //    Employee selected = EmployeeList.Single(c => c.ID == int.Parse(lbl.Content.ToString()));
+            if (lbl.Content.ToString() != "")
+            {
+                customer selected = CustomerList.Single(c => c.ID == lbl.Content.ToString());
+                Session.SelectedCustomer = selected;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, Messages.MSG_SELECT_CUSTOMER, MessageDialogStyle.Affirmative);
+            }
+        }
 
-            //    Session.SelectedEmployee = selected;
-            //}
-            //else
-            //{
-            //    MessageWindow msg = new MessageWindow(Messages.TTL_MSG, Messages.MSG_SELECT_EMPLOYEE);
-            //    msg.ShowDialog();
-            //}
+        private void RefreshCustomerListByPage(int page)
+        {
+            if (_isSearchedPerformed)
+            {
+                if (_searchText != "")
+                {
+                    _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+                }
+                else
+                {
+                    _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page);
+                }
+            }
+            else
+            {
+                _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page);
+            }
+
+            CustomerList = _PagingCollection.Collection;
+            PagingList = _PagingCollection.PagesList;
+
+            CustomerListView.ItemsSource = CustomerList;
+            CustomerListView.Items.Refresh();
+
+            PagingListView.ItemsSource = PagingList;
+            PagingListView.Items.Refresh();
+        }
+
+        private async void StaffDetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            StackPanel sp = (StackPanel)button.Content;
+            Label lbl = sp.Children.OfType<Label>().FirstOrDefault();
+
+            if (lbl.Content.ToString() != "")
+            {
+                customer selected = CustomerList.Single(c => c.ID == lbl.Content.ToString());
+                Session.SelectedCustomer = selected;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, Messages.MSG_SELECT_EMPLOYEE, MessageDialogStyle.Affirmative);
+
+            }
+        }
+
+        public void RefreshPage()
+        {
+            RefreshCustomerListByPage(1);
         }
 
     }

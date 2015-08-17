@@ -15,7 +15,7 @@
                             <DockPanel DockPanel.Dock="Left" >
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel x:Name="BackButtonList" Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
-                                        <Button x:Name="BackButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Click="BackButton_Click" Background="{x:Null}">
+                                        <Button x:Name="BackButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
                                             <StackPanel Orientation="Horizontal"  Margin="0">
                                                 <Image Source="/LoanManagementSystem;component/Images/WpfPage/CustomerPage/appbar.arrow.left.png" Margin="0,-1,0,-1" Height="30"/>
                                                 <Label Content="Back"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -82,7 +82,7 @@
                                             <Label Content="Add New"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button x:Name="EditProfileButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2">
+                                    <Button x:Name="EditProfileButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Click="EditProfileButton_Click">
                                         <StackPanel Orientation="Horizontal"  Margin="0">
                                             <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
                                             <Label Content="Edit Profile"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -115,9 +115,9 @@
                                 </StackPanel>
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Right" >
-                                <StackPanel x:Name="SelectedEmployeePanel" Orientation="Horizontal" FlowDirection="RightToLeft" Visibility="Visible">
+                                <StackPanel x:Name="SelectedCustomerPanel" Orientation="Horizontal" FlowDirection="RightToLeft" Visibility="Visible">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Button x:Name="SelectedCusLogOutButton" Style="{StaticResource ButtonFormPrimary}"  HorizontalAlignment="Right" Width="28" Height="28" Margin="2,0" Padding="0" Visibility="Hidden">
+                                        <Button x:Name="SelectedCusLogOutButton" Style="{StaticResource ButtonFormPrimary}"  HorizontalAlignment="Right" Width="28" Height="28" Margin="2,0" Padding="0" Visibility="Hidden" Click="SelectedCusLogOutButton_Click">
                                             <Image Source="/LoanManagementSystem;component/Images/WpfPage/CustomerPage/appbar.door.leave.png" Margin="-10" Height="30" Width="30" ToolTip="Log Out"/>
                                         </Button>
                                     </StackPanel>

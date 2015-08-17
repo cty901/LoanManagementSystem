@@ -18,7 +18,7 @@ namespace LoanManagementSystem.DBService.Implementions
             {
                 return db.employees.Where(m => m.USERNAME.Equals(userName) && m.PASSWORD.Equals(password)).ToList();
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }

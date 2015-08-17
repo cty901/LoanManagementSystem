@@ -119,6 +119,7 @@
     <Compile Include="DBModel\sm.cs">
       <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBModel\Validation\customer.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\CustomerService.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
@@ -447,6 +448,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfPage\StaffPage\appbar.user.add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\StaffPage\money_no.png" />
+    <Resource Include="Images\WpfPage\StaffPage\money_yes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

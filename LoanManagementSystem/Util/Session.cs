@@ -31,7 +31,7 @@ namespace LoanManagementSystem.Util
                 if (value != null)
                 {
                     _selectedCustomer = value;
-                    CustomerPage.Instance.SelectedCustomerName.Content = value.FIRST_NAME;
+                    CustomerPage.Instance.SelectedCustomerName.Content = value.FULLNAME;
                     CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Visible;
 
                     if (Navigation != null)
@@ -61,7 +61,7 @@ namespace LoanManagementSystem.Util
                 if (value != null)
                 {
                     _selectedEmployee = value;
-                    StaffPage.Instance.SelectedEmployeeName.Content = value.FIRST_NAME;
+                    StaffPage.Instance.SelectedEmployeeName.Content = value.FULLNAME;
                     StaffPage.Instance.SelectedEmpLogOutButton.Visibility = Visibility.Visible;
 
                     if (Navigation != null)
@@ -84,9 +84,20 @@ namespace LoanManagementSystem.Util
             StaffPage.Instance.SelectedEmployeeName.Content = "No Employee Selected";
             StaffPage.Instance.SelectedEmpLogOutButton.Visibility = Visibility.Hidden;
             StaffPage.Instance.ContentFrame.Content = QuickSearchPageStaff.Instance;
+            QuickSearchPageStaff.Instance.RefreshPage();
             StaffPage.Instance.setMenuButtonView(0);
 
             SelectedEmployee = null; ;
+        }
+
+        public static void LogOutSelectedCustomer()
+        {
+            CustomerPage.Instance.SelectedCustomerName.Content = "No Customer Selected";
+            CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Hidden;
+            CustomerPage.Instance.ContentFrame.Content = QuickSearchPage.Instance;
+            CustomerPage.ViewMode=Mode.LIST;
+
+            SelectedCustomer = null; ;
         }
 
     }

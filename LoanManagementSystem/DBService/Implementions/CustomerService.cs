@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LoanManagementSystem.DBModel;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using LoanManagementSystem.Util;
 
 namespace LoanManagementSystem.DBService.Implementions
 {
@@ -32,7 +33,7 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        public static int UpdateEmployee(customer _customer)
+        public static int UpdateCustomer(customer _customer)
         {
             try
             {
@@ -52,6 +53,44 @@ namespace LoanManagementSystem.DBService.Implementions
                 }
                 return 0;
             }
+        }
+
+        internal static PagingCollection<customer> GetPaginatedQuickSearchedCustomerListByPage(string _searchText, int page)
+        {
+            PagingCollection<customer> pager = new PagingCollection<customer>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            var customers = db.customers.Where
+                (e =>
+                    (   e.FIRST_NAME == _searchText ||
+                        e.LAST_NAME == _searchText ||
+                        e.CUSTOMER_ID == _searchText||
+                        e.PHONE_HP1==_searchText||
+                        e.PHONE_HP2==_searchText||
+                        e.PHONE_RECIDENCE==_searchText                        
+                    )).ToList();
+
+            pager.Collection = customers.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = customers.Count();
+            pager.CurrentPage = page;
+
+            return pager;
+        }
+
+        internal static PagingCollection<customer> GetPaginatedCustomerListByPage(int page)
+        {
+            PagingCollection<customer> pager = new PagingCollection<customer>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            var customers = db.customers.Where(e => e.ISACTIVE == true).ToList();
+
+            pager.Collection = customers.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = customers.Count();
+            pager.CurrentPage = page;
+
+            return pager;
         }
 
     }
