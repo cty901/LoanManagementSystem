@@ -121,10 +121,12 @@
     </Compile>
     <Compile Include="DBModel\Validation\customer.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
+    <Compile Include="DBModel\Validation\loan.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\CustomerService.cs" />
     <Compile Include="DBService\Implementions\EmployeeService.cs" />
     <Compile Include="DBService\Implementions\Employee_CashService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
+    <Compile Include="DBService\Implementions\LoanService.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />
     <Compile Include="Util\ImageHandller.cs" />
@@ -134,6 +136,15 @@
     <Compile Include="Util\PageData.cs" />
     <Compile Include="Util\PagingCollection.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="View\WpfPage\Loan\Content\ContentPageLoan.xaml.cs">
+      <DependentUpon>ContentPageLoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Loan\Content\QuickSearchPageLoan.xaml.cs">
+      <DependentUpon>QuickSearchPageLoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Loan\LoanPage.xaml.cs">
+      <DependentUpon>LoanPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\Customer\Content\ContentPage.xaml.cs">
       <DependentUpon>ContentPage.xaml</DependentUpon>
     </Compile>
@@ -200,6 +211,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Loan\Content\ContentPageLoan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Loan\Content\QuickSearchPageLoan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Loan\LoanPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -452,6 +475,39 @@
   <ItemGroup>
     <Resource Include="Images\WpfPage\StaffPage\money_no.png" />
     <Resource Include="Images\WpfPage\StaffPage\money_yes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\StaffPage\delete_customer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\StaffPage\delete_customer24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.arrow.left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.arrow.right.black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.door.leave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.people.checkbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.people.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.people.multiple.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.user.add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

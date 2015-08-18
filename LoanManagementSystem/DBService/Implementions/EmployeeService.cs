@@ -110,6 +110,20 @@ namespace LoanManagementSystem.DBService.Implementions
                 return 0;
             }
         }
+
+        public static employee getEmployeeByID(string id)
+        {
+            var employee = db.employees.Where(e => e.ID == id).SingleOrDefault();
+
+            if (employee != null)
+            {
+                return employee;
+            }
+            else
+            {
+                return null;
+            }
+        }
         
     }
 }

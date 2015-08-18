@@ -51,7 +51,7 @@
 
                     </StackPanel>
 
-                    <Button x:Name="AttendenceBtn" Style="{StaticResource ModuleButtonType1Green}" Height="Auto" Width="189" Margin="0,10,10,0" Click="AttendenceBtn_Click">
+                    <Button x:Name="LoanBtn" Style="{StaticResource ModuleButtonType1Green}" Height="Auto" Width="189" Margin="0,10,10,0" Click="LoanBtn_Click">
                         <StackPanel Orientation="Vertical">
                             <Image Source="/LoanManagementSystem;component/Images/WpfPage/DashBoard/attendance.png" Width="100" Height="100"/>
                             <TextBlock Text="Loan" FontSize="24" HorizontalAlignment="Center"/>

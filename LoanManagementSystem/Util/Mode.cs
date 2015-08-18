@@ -13,5 +13,7 @@ namespace LoanManagementSystem.Util
         DELETE, //Delete
         VIEW,//View
         LIST,//List view
+        LOANISSUE,
+        LOANPAY,
     };
 }

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using LoanManagementSystem.View.WpfPage.Customer;
+using LoanManagementSystem.View.WpfPage.Loan;
 
 
 namespace LoanManagementSystem.View.WpfPage
@@ -92,12 +93,7 @@ namespace LoanManagementSystem.View.WpfPage
         {
            // MainWindow.Instance.ContentFrame.Content = ReportPage.Instance;
         }
-
-        private void AttendenceBtn_Click(object sender, RoutedEventArgs e)
-        {
-           // MainWindow.Instance.ContentFrame.Content = AttendencePage.Instance;
-        }
-
+        
         private async void HolidaysBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Session.Account_Type == "admin")
@@ -107,6 +103,19 @@ namespace LoanManagementSystem.View.WpfPage
             else
             {
                 await MainWindow.Instance.ShowMessageAsync("Previlages","Error: Insufficient Previlages", MessageDialogStyle.Affirmative);
+
+            }
+        }
+
+        private async void LoanBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Session.Account_Type == "admin")
+            {
+                MainWindow.Instance.ContentFrame.Content = LoanPage.Instance;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Previlages", "Error: Insufficient Previlages", MessageDialogStyle.Affirmative);
 
             }
         }

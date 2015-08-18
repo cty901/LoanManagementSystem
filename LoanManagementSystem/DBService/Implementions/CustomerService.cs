@@ -55,6 +55,27 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
+        public static int DeleteCustomer(customer _customer)
+        {
+            try
+            {
+                var query = db.customers.Single(c => c.ID == _customer.ID);
+                db.customers.Remove(query);
+                return db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                return 0;
+            }
+        }
+
         internal static PagingCollection<customer> GetPaginatedQuickSearchedCustomerListByPage(string _searchText, int page)
         {
             PagingCollection<customer> pager = new PagingCollection<customer>();
@@ -64,6 +85,7 @@ namespace LoanManagementSystem.DBService.Implementions
             var customers = db.customers.Where
                 (e =>
                     (   e.FIRST_NAME == _searchText ||
+                        e.FULLNAME== _searchText||
                         e.LAST_NAME == _searchText ||
                         e.CUSTOMER_ID == _searchText||
                         e.PHONE_HP1==_searchText||

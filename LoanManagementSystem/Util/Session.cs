@@ -1,7 +1,10 @@
 ﻿using LoanManagementSystem.DBModel;
+using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.View.WpfPage;
 using LoanManagementSystem.View.WpfPage.Customer;
 using LoanManagementSystem.View.WpfPage.Customer.Content;
+using LoanManagementSystem.View.WpfPage.Loan;
+using LoanManagementSystem.View.WpfPage.Loan.Content;
 using LoanManagementSystem.View.WpfPage.Staff;
 using LoanManagementSystem.View.WpfPage.Staff.Content;
 using System;
@@ -22,6 +25,7 @@ namespace LoanManagementSystem.Util
         public static employee LoggedEmployee = null;
         private static employee _selectedEmployee = null;
         private static customer _selectedCustomer = null;
+        private static loan _selectedLoan = null;
         public static Object Navigation = null;
 
         public static customer SelectedCustomer
@@ -71,11 +75,39 @@ namespace LoanManagementSystem.Util
                     else
                     {
                         StaffPage.Instance.ContentFrame.Content = EditProfilePage.Instance;
-                        EditProfilePage.Instance.EmployeeContentFrame.Content = CashBorrow.Instance;
+                        EditProfilePage.Instance.EmployeeContentFrame.Content =CashBorrow.Instance;
+                        CashBorrow.Instance.setTodayTransactionList();
                     }
                     StaffPage.Instance.setMenuButtonView(1);
                 }
                 _selectedEmployee = value;
+            }
+        }
+
+        public static loan SelectedLoan
+        {
+            get
+            {
+                return _selectedLoan;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _selectedLoan = value;
+                    LoanPage.Instance.SelectedLoan.Content = value.LOAN_ID;
+                    LoanPage.Instance.SelectedLoanLogOutButton.Visibility = Visibility.Visible;
+
+                    if (Navigation != null)
+                    {
+                        LoanPage.Instance.ContentFrame.Content = Navigation;
+                    }
+                    else
+                    {
+                        LoanPage.Instance.ContentFrame.Content = ContentPageLoan.Instance;
+                    }
+                }
+                _selectedLoan = value;
             }
         }
 
@@ -95,10 +127,45 @@ namespace LoanManagementSystem.Util
             CustomerPage.Instance.SelectedCustomerName.Content = "No Customer Selected";
             CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Hidden;
             CustomerPage.Instance.ContentFrame.Content = QuickSearchPage.Instance;
+            QuickSearchPage.Instance.RefreshPage();
             CustomerPage.ViewMode=Mode.LIST;
 
-            SelectedCustomer = null; ;
+            SelectedCustomer = null;
         }
 
+        public static void LogOutSelectedLoan()
+        {
+            LoanPage.Instance.SelectedLoan.Content = "No Loan Selected";
+            LoanPage.Instance.SelectedLoanLogOutButton.Visibility = Visibility.Hidden;
+            LoanPage.Instance.ContentFrame.Content = QuickSearchPageLoan.Instance;
+            QuickSearchPageLoan.Instance.RefreshPage();
+            LoanPage.ViewMode=Mode.LIST;
+
+            SelectedCustomer = null;
+        }
+        public static int deleteSelectedCustomer()
+        {
+            if (SelectedCustomer != null)
+            {
+                CustomerService.DeleteCustomer(SelectedCustomer);
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public static int deleteSelectedLoan()
+        {
+            if (SelectedLoan != null)
+            {
+                LoanService.DeleteLoan(SelectedLoan);
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

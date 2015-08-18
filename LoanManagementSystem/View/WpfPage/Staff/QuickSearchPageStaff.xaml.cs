@@ -1,10 +1,10 @@
 ﻿using LoanManagementSystem.DBModel;
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
+using LoanManagementSystem.View.WpfPage.Staff.Content;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -77,6 +77,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             else if (ViewMode == Mode.EDIT)
             {
                  BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+                 DeleteButton.Visibility = System.Windows.Visibility.Visible;
             }
 
         }
@@ -125,6 +126,25 @@ namespace LoanManagementSystem.View.WpfPage.Customer
                 CustomerPage.Instance.ContentFrame.Content = new DetailsPage(Mode.EDIT);
                 
             }
+        }
+
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+           MessageDialogResult result=await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_CUSTOMER, "Do you want to Delete Customer?", MessageDialogStyle.AffirmativeAndNegative);
+
+           if (result == MessageDialogResult.Affirmative)
+           {
+               if (Session.deleteSelectedCustomer() == 1)
+               {
+                   await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_CUSTOMER, "Customer Deleted Successfully..", MessageDialogStyle.Affirmative);
+                   Session.LogOutSelectedCustomer();
+               }
+               else
+               {
+                   await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_CUSTOMER, "Customer Delete fail..", MessageDialogStyle.Affirmative);
+               }
+           }
+
         }
 
     }
