@@ -87,7 +87,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 customer _customer = new customer();
 
                 _customer.ID=IDHandller.generateID("customer");
-                _customer.CUSTOMER_ID = "Yet2Gen";
+                _customer.CUSTOMER_ID = CusCodeTextBox.Text;
 
                 _customer.FIRST_NAME = CusFNameTextBox.Text;
                 _customer.LAST_NAME = CusLNameTextBox.Text;
@@ -125,6 +125,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             try
             {
+                CusCodeTextBox.Text = _customer.CUSTOMER_ID;
+
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
                 CusLNameTextBox.Text=_customer.LAST_NAME;
 

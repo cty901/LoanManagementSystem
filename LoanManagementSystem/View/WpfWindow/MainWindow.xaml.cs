@@ -25,7 +25,6 @@ namespace LoanManagementSystem.View.WpfWindow
         private MainWindow()
         {
             InitializeComponent();
-            this.ShowCloseButton = false;
 
             ContentFrame.Content = DashBoardPage.Instance;
             setLoginDeatails();            
@@ -143,7 +142,6 @@ namespace LoanManagementSystem.View.WpfWindow
         }
         public void setLoginDeatails()
         {
-
             this.EmpUserNameLable.Content = Util.LetterHandller.UppercaseFirst(Session.LoggedEmployee.USERNAME);
             Util.ImageHandller.setProfImage(Session.LoggedEmployee.PROFPIC, this.ProfPicBox);
 
@@ -157,6 +155,32 @@ namespace LoanManagementSystem.View.WpfWindow
             }
 
             Settings.Default.Save();
+        }
+
+        private bool? ShouldClose = null;
+
+        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ShouldClose == null)
+            {
+                e.Cancel = true; //stop the window from closing.
+                MessageDialogResult result = await this.ShowMessageAsync(this.Title, "Do You really want to exit?", MessageDialogStyle.AffirmativeAndNegative);
+                if (result == MessageDialogResult.Negative)
+                {
+                    ShouldClose = false;
+                }
+                else
+                {
+                    ShouldClose = true;
+                    Application.Current.Shutdown();
+                }
+            }
+            else if (!(bool)ShouldClose)
+            {
+                e.Cancel = true; //prevent the window from closing.
+
+            }
+            ShouldClose = null;
         }
     }
 }
