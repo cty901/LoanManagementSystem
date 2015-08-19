@@ -34,5 +34,29 @@ namespace LoanManagementSystem.Util
 
             return ID;
         }
+
+        public static string generateCode(string Type)
+        {
+            Random r = new Random();
+            string Code = "NAE";
+
+            if (Type == "employee")
+            {
+                Code = "EMP";
+            }
+            else if (Type == "customer")
+            {
+                Code = "CUS";
+            }
+            else if (Type== "loan")
+            {
+                Code = "LON";
+            }
+
+            string ID =  (r.Next()%100000).ToString("00000");
+            ID = String.Concat(Code,ID);
+
+            return ID;
+        }
     }
 }

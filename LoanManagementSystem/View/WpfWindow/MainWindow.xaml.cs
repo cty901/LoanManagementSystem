@@ -120,7 +120,7 @@ namespace LoanManagementSystem.View.WpfWindow
                 if (result == MessageDialogResult.Affirmative)
                 {
                     LoginWindow.Instance.Show();
-                    this.Close();
+                    this.Hide();
                 }
 
         }

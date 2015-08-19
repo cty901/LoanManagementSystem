@@ -64,7 +64,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
         private void RefreshSearchedListByPage(int page)
         {
-            if (getSearchType() == 0)
+            if (getSearchType() == 1)
             {
                 PagingCollection<employee> _PagingCollection = EmployeeService.GetPaginatedQuickSearchedEmployeeListByPage(_searchText, page);
                 SearchedListEmployee = _PagingCollection.Collection;
@@ -73,7 +73,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 SearchList.ItemsSource = SearchedListEmployee;
                 SearchList.Items.Refresh();
             }
-            else if (getSearchType() == 1)
+            else if (getSearchType() == 0)
             {
                 PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
                 SearchedListCustomer = _PagingCollection.Collection;
@@ -121,12 +121,12 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
             if (lbl.Content.ToString() != "")
             {
-                if (getSearchType() == 0)
+                if (getSearchType() == 1)
                 {
                     employee selected = SearchedListEmployee.Single(emp => emp.ID == lbl.Content.ToString());
                     IssueLoan.Instance.SelectedEmployee = selected;
                 }
-                else if (getSearchType() == 1)
+                else if (getSearchType() == 0)
                 {
                     customer selected = SearchedListCustomer.Single(emp => emp.ID == lbl.Content.ToString());
                     IssueLoan.Instance.SelectedCustomer = selected;

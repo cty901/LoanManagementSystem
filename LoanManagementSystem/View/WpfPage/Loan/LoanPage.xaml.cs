@@ -61,20 +61,22 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             collapseAllMenuItems();
             if (ViewMode == Mode.LIST)
             {
-                LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
                 IssueLoanButton.Visibility = System.Windows.Visibility.Visible;
             }
             else if (ViewMode == Mode.LOANPAY)
             {
-                BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
-                LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
+                LoanViewButton.Visibility = System.Windows.Visibility.Visible;
             }
             else if (ViewMode == Mode.LOANISSUE)
             {
                 BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
                 IssueLoanButton.Visibility = System.Windows.Visibility.Visible;
             }
-
+            else if (ViewMode == Mode.VIEW)
+            {
+                LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
+                EditLoanButton.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         private void collapseAllMenuItems()
@@ -100,10 +102,18 @@ namespace LoanManagementSystem.View.WpfPage.Loan
 
         private void IssueLoanButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewMode = Mode.LOANISSUE;
             ContentFrame.Content = ContentPageLoan.Instance;
             ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
             ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
+            ViewMode = Mode.LOANISSUE;
+        }
+
+        private void LoanViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = ContentPageLoan.Instance;
+            ContentPageLoan.Instance.LoanContentFrame.Content = null;
+            ContentPageLoan.Instance.SearchContentFrame.Content = null;
+            ViewMode = Mode.VIEW;
         }
         
     }

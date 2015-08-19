@@ -115,6 +115,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 _loan.END_DATE = Convert.ToDateTime(EndDateDatePicker.SelectedDate);
 
                 _loan.REMARK = RemarkTextBox.Text;
+                _loan.LOAN_STATUS = true;
 
                 _loan.STATUS = true;
                 _loan.INSERT_USER_ID = Session.LoggedEmployee.ID;
@@ -157,7 +158,10 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             RemarkTextBox.Clear();
         }
 
-
-        
+        private void LoanCodeGenButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoanCodeTextBox.Text = IDHandller.generateCode("loan");
+        }
+                
     }
 }

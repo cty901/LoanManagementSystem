@@ -109,28 +109,33 @@
                     <Label Content="* Customer" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,0,0">
-                    <TextBox x:Name="CustomerTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+                    <TextBox x:Name="CustomerTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" IsEnabled="False" />
                 </Grid>
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Employee" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="3" Margin="0,10,0,0">
-                    <TextBox x:Name="EmployeeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                    <TextBox x:Name="EmployeeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" IsEnabled="False"/>
                 </Grid>
                 <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Loan Type" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="5" Margin="0,10,0,0">
-                    <TextBox x:Name="LoanTypeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                    <TextBox x:Name="LoanTypeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" IsEnabled="False"/>
                 </Grid>    
 
                 <!--Second Row-->
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Loan Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
-                <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
-                    <TextBox x:Name="LoanCodeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,6,0.2,6" />
-                </Grid>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="LoanCodeTextBox"  Height="Auto" Width="113" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,7,0.2,6" />
+                    <Button x:Name="LoanCodeGenButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="0,7,0,6" Background="{x:Null}"  Width="30" Click="LoanCodeGenButton_Click">
+                        <StackPanel Orientation="Horizontal"  Margin="0">
+                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="24" Width="15"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Start Date" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>

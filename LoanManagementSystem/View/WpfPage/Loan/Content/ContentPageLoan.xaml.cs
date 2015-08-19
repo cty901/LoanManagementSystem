@@ -50,5 +50,6 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             var h = ((System.Windows.Controls.Panel)Application.Current.MainWindow.Content).ActualHeight;
             ScrollBar.Height = h - 150;
         }
+
     }
 }

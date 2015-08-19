@@ -105,6 +105,9 @@ namespace LoanManagementSystem.Util
                     else
                     {
                         LoanPage.Instance.ContentFrame.Content = ContentPageLoan.Instance;
+                        ContentPageLoan.Instance.LoanContentFrame.Content = null;
+                        ContentPageLoan.Instance.SearchContentFrame.Content = null;
+                        LoanPage.ViewMode = Mode.LOANPAY;
                     }
                 }
                 _selectedLoan = value;

@@ -6,12 +6,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="430" d:DesignWidth="760"
 	  SizeChanged="Page_SizeChanged" Background="#5133AB">
-    <ScrollViewer x:Name="ScrollBar" Margin="0,0,0,0" MinHeight="430" Height="430">
+    <ScrollViewer x:Name="ScrollBar" Margin="0,0,0,0">
         <Grid>
-            <StackPanel HorizontalAlignment="Stretch" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanHorizontallyScroll="True" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"  >
-                <Frame x:Name="LoanContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                <Frame x:Name="SearchContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Frame x:Name="LoanContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" Grid.Row="0"/>
+            <Frame x:Name="SearchContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto"  Grid.Row="1"/>
         </Grid>
     </ScrollViewer>
 </Page>
