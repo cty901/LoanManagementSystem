@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2e7fd5cdc8ff4c39930217ea8e2fab6e" Name="Diagram1">
-        <EntityTypeShape EntityType="loandbModel.branch" Width="1.5" PointX="3.75" PointY="10.625" IsExpanded="true" />
+      <Diagram DiagramId="8de2f6e9e7ec4930bc918c18acd33b00" Name="Diagram1">
+        <EntityTypeShape EntityType="loandbModel.branch" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.customer" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.employee" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.employee_cash" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.loan" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.loan_type" Width="1.5" PointX="3.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.loan_type" Width="1.5" PointX="3.75" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.payment" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.sm" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="loandbModel.fk_loan_branch1" ManuallyRouted="false" />

@@ -22,7 +22,7 @@ namespace LoanManagementSystem.DBModel
         public string ID { get; set; }
         public string LOAN_ID { get; set; }
         public Nullable<System.DateTime> START_DATE { get; set; }
-        public string END_DATE { get; set; }
+        public Nullable<System.DateTime> END_DATE { get; set; }
         public Nullable<decimal> AMOUNT { get; set; }
         public Nullable<decimal> INSTALLMENT { get; set; }
         public Nullable<bool> LOAN_STATUS { get; set; }

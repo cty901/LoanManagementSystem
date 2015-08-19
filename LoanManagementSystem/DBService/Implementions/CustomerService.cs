@@ -82,16 +82,24 @@ namespace LoanManagementSystem.DBService.Implementions
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var customers = db.customers.Where
-                (e =>
-                    (   e.FIRST_NAME == _searchText ||
-                        e.FULLNAME== _searchText||
-                        e.LAST_NAME == _searchText ||
-                        e.CUSTOMER_ID == _searchText||
-                        e.PHONE_HP1==_searchText||
-                        e.PHONE_HP2==_searchText||
-                        e.PHONE_RECIDENCE==_searchText                        
-                    )).ToList();
+            List<customer> customers=null;
+
+            if (_searchText != "")
+            {
+                     customers = db.customers.Where
+                    (e =>
+                        (e.FIRST_NAME == _searchText ||
+                            e.LAST_NAME == _searchText ||
+                            e.CUSTOMER_ID == _searchText ||
+                            e.PHONE_HP1 == _searchText ||
+                            e.PHONE_HP2 == _searchText ||
+                            e.PHONE_RECIDENCE == _searchText
+                        )).ToList();
+            }
+            else
+            {
+                customers = db.customers.ToList();
+            }
 
             pager.Collection = customers.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = customers.Count();

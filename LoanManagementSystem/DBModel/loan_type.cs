@@ -23,6 +23,8 @@ namespace LoanManagementSystem.DBModel
         public string LOAN_TYPE_ID { get; set; }
         public Nullable<decimal> AMOUNT { get; set; }
         public Nullable<decimal> INSTALLMENT { get; set; }
+        public Nullable<int> DAYS { get; set; }
+        public string FULLNAME { get; set; }
         public string REMARK { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string INSERT_USER_ID { get; set; }

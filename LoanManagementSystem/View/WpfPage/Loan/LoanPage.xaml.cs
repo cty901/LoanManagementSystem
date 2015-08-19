@@ -97,6 +97,14 @@ namespace LoanManagementSystem.View.WpfPage.Loan
         {
             Session.LogOutSelectedLoan(); 
         }
+
+        private void IssueLoanButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewMode = Mode.LOANISSUE;
+            ContentFrame.Content = ContentPageLoan.Instance;
+            ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
+            ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
+        }
         
     }
 }

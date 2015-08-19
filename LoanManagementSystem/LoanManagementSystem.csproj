@@ -127,6 +127,7 @@
     <Compile Include="DBService\Implementions\Employee_CashService.cs" />
     <Compile Include="DBService\Implementions\GenericService.cs" />
     <Compile Include="DBService\Implementions\LoanService.cs" />
+    <Compile Include="DBService\Implementions\LoanTypeService.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />
     <Compile Include="Util\ImageHandller.cs" />
@@ -138,6 +139,12 @@
     <Compile Include="Util\Session.cs" />
     <Compile Include="View\WpfPage\Loan\Content\ContentPageLoan.xaml.cs">
       <DependentUpon>ContentPageLoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Loan\Content\IssueLoan.xaml.cs">
+      <DependentUpon>IssueLoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Loan\Content\MultiSearch.xaml.cs">
+      <DependentUpon>MultiSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Loan\Content\QuickSearchPageLoan.xaml.cs">
       <DependentUpon>QuickSearchPageLoan.xaml</DependentUpon>
@@ -217,6 +224,14 @@
     <Page Include="View\WpfPage\Loan\Content\ContentPageLoan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Loan\Content\IssueLoan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\Loan\Content\MultiSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WpfPage\Loan\Content\QuickSearchPageLoan.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -508,6 +523,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfPage\LoanPage\appbar.user.add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\LoanPage\appbar.page.search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

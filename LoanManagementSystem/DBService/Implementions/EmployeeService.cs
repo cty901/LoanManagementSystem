@@ -29,25 +29,23 @@ namespace LoanManagementSystem.DBService.Implementions
             PagingCollection<employee> pager = new PagingCollection<employee>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
-            string id = "0";
 
-            try
+            List<employee> employees = null;
+
+            if (_searchText != "")
             {
-               // id = int.Parse(_searchText);
-                id = _searchText;
+                employees = db.employees.Where
+                    (e =>
+                        (
+                            e.FIRST_NAME == _searchText ||
+                            e.LAST_NAME == _searchText
+                            //|| e.hrm_contacts.Where(c => c.HOME == searche.hrm_contacts.Single().HOME)
+                        )).ToList();
             }
-            catch (Exception)
+            else
             {
+                employees = db.employees.ToList();
             }
-
-            var employees = db.employees.Where
-                (e =>
-                    (
-                        e.FIRST_NAME == _searchText ||
-                        e.LAST_NAME == _searchText ||
-                        e.ID == id//|| e.hrm_contacts.Where(c => c.HOME == searche.hrm_contacts.Single().HOME)
-                    )).ToList();
-
             pager.Collection = employees.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = employees.Count();
             pager.CurrentPage = page;

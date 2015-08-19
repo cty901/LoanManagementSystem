@@ -145,7 +145,7 @@
           <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="LOAN_ID" Type="varchar" MaxLength="32" />
           <Property Name="START_DATE" Type="date" />
-          <Property Name="END_DATE" Type="varchar" MaxLength="45" />
+          <Property Name="END_DATE" Type="date" />
           <Property Name="AMOUNT" Type="decimal" Precision="12" Scale="2" />
           <Property Name="INSTALLMENT" Type="decimal" Precision="12" Scale="2" />
           <Property Name="LOAN_STATUS" Type="bool" />
@@ -168,6 +168,8 @@
           <Property Name="LOAN_TYPE_ID" Type="varchar" MaxLength="10" />
           <Property Name="AMOUNT" Type="decimal" Precision="12" Scale="2" />
           <Property Name="INSTALLMENT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="DAYS" Type="int" />
+          <Property Name="FULLNAME" Type="varchar" MaxLength="45" />
           <Property Name="REMARK" Type="varchar" MaxLength="100" />
           <Property Name="STATUS" Type="bool" />
           <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
@@ -455,7 +457,7 @@
           <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="LOAN_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="START_DATE" Type="DateTime" Precision="0" />
-          <Property Name="END_DATE" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="END_DATE" Type="DateTime" Precision="0" />
           <Property Name="AMOUNT" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="INSTALLMENT" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="LOAN_STATUS" Type="Boolean" />
@@ -483,6 +485,8 @@
           <Property Name="LOAN_TYPE_ID" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="AMOUNT" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="INSTALLMENT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="DAYS" Type="Int32" />
+          <Property Name="FULLNAME" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="STATUS" Type="Boolean" />
           <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
@@ -753,6 +757,8 @@
                 <ScalarProperty Name="LOAN_TYPE_ID" ColumnName="LOAN_TYPE_ID" />
                 <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
                 <ScalarProperty Name="INSTALLMENT" ColumnName="INSTALLMENT" />
+                <ScalarProperty Name="DAYS" ColumnName="DAYS" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
                 <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
