@@ -115,6 +115,14 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             ContentPageLoan.Instance.SearchContentFrame.Content = null;
             ViewMode = Mode.VIEW;
         }
+
+        private void LoanPaymentButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = ContentPageLoan.Instance;
+            ContentPageLoan.Instance.LoanContentFrame.Content = PayLoan.Instance;
+            ContentPageLoan.Instance.SearchContentFrame.Content = null;
+            ViewMode = Mode.LOANPAY;
+        }
         
     }
 }

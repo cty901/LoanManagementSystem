@@ -146,5 +146,30 @@ namespace LoanManagementSystem.DBService.Implementions
             return pager;
         }
 
+        internal static loan getLoanByID(string id)
+        {
+            try
+            {
+                return db.loans.Single(ln => ln.ID == id);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                return null;
+            }
+
+        }
+
+
+        internal static void ReloadLoanEntity()
+        {
+            db.Entry(Session.SelectedLoan).Reload();
+        }
     }
 }

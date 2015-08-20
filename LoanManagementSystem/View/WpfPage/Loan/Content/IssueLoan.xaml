@@ -128,14 +128,18 @@
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Loan Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Orientation="Horizontal">
-                    <TextBox x:Name="LoanCodeTextBox"  Height="Auto" Width="113" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,7,0.2,6" />
-                    <Button x:Name="LoanCodeGenButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="0,7,0,6" Background="{x:Null}"  Width="30" Click="LoanCodeGenButton_Click">
+                <DockPanel Grid.Column="1" Height="Auto" Name="stackPanel1" Width="Auto" LastChildFill="False" HorizontalAlignment="Stretch" Margin="0,10,0,5" Grid.Row="1">
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <TextBox x:Name="LoanCodeTextBox"  Height="Auto" Width="118" Margin="0,0,0,0" />
+                        <Button x:Name="LoanCodeGenButton" Style="{DynamicResource ButtonFormPrimary}"  Margin="0" Background="{x:Null}"  Width="Auto" Height="Auto" Click="LoanCodeGenButton_Click">
                         <StackPanel Orientation="Horizontal"  Margin="0">
-                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="24" Width="15"/>
+                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0" Height="15" Width="15"/>
                         </StackPanel>
-                    </Button>
-                </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                </DockPanel>
                 <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* Start Date" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>

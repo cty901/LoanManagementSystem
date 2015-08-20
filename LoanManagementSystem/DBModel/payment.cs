@@ -19,12 +19,13 @@ namespace LoanManagementSystem.DBModel
         public Nullable<System.DateTime> DATE_TIME { get; set; }
         public Nullable<decimal> AMOUNT { get; set; }
         public string REMARK { get; set; }
+        public string PAIDBY { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string INSERT_USER_ID { get; set; }
         public string UPDATE_USER_ID { get; set; }
         public Nullable<System.DateTime> INSERT_DATETIME { get; set; }
         public Nullable<System.DateTime> UPDATE_DATETIME { get; set; }
-        public string LOAN_ID { get; set; }
+        public string FK_LOAN_ID { get; set; }
     
         public virtual loan loan { get; set; }
     }

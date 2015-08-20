@@ -9,7 +9,9 @@ namespace LoanManagementSystem.DBModel
 {
     public partial class loan
     {
-        
-        
+        public List<payment> PAYMENT_LIST
+        {
+            get { return PaymentService.PaymentListByLoanID(this); }
+        }
     }
 }

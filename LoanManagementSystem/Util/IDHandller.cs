@@ -28,6 +28,10 @@ namespace LoanManagementSystem.Util
             {
                 TableNumber = "04";
             }
+            else if (TableName == "payment")
+            {
+                TableNumber = "05";
+            }
             
             string ID = String.Format("{0:d15}", (DateTime.Now.Ticks));
             ID = TableNumber + ID;
@@ -51,6 +55,10 @@ namespace LoanManagementSystem.Util
             else if (Type== "loan")
             {
                 Code = "LON";
+            }
+            else if (Type == "payment")
+            {
+                Code = "PAY";
             }
 
             string ID =  (r.Next()%100000).ToString("00000");

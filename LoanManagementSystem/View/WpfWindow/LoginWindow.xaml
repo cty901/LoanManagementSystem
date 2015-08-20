@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="Loan Mangement System"  
-                      Width="660" Height="350" MinWidth="660" MinHeight="300" WindowStartupLocation="CenterScreen" Background="#5133AB" WindowStyle="None" Closing="LoginWindow_Closing" >
+                      Width="660" Height="350" MinWidth="660" MinHeight="300" WindowStartupLocation="CenterScreen" Background="#5133AB" WindowStyle="None" Closing="LoginWindow_Closing" ResizeMode="CanMinimize" >
 
     <Grid HorizontalAlignment="Left"  VerticalAlignment="Top" Height="350" Width="660" Margin="0,0,-6.4,-6" >
 
