@@ -75,10 +75,20 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        internal static List<payment> PaymentListByLoanID(loan loan)
+        internal static PagingCollection<payment> PaymentListByLoanID(loan loan, int page)
         {
-            var payment_list = db.payments.Where(pay => pay.FK_LOAN_ID == loan.ID).ToList();
-            return payment_list;
+
+            PagingCollection<payment> pager = new PagingCollection<payment>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            List<payment> payments  = db.payments.Where(pay => pay.FK_LOAN_ID == loan.ID).ToList();
+
+            pager.Collection = payments.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = payments.Count();
+            pager.CurrentPage = page;
+
+            return pager;
         }
     }
 }

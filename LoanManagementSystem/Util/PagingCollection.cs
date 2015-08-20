@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoanManagementSystem.Util
 {
-    class PagingCollection<T>
+    public class PagingCollection<T>
     {
         private const int DEFAULTPAGESIZE = 10;
         private const int TOTALITEMS = 0;

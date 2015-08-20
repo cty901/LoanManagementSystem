@@ -68,7 +68,7 @@
                                                     <Label Grid.Column="0" Foreground="Black" Content="{Binding LOAN_ID}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
                                                     <Label Grid.Column="1" Foreground="Black" Content="{Binding customer.FULLNAME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"/>
                                                     <Label Grid.Column="2" Foreground="Black" Content="{Binding employee.FULLNAME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"/>
-                                                    <Label Grid.Column="3" Foreground="Black" Content="{Binding LOAN_STATUS}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
+                                                    <Label Grid.Column="3" Foreground="Black" Content="{Binding LSTATUS}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
 
                                                     <StackPanel Grid.Column="4" Orientation="Horizontal" Width="75" >
                                                         <Button x:Name="LoanDetailsButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="25" Height="25" Margin="0,0.5,0,0" Click="LoanDetailsButton_Click">

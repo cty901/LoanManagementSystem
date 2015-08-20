@@ -107,7 +107,16 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
         private void refreshLoanPaymentList()
         {
-            PaymentList.ItemsSource = Session.SelectedLoan.PAYMENT_LIST;
+            PagingCollection<payment> _PagingCollection = Session.SelectedLoan.PAYMENT_LIST;
+
+            List<payment> PaymentL = _PagingCollection.Collection;
+            List<PageData> PagingList = _PagingCollection.PagesList;
+
+            PaymentList.ItemsSource = PaymentL;
+            PaymentList.Items.Refresh();
+
+            PagingListView.ItemsSource = PagingList;
+            PagingListView.Items.Refresh();
         }
 
         private void clearLoanIssuePage()

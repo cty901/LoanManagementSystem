@@ -82,4 +82,16 @@
     <Style x:Key="Label_50" TargetType="Label" BasedOn="{StaticResource SmallLabel}">
         <Setter Property="MinWidth" Value="50" />
     </Style>
+    <Thickness  x:Key="CommonMargin" Left="0" Right="0" Top="5" Bottom="5" />
+    <Style x:Key="DefaultLabelLS" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FlowDirection" Value="RightToLeft" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+    </Style>
+
+
 </ResourceDictionary>

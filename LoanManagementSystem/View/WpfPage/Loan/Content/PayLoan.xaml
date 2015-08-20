@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:LoanManagementSystem.DBModel"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" d:DesignWidth="760" Background="#5133AB" Height="424.8">
+      mc:Ignorable="d" d:DesignWidth="760" Background="#5133AB" Height="550">
 
     <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch"  Margin="5,5,5,5" IsExpanded="True" Background="#FF76608A" BorderBrush="#FF76608A" >
         <Expander.Header>
@@ -16,39 +16,8 @@
         </Expander.Header>
 
 
-        <StackPanel Orientation="Vertical"  >
             <Grid Margin="10">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250*" />
-                    <ColumnDefinition Width="400*" />
-                    <ColumnDefinition Width="250*" />
-                    <ColumnDefinition Width="400*" />
-                    <ColumnDefinition Width="650*" />
-                </Grid.ColumnDefinitions>
-
-                <!--First Row-->
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="Customer" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
-                </StackPanel>
-                <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,0,0">
-                    <Label x:Name="CustomerLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
-                    <Label x:Name="EmployeeLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="-46,220,-210.8,-219.4" />
-                </Grid>
-                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="Customer Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
-                </StackPanel>
-                <Grid Grid.Row="0" Grid.Column="3" Margin="0,10,0,0">
-                    <Label x:Name="CustomerCodeLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
-                </Grid>
                 <!--<StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* ID" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
@@ -56,46 +25,55 @@
                     <Label x:Name="CustomerIDLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
                 </Grid>-->
 
-                <!--Second Row-->
-                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="* Loan ID" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
-                </StackPanel>
-                <Grid Grid.Row="1" Grid.Column="1" Margin="0,10.4,0.2,9.6">
-                    <TextBox x:Name="LoanIDTextBox" HorizontalAlignment="Stretch" Margin="0,10,0,-0.2" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" IsEnabled="False"/>
-                </Grid>
-                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="* Pay Date" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
-                </StackPanel>
-                <Grid Grid.Row="1" Grid.Column="3" Margin="0,10,0,0">
-                    <DatePicker x:Name="PayDatePicker" SelectedDate="{Binding Source={x:Static System:DateTime.Now},StringFormat='{}{0:dd-MM-yyyy}',Mode=OneWay}" Background="White" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="4,10,4.2,4.4" />
-                </Grid>
-                <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                </StackPanel>
-                <Grid Grid.Row="1" Grid.Column="5" Margin="0,10,0,0">
-                </Grid>
-                <!--Third Row-->
-                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="* Amount" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft" Height="21"/>
-                </StackPanel>
-                <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0">
-                    <TextBox x:Name="AmountTextBox" HorizontalAlignment="Stretch" Margin="0,-4,0.2,4.2" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
-                </Grid>
-                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="Payed By" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
-                </StackPanel>
-                <Grid Grid.Row="2" Grid.Column="3" Margin="0,10,0,0">
-                    <TextBox x:Name="PayedByTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,0,0"/>
-                </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.25*" />
+                    <ColumnDefinition Width="1.75*" />
+                    <ColumnDefinition Width="1.25*" />
+                    <ColumnDefinition Width="1.75*" />
+                    <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
 
-                <!--Fourth Row-->                
-                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Label Content="Remark" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft" Height="21"/>
-                </StackPanel>
-                <Grid Grid.Row="3" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="3">
-                    <TextBox x:Name="RemarkTextBox" HorizontalAlignment="Stretch" Margin="0,-4,0.2,4.2" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
-                </Grid>
-            
-                <DockPanel DockPanel.Dock="Right" Margin="10,15,0.2,-24.6" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                <!--First Row-->
+            <Label Grid.Row="0" Grid.Column="0"  Content="Customer" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
+            <Label Grid.Row="0"  Grid.Column="1"  x:Name="CustomerLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" />
+               
+            <Label Grid.Row="0"  Grid.Column="2"  Content="Customer Code" FontWeight="Bold" Width="86" Margin="0,5,5,5" FlowDirection="RightToLeft" HorizontalAlignment="Right"/>
+            <Label Grid.Row="0"  Grid.Column="3"   x:Name="CustomerCodeLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" />
+                <!--Second Row-->
+            <Label Grid.Row="1"  Grid.Column="0" Content="* Loan ID" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
+            <TextBox  Grid.Row="1" Grid.Column="1" x:Name="LoanIDTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" IsEnabled="False"/>
+            <Label Grid.Row="1"  Grid.Column="2" Content="* Pay Date" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
+            <DatePicker Grid.Row="1" Grid.Column="3"  x:Name="PayDatePicker" SelectedDate="{Binding Mode=OneWay, Source={x:Static System:DateTime.Now}, StringFormat=\{0:dd-MM-yyyy\}}" Background="White" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" />
+                <!--Third Row-->
+            <Label Grid.Row="2"  Grid.Column="0" Content="* Amount" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
+            <TextBox  Grid.Row="2" Grid.Column="1" x:Name="AmountTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="2"  Grid.Column="2" Content="Payed By" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
+            <TextBox  Grid.Row="2" Grid.Column="3" x:Name="PayedByTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5"/>
+
+                <!--Fourth Row-->
+            <Label Grid.Row="3" Grid.Column="0"  Content="Remark" FontWeight="Bold" HorizontalAlignment="Right" Height="Auto" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft" />
+            <TextBox  Grid.Row="3" Grid.Column="1" x:Name="RemarkTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+
+            <Label Grid.Row="5" Grid.Column="0"  Content="Made By" FontWeight="Bold" HorizontalAlignment="Right" Height="Auto" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft" />
+            <Label Grid.Row="5" Grid.Column="1" x:Name="EmployeeLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5" Grid.ColumnSpan="2" />
+
+            <DockPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
                         <Button x:Name="LoanSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="LoanSaveButton_Click">
                             <StackPanel Orientation="Horizontal"  Margin="0">
@@ -112,7 +90,7 @@
                     </StackPanel>
                 </DockPanel>
 
-                <DockPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="9.8,10,10.2,-182.6" Height="Auto" Background="#000000" >
+                <DockPanel  Grid.Row="0" Grid.Column="4" Grid.RowSpan="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,0" Height="Auto" Background="#000000" >
                     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
                         <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
                             <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
@@ -169,7 +147,7 @@
 
                                                     </ListView.ItemTemplate>
                                                     <ListView.ItemContainerStyle>
-                                                        <Style TargetType="ListViewItem">
+                                                        <Style TargetType="{x:Type ListViewItem}">
                                                             <Setter Property="BorderBrush" Value="LightGray" />
                                                             <Setter Property="BorderThickness" Value="0,0,0,1" />
                                                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -182,13 +160,13 @@
                                                 <ListView x:Name="PagingListView" HorizontalContentAlignment="Right" ItemsSource="{Binding PagingList}" BorderBrush="{x:Null}" Background="{x:Null}" Height="30" Padding="0" Margin="0">
                                                     <ListView.ItemsPanel >
                                                         <ItemsPanelTemplate >
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0"></StackPanel>
+                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0"/>
                                                         </ItemsPanelTemplate>
                                                     </ListView.ItemsPanel>
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate >
                                                             <StackPanel Orientation="Horizontal"  Margin="0">
-                                                                <Button Name="PageButton" BorderBrush="{x:Null}" Content="{Binding Page}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="18" Height="20" FontSize="10" Margin="0"/>
+                                                                <Button x:Name="PageButton" BorderBrush="{x:Null}" Content="{Binding Page}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="18" Height="20" FontSize="10" Margin="0"/>
                                                             </StackPanel>
                                                             <DataTemplate.Triggers>
                                                                 <DataTrigger Binding="{Binding IsSelected}" Value="True">
@@ -212,7 +190,6 @@
 
 
             </Grid>
-        </StackPanel>
     </Expander>
 
 </Page>

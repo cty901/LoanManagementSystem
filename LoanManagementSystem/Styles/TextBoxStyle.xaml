@@ -164,4 +164,15 @@
         <Setter Property="Height" Value="25"/>
         <Setter Property="Margin" Value="4" />
     </Style>
+    <Thickness  x:Key="CommonMargin" Left="0" Right="0" Top="5" Bottom="5" />
+    <Style x:Key="DefaultTextBoxLS" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
+    </Style>
+
+
 </ResourceDictionary>
