@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      d:DesignWidth="760" Background="#5133AB" Height="361.2">
+      d:DesignWidth="760" Background="#5133AB" Height="Auto" Loaded="Page_Loaded">
 
-    <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Margin="5,5,5,5" IsExpanded="False" Background="#FF76608A" BorderBrush="#FF76608A"  >
+    <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Margin="5,5,5,5" IsExpanded="True" Background="#FF76608A" BorderBrush="#FF76608A"  >
         <Expander.Header>
             <StackPanel Orientation="Horizontal">
                 <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.page.search.png" Margin="0,-10,0,-8" Height="30"/>
@@ -115,7 +115,7 @@
                                                             <StackPanel Grid.Column="2" Orientation="Horizontal" Width="75" HorizontalAlignment="Left"  Margin="7,0,0,0">
                                                                 <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="SelectButton_Click">
                                                                     <StackPanel>
-                                                                        <Image Source="/LoanManagementSystem;component/images/WpfPage/StaffPage/money_yes.png" Width="28" Height="28" Margin="-5" />
+                                                                        <Image Source="/LoanManagementSystem;component/images/WpfPage/LoanPage/add.png" Width="28" Height="28" Margin="-5" />
                                                                         <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
                                                                     </StackPanel>
                                                                 </Button>

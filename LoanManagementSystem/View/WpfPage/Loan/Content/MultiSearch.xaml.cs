@@ -93,11 +93,11 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }
             else
             {
-                PagingCollection<employee> _PagingCollection = EmployeeService.GetPaginatedQuickSearchedEmployeeListByPage(_searchText, page);
-                SearchedListEmployee = _PagingCollection.Collection;
+                PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+                SearchedListCustomer = _PagingCollection.Collection;
                 PagingList = _PagingCollection.PagesList;
 
-                SearchList.ItemsSource = SearchedListEmployee;
+                SearchList.ItemsSource = SearchedListCustomer;
                 SearchList.Items.Refresh();
             }
 
@@ -154,6 +154,15 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private void SearchTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ClearSearchResult();
+            if (_instance != null)
+            {
+                SearchButton_Click(sender, e);
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchButton_Click(sender, e);
         }
     }
 }

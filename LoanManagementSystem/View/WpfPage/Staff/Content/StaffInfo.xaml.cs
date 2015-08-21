@@ -285,5 +285,10 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 }
             }
         }
+
+        private void EmpCodeGenButton_Click(object sender, RoutedEventArgs e)
+        {
+            EmpCodeTextBox.Text = IDHandller.generateCode("employee");
+        }
     }
 }

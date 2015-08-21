@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="430" d:DesignWidth="760"
 	  SizeChanged="Page_SizeChanged">
-    <ScrollViewer x:Name="ScrollBar" Margin="0,0,0,0" MinHeight="430" Height="430">
+    <ScrollViewer x:Name="ScrollBar" Margin="0,0,0,0" Height="430">
         <Grid>
             <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
                 <StackPanel Orientation="Vertical"  >

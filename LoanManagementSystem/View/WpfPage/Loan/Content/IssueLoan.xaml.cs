@@ -162,6 +162,11 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         {
             LoanCodeTextBox.Text = IDHandller.generateCode("loan");
         }
+
+        private void LoanCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            clearLoanIssuePage();
+        }
                 
     }
 }

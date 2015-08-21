@@ -308,11 +308,17 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             CusMobile2TextBox.Clear();
             CusResidencePhoneTextBox.Clear();
             CusAddressTextBox.Clear();
+            CusCodeTextBox.Clear();
         }
 
         private void CustoerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
         {
             clearDetailsPage();
+        }
+
+        private void CustomerCodeGenButton_Click(object sender, RoutedEventArgs e)
+        {
+            CusCodeTextBox.Text = IDHandller.generateCode("customer");
         }        
     }
 }

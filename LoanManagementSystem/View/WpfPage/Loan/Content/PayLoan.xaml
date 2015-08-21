@@ -109,9 +109,9 @@
                                                 <ColumnDefinition Width="0.5*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Grid.Column="0" Foreground="Black" FontWeight="Bold" Content="Date" HorizontalAlignment="Left" Width="75" />
-                                            <Label Grid.Column="1" Foreground="Black" FontWeight="Bold" Content="Payment" HorizontalAlignment="Left" Width="75" />
-                                            <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Select" HorizontalAlignment="Left" Width="75" ToolTip="Today borrowing status"/>
+                                            <Label Grid.Column="0" Foreground="Black" FontWeight="Bold" Content="Date" HorizontalAlignment="Left" Width="Auto" />
+                                            <Label Grid.Column="1" Foreground="Black" FontWeight="Bold" Content="Payment" HorizontalAlignment="Left" Width="Auto" />
+                                            <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Select" HorizontalAlignment="Left" Width="Auto" ToolTip="Today borrowing status"/>
                                         </Grid>
                                     </DockPanel>
 
@@ -127,14 +127,14 @@
                                                                 </Grid.RowDefinitions>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="1*" />
-                                                                    <ColumnDefinition Width="3*" />
                                                                     <ColumnDefinition Width="1*" />
+                                                                    <ColumnDefinition Width="0.5*" />
                                                                 </Grid.ColumnDefinitions>
 
-                                                                <Label Grid.Column="0" Foreground="Black" Content="{Binding DATE_TIME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110"/>
-                                                                <Label Grid.Column="1" Foreground="Black" Content="{Binding AMOUNT}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300"/>
+                                                                <Label Grid.Column="0" Foreground="Black" Content="{Binding DATE_TIME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto"/>
+                                                                <Label Grid.Column="1" Foreground="Black" Content="{Binding AMOUNT}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto"/>
 
-                                                                <StackPanel Grid.Column="2" Orientation="Horizontal" Width="75" HorizontalAlignment="Left"  Margin="7,0,0,0">
+                                                                <StackPanel Grid.Column="2" Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left"  Margin="7,0,0,0">
                                                                     <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25">
                                                                         <StackPanel>
                                                                             <Image Source="/LoanManagementSystem;component/images/WpfPage/StaffPage/money_yes.png" Width="28" Height="28" Margin="-5" />
