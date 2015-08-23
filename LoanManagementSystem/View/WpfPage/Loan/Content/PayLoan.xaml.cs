@@ -60,7 +60,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             CustomerLabel.Content = LetterHandller.UppercaseFirst(_loan.customer.FULLNAME);
             CustomerCodeLabel.Content = _loan.customer.CUSTOMER_ID;
             LoanIDTextBox.Text = _loan.LOAN_ID;
-            EmployeeLabel.Content = "Loan is Made by " + LetterHandller.UppercaseFirst(_loan.employee.FULLNAME);
+            EmployeeLabel.Content = LetterHandller.UppercaseFirst(_loan.employee.FULLNAME);
         }
 
         private payment setLoanPaymentDetails()

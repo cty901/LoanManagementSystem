@@ -30,7 +30,51 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private employee _selectedEmployee;
         private customer _selectedCustomer;
         private loan_type _selectedLoanType;
+        private Mode _viewmode;
+        private loan _selectedLoan;
 
+        public Mode ViewMode
+        {
+            get { return _viewmode; }
+            set
+            {
+                _viewmode = value;
+                changeMode(_viewmode);
+            }
+        }
+
+        private void changeMode(Mode _viewmode)
+        {
+            if (_viewmode.Equals(Mode.EDIT))
+            {
+                clearLoanIssuePage();
+                List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
+                HandleControllers.enableContent(ControlList, true, true, true, true, true);
+
+                SelectedEmployee = Session.SelectedLoan.employee;
+                SelectedCustomer = Session.SelectedLoan.customer;
+                SelectedLoan = Session.SelectedLoan;
+                SelectedLoan_Type = Session.SelectedLoan.loan_type;
+            }
+            if (_viewmode.Equals(Mode.VIEW))
+            {
+                clearLoanIssuePage();
+                List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
+                HandleControllers.enableContent(ControlList, false, false, false, false, false);
+
+                SelectedEmployee = Session.SelectedLoan.employee;
+                SelectedCustomer = Session.SelectedLoan.customer;
+                SelectedLoan = Session.SelectedLoan;
+                SelectedLoan_Type = Session.SelectedLoan.loan_type;
+            }
+            if (_viewmode.Equals(Mode.NEW))
+            {
+                clearLoanIssuePage();
+                List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
+                HandleControllers.enableContent(ControlList, true, true, true, true, true);
+            }
+        }
+        
         public employee SelectedEmployee
         {
             get
@@ -40,7 +84,10 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             set
             {
                 _selectedEmployee = value;
-                EmployeeTextBox.Text = value.FULLNAME;
+                if (_selectedEmployee != null)
+                {
+                    EmployeeTextBox.Text = value.FULLNAME;
+                }
             }
         }
         public customer SelectedCustomer
@@ -52,7 +99,10 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             set
             {
                 _selectedCustomer = value;
-                CustomerTextBox.Text = value.FULLNAME;
+                if (_selectedCustomer != null)
+                {
+                    CustomerTextBox.Text = value.FULLNAME;
+                }
             }
         }
         public loan_type SelectedLoan_Type
@@ -64,10 +114,16 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             set
             {
                 _selectedLoanType = value;
-                LoanTypeTextBox.Text = value.LOAN_TYPE_ID;
-                InstalmentTextBox.Text = value.INSTALLMENT.ToString();
-                AmountTextBox.Text = value.AMOUNT.ToString();
-                EndDateDatePicker.SelectedDate = System.DateTime.Now.Date.AddDays(Convert.ToInt32(value.DAYS));
+                if (_selectedLoanType != null)
+                {
+                    if (_viewmode.Equals(Mode.NEW))
+                    {
+                        LoanTypeTextBox.Text = value.LOAN_TYPE_ID;
+                        InstalmentTextBox.Text = value.INSTALLMENT.ToString();
+                        AmountTextBox.Text = value.AMOUNT.ToString();
+                        EndDateDatePicker.SelectedDate = System.DateTime.Now.Date.AddDays(Convert.ToInt32(value.DAYS));
+                    }
+                }
             }
         }
 
@@ -93,6 +149,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             _selectedCustomer = null;
             _selectedEmployee = null;
             _selectedLoanType = null;
+            _selectedLoan = null;
         }
 
         private loan getLoanData()
@@ -100,9 +157,20 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             try
             {
                 loan _loan = new loan();
-
-                _loan.ID = IDHandller.generateID("loan");
-
+                if(_viewmode.Equals(Mode.NEW))
+                {
+                    _loan.ID = IDHandller.generateID("loan");
+                    _loan.STATUS = true;
+                    _loan.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                    _loan.INSERT_DATETIME = System.DateTime.Now;
+                }
+                else if(_viewmode.Equals(Mode.EDIT))
+                {
+                    _loan.ID = IDHandller.generateID("loan");
+                    _loan.STATUS = true;
+                    _loan.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+                    _loan.UPDATE_DATETIME = System.DateTime.Now;
+                }
                 _loan.FK_EMPLOYEE_ID = SelectedEmployee.ID;
                 _loan.FK_CUSTOMER_ID = SelectedCustomer.ID;
                 _loan.FK_LOAN_TYPE_ID = SelectedLoan_Type.ID;
@@ -117,9 +185,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 _loan.REMARK = RemarkTextBox.Text;
                 _loan.LOAN_STATUS = true;
 
-                _loan.STATUS = true;
-                _loan.INSERT_USER_ID = Session.LoggedEmployee.ID;
-                _loan.INSERT_DATETIME = System.DateTime.Now;
+                
 
                 return _loan;
             }
@@ -132,15 +198,32 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private async void LoanSaveButton_Click(object sender, RoutedEventArgs e)
         {
             loan _loan = getLoanData();
-            if (LoanService.InsertLoan(_loan) == 1)
+            if(_viewmode.Equals(Mode.NEW))
             {
-                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Added Success!", MessageDialogStyle.Affirmative);
-                clearLoanIssuePage();
-                MultiSearch.Instance.ClearSearchResult();
+                if (LoanService.InsertLoan(_loan) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Added Success!", MessageDialogStyle.Affirmative);
+                    clearLoanIssuePage();
+                    MultiSearch.Instance.ClearSearchResult();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
             }
-            else
+            if(_viewmode.Equals(Mode.EDIT))
             {
-                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+
+                _loan.ID = Session.SelectedLoan.ID;
+
+                if (LoanService.UpdateLoan(_loan) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Edit Success!", MessageDialogStyle.Affirmative);
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
             }
         }
 
@@ -167,6 +250,24 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         {
             clearLoanIssuePage();
         }
-                
+
+        public loan SelectedLoan {
+            get
+            {
+                return _selectedLoan;
+            }
+            set
+            {
+                _selectedLoan = value;
+                if (_selectedLoan != null)
+                {
+                    LoanTypeTextBox.Text = _selectedLoan.loan_type.LOAN_TYPE_ID;
+                    InstalmentTextBox.Text = _selectedLoan.INSTALLMENT.ToString();
+                    AmountTextBox.Text = _selectedLoan.AMOUNT.ToString();
+                    EndDateDatePicker.SelectedDate = _selectedLoan.END_DATE;
+                    LoanCodeTextBox.Text = _selectedLoan.LOAN_ID;
+                }
+            }        
+        }
     }
 }

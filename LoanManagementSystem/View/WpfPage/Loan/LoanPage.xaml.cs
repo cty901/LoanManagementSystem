@@ -70,12 +70,15 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             else if (ViewMode == Mode.LOANISSUE)
             {
                 BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
-                IssueLoanButton.Visibility = System.Windows.Visibility.Visible;
             }
             else if (ViewMode == Mode.VIEW)
             {
                 LoanPaymentButton.Visibility = System.Windows.Visibility.Visible;
                 EditLoanButton.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (ViewMode == Mode.EDIT)
+            {
+                BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -105,14 +108,16 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             ContentFrame.Content = ContentPageLoan.Instance;
             ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
             ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
+            IssueLoan.Instance.ViewMode = Mode.NEW;
             ViewMode = Mode.LOANISSUE;
         }
 
         private void LoanViewButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = ContentPageLoan.Instance;
-            ContentPageLoan.Instance.LoanContentFrame.Content = null;
+            ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
             ContentPageLoan.Instance.SearchContentFrame.Content = null;
+            IssueLoan.Instance.ViewMode = Mode.VIEW;
             ViewMode = Mode.VIEW;
         }
 
@@ -122,6 +127,15 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             ContentPageLoan.Instance.LoanContentFrame.Content = PayLoan.Instance;
             ContentPageLoan.Instance.SearchContentFrame.Content = null;
             ViewMode = Mode.LOANPAY;
+        }
+
+        private void EditLoanButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = ContentPageLoan.Instance;
+            ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
+            ContentPageLoan.Instance.SearchContentFrame.Content = null;
+            IssueLoan.Instance.ViewMode = Mode.EDIT;
+            ViewMode = Mode.EDIT;
         }
         
     }
