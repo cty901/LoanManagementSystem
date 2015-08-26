@@ -261,7 +261,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 _selectedLoan = value;
                 if (_selectedLoan != null)
                 {
-                    LoanTypeTextBox.Text = _selectedLoan.loan_type.LOAN_TYPE_ID;
+                    LoanTypeTextBox.Text=LoanTypeService.getLoanTypeByID(_selectedLoan.FK_LOAN_TYPE_ID).LOAN_TYPE_ID;
                     InstalmentTextBox.Text = _selectedLoan.INSTALLMENT.ToString();
                     AmountTextBox.Text = _selectedLoan.AMOUNT.ToString();
                     EndDateDatePicker.SelectedDate = _selectedLoan.END_DATE;

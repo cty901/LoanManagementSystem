@@ -2,6 +2,8 @@
 using LoanManagementSystem.Util;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,38 @@ namespace LoanManagementSystem.DBService.Implementions
             pager.CurrentPage = page;
 
             return pager;
+        }
+        public static loan_type getLoanTypeByID(string id)
+        {
+            var _loanType = db.loan_type.Where(lt => lt.ID == id).SingleOrDefault();
+
+            if (_loanType != null)
+            {
+                return _loanType;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static int InsertLoanType(loan_type _loanType)
+        {
+            try
+            {
+                db.loan_type.Add(_loanType);
+                return db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                return 0;
+            }
         }
     }
 }

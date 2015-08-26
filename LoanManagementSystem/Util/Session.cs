@@ -114,37 +114,57 @@ namespace LoanManagementSystem.Util
             }
         }
 
+        public static Boolean LogOut()
+        {
+            if (SelectedEmployee != null || SelectedCustomer != null || SelectedLoan != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static void LogOutSelectedEmployee()
         {
-            StaffPage.Instance.SelectedEmployeeName.Content = "No Employee Selected";
-            StaffPage.Instance.SelectedEmpLogOutButton.Visibility = Visibility.Hidden;
-            StaffPage.Instance.ContentFrame.Content = QuickSearchPageStaff.Instance;
-            QuickSearchPageStaff.Instance.RefreshPage();
-            StaffPage.Instance.setMenuButtonView(0);
-
-            SelectedEmployee = null; ;
+            if (StaffPage.Instance != null)
+            {
+                StaffPage.Instance.SelectedEmployeeName.Content = "No Employee Selected";
+                StaffPage.Instance.SelectedEmpLogOutButton.Visibility = Visibility.Hidden;
+                StaffPage.Instance.ContentFrame.Content = QuickSearchPageStaff.Instance;
+                QuickSearchPageStaff.Instance.RefreshPage();
+                StaffPage.Instance.setMenuButtonView(0);
+            }
+                SelectedEmployee = null;
+           
         }
 
         public static void LogOutSelectedCustomer()
         {
-            CustomerPage.Instance.SelectedCustomerName.Content = "No Customer Selected";
-            CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Hidden;
-            CustomerPage.Instance.ContentFrame.Content = QuickSearchPage.Instance;
-            QuickSearchPage.Instance.RefreshPage();
-            CustomerPage.ViewMode=Mode.LIST;
+            if (CustomerPage.Instance != null)
+            {
+                CustomerPage.Instance.SelectedCustomerName.Content = "No Customer Selected";
+                CustomerPage.Instance.SelectedCusLogOutButton.Visibility = Visibility.Hidden;
+                CustomerPage.Instance.ContentFrame.Content = QuickSearchPage.Instance;
+                QuickSearchPage.Instance.RefreshPage();
+                CustomerPage.ViewMode = Mode.LIST;
+            }
 
             SelectedCustomer = null;
         }
 
         public static void LogOutSelectedLoan()
         {
-            LoanPage.Instance.SelectedLoan.Content = "No Loan Selected";
-            LoanPage.Instance.SelectedLoanLogOutButton.Visibility = Visibility.Hidden;
-            LoanPage.Instance.ContentFrame.Content = QuickSearchPageLoan.Instance;
-            QuickSearchPageLoan.Instance.RefreshPage();
-            LoanPage.ViewMode=Mode.LIST;
-
-            SelectedCustomer = null;
+            if (LoanPage.Instance != null)
+            {
+                LoanPage.Instance.SelectedLoan.Content = "No Loan Selected";
+                LoanPage.Instance.SelectedLoanLogOutButton.Visibility = Visibility.Hidden;
+                LoanPage.Instance.ContentFrame.Content = QuickSearchPageLoan.Instance;
+                QuickSearchPageLoan.Instance.RefreshPage();
+                LoanPage.ViewMode = Mode.LIST;
+            }
+            SelectedLoan = null;
         }
         public static int deleteSelectedCustomer()
         {

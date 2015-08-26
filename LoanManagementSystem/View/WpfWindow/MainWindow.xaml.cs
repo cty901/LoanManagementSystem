@@ -136,9 +136,16 @@ namespace LoanManagementSystem.View.WpfWindow
             //ContentFrame.Content = ReportPage.Instance;
         }
 
-        private void HomeBtn_Click(object sender, RoutedEventArgs e)
+        private async void HomeBtn_Click(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = DashBoardPage.Instance;
+            if (Session.LogOut())
+            {
+                await this.ShowMessageAsync(this.Title, "Please Log Out from Selected Element", MessageDialogStyle.Affirmative);
+            }
+            else
+            {
+                ContentFrame.Content = DashBoardPage.Instance;
+            }
         }
         public void setLoginDeatails()
         {

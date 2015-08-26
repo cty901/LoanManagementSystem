@@ -1,0 +1,130 @@
+﻿<Page x:Class="LoanManagementSystem.View.WpfPage.LoanTypes.LoanTypesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="770" MinHeight="480">
+
+    <Border CornerRadius="5" BorderThickness="2" Background="#5133AB">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+            <DockPanel x:Name="FileMenu" DockPanel.Dock="Bottom" Height="40" Background="{DynamicResource MenuBarSolidPurple}" >
+                <StackPanel Orientation="Vertical">
+                    <Border x:Name="MenuAddEmployeeDetails" Height="0" BorderThickness="2" Background="{DynamicResource MenuBarSolidPurple}">
+                        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                            <DockPanel DockPanel.Dock="Left" >
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel x:Name="BackButtonList" Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
+                                        <Button x:Name="BackButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                                            <StackPanel Orientation="Horizontal"  Margin="0">
+                                                <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.arrow.left.png" Margin="0,-1,0,-1" Height="30"/>
+                                                <Label Content="Back"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                    <!--<Button x:Name="EmployeeInfoButton" Style="{StaticResource RoundCornersMenuButton}"  HorizontalAlignment="left"  Margin="1,2">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/HRMSystem;component/images/appbar.people.status.png" Margin="0,-3,0,0" Height="30"/>
+                                            <Label Content="Employee Info"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="EmployeeContactsButton" Style="{StaticResource RoundCornersMenuButton}"  HorizontalAlignment="left"  Margin="1,2">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/HRMSystem;component/images/appbar.phone.png" Margin="0,-3,0,0" Height="30"/>
+                                            <Label Content="Employee Contacts"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="EmployeeTitlesButton" Style="{StaticResource RoundCornersMenuButton}"  HorizontalAlignment="left"  Margin="1,2">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/HRMSystem;component/images/appbar.user.tie.png" Margin="0,-3,0,0" Height="30"/>
+                                            <Label Content="Employee Titles"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>-->
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel DockPanel.Dock="Right" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
+                                    <Button x:Name="EmployeeDetailsSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2"  Background="{x:Null}">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Save"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!--<Button x:Name="EmployeeDetailsUpdateButton" Style="{StaticResource GlassButton}"  HorizontalAlignment="Right" Width="28" Height="28" Margin="2,0" Padding="0" ToolTip="Update Button" Background="Cyan">
+                                        <Image Source="/HRMSystem;component/images/appbar.refresh.counterclockwise.up.png" Margin="-15,-15" Width="35" Height="35"/>
+                                    </Button>
+                                    <Button x:Name="EmployeeDetailsDeleteButton" Style="{StaticResource GlassButton}"  HorizontalAlignment="Right" Width="28" Height="28" Margin="2,0" Padding="0" ToolTip="Delete Button" Background="Red">
+                                        <Image Source="/HRMSystem;component/images/appbar.delete.png" Margin="-15,-15" Width="35" Height="35"/>
+                                    </Button>-->
+                                    <Button x:Name="EmployeeDetailsCancelButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.cancel.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Cancel"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Height="Auto" CornerRadius="0" Padding="0" BorderThickness="2" Background="{DynamicResource MenuBarSolidPurple}">
+                        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                            <DockPanel DockPanel.Dock="Left" >
+                                <StackPanel x:Name="MenuBar" Orientation="Horizontal">
+                                    <Button x:Name="BackButtonTemp" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" >
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/StaffPage/appbar.arrow.left.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Back"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="IssueLoanButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2"  >
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Issue Loan"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="LoanPaymentButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Loan Payment"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="LoanViewButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Loan View"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="EditLoanButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" >
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Loan Edit"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel DockPanel.Dock="Right" >
+                                <StackPanel x:Name="SelectedLoanPanel" Orientation="Horizontal" FlowDirection="RightToLeft" Visibility="Visible">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button x:Name="SelectedLoanLogOutButton" Style="{StaticResource ButtonFormPrimary}"  HorizontalAlignment="Right" Width="28" Height="28" Margin="2,0" Padding="0" Visibility="Hidden">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.door.leave.png" Margin="-10" Height="30" Width="30" ToolTip="Log Out"/>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0">
+                                        <Label Content="Selected Loan" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <Label x:Name="SelectedLoan" Content="No Loan Selected" FontStyle="Italic" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="0,0,0,0">
+                    <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+</Page>

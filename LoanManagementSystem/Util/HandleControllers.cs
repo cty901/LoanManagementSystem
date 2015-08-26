@@ -70,5 +70,20 @@ namespace LoanManagementSystem.Util
                 }
             }
         }
+        public static void clearContent(List<Control> controllist)
+        {
+            ControlList = controllist;
+            TextBox t;
+
+            foreach (Control tb in ControlList)
+            {
+                if (tb is TextBox)
+                {
+                    t = (TextBox)tb;
+                    t.Clear();
+                }
+                
+            }
+        }
     }
 }

@@ -77,6 +77,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             else if (ViewMode == Mode.EDIT)
             {
                  DeleteButton.Visibility = System.Windows.Visibility.Visible;
+                 BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
             }
 
         }
