@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="770"
 	  >
-    <Viewbox Stretch="Fill">
+    <Viewbox Stretch="Fill" Margin="0,0,0,0">
         <Grid Margin="300,100,0,0">
             <StackPanel Orientation="Vertical" Margin="0,2,2,0" HorizontalAlignment="Right" Width="506">
 
@@ -23,10 +23,10 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button x:Name="SMSBtn" Style="{StaticResource ModuleButtonType1Orange}" Width="90" Height="Auto">
+                                <Button x:Name="SMSBtn" Style="{StaticResource ModuleButtonType1Orange}" Width="90" Height="Auto" Click="SMSBtn_Click">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                         <Image Source="/LoanManagementSystem;component/Images/WpfPage/DashBoard/sms.png"/>
-                                        <TextBlock Text="Packages" FontSize="11" TextAlignment="Center" />
+                                        <TextBlock Text="Send SMS" FontSize="10" TextAlignment="Center" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
@@ -38,7 +38,7 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button  x:Name="LoanTemplateBtn" Style="{StaticResource ModuleButtonType1Purple}" Width="90" Height="Auto" Click="LoanTemplateBtn_Click">
+                                <Button  x:Name="LoanTemplateBtn" Style="{StaticResource ModuleButtonType1Blue}" Width="90" Height="Auto" Click="LoanTemplateBtn_Click">
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/LoanManagementSystem;component/Images/WpfPage/DashBoard/appbar.calculator.png" />
                                         <TextBlock Text="Loan Type" FontSize="10" TextAlignment="Center"/>

@@ -189,6 +189,18 @@
     <Compile Include="View\WpfPage\Customer\Content\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\WpfPage\SMS\Content\ContentPageSMS.xaml.cs">
+      <DependentUpon>ContentPageSMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\SMS\Content\CreateASMS.xaml.cs">
+      <DependentUpon>CreateASMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\SMS\Content\CustomerSearch.xaml.cs">
+      <DependentUpon>CustomerSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\SMS\SMSPage.xaml.cs">
+      <DependentUpon>SMSPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\StaffPage.xaml.cs">
       <DependentUpon>StaffPage.xaml</DependentUpon>
     </Compile>
@@ -291,6 +303,22 @@
     <Page Include="View\WpfPage\Customer\Content\DetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\SMS\Content\ContentPageSMS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\SMS\Content\CreateASMS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\SMS\Content\CustomerSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\SMS\SMSPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WpfPage\StaffPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -417,7 +445,6 @@
     <Folder Include="DBService\Interfaces\" />
     <Folder Include="Fonts\" />
     <Folder Include="Model\" />
-    <Folder Include="View\WpfPage\SMS\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfWindow\LoginWindow\appbar.key.png" />
@@ -602,6 +629,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfPage\DashBoard\sms.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\SMSPage\appbar.message.png" />
+    <Resource Include="Images\WpfPage\SMSPage\appbar.message.profanity.png" />
+    <Resource Include="Images\WpfPage\SMSPage\appbar.message.send.png" />
+    <Resource Include="Images\WpfPage\SMSPage\appbar.message.smiley.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\SMSPage\appbar.clear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

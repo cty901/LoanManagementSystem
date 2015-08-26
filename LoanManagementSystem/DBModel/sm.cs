@@ -17,6 +17,8 @@ namespace LoanManagementSystem.DBModel
         public string ID { get; set; }
         public Nullable<System.DateTime> SEND_DATE_TIME { get; set; }
         public string CONTENT { get; set; }
+        public string TYPE { get; set; }
+        public Nullable<bool> SENDING_STATUS { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string INSERT_USER_ID { get; set; }
         public string UPDATE_USER_ID { get; set; }
