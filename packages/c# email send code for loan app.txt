@@ -1,0 +1,15 @@
+MailMessage mail = new MailMessage("loaninfo@doerit.com", "chamilka@doerit.com");
+            SmtpClient client = new SmtpClient();
+            client.Port = 26;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Host = "mail.doerit.com";
+            client.EnableSsl = false;
+            client.Credentials = new System.Net.NetworkCredential("loaninfo@doerit.com", "1qaz2wsx@");
+            mail.Subject = "this is a test email with attachement.";
+            mail.Body = "mail with attachment";
+
+            Attachment attachment = new System.Net.Mail.Attachment("d:/Attachment.txt");
+            mail.Attachments.Add(attachment);
+
+            client.Send(mail);    
