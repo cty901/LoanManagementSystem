@@ -147,7 +147,8 @@ namespace Doerit.SMSLib
         {
             var handler = PropertyChanged;
             //   if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (handler != null) 
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public static void setFlag()
