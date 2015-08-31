@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bfac472d0a2f479e8dac314d897720d0" Name="Diagram1">
+      <Diagram DiagramId="475368f3845543ec9a862bb43b08dc9a" Name="Diagram1">
         <EntityTypeShape EntityType="loandbModel.branch" Width="1.5" PointX="3.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.customer" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.employee" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.employee_cash" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.loan" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.loan_type" Width="1.5" PointX="3.75" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="loandbModel.payment" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.customer" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.employee" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.employee_cash" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.loan" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.loan_type" Width="1.5" PointX="3.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="loandbModel.payment" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="loandbModel.sm" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="loandbModel.fk_loan_branch1" ManuallyRouted="false" />
         <AssociationConnector Association="loandbModel.fk_loan_customer1" ManuallyRouted="false" />

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Doerit.SMSLib
 {
-    class DoerSMSDeviceCommander
+    public class DoerSMSDeviceCommander
     {
         public static string SMSDevice_Status(string comPort)
         {
@@ -96,6 +96,55 @@ namespace Doerit.SMSLib
             catch
             {
                 return -1;
+            }
+            finally
+            {
+                port.Close();
+            }
+        }
+
+        public static int SendSMS(string CellNumber,string SMSMessage,string comport)
+        {
+            SerialPort port = new SerialPort();
+            int result=-98;
+            try
+            {
+                port.PortName = comport;
+                if (!port.IsOpen)
+                {
+                    port.Open();
+                }
+                string MyMessage = null;
+                //Check if Message Length <= 160
+                if (SMSMessage.Length <= 160)
+                    MyMessage = SMSMessage;
+                else
+                    MyMessage = SMSMessage.Substring(0, 160);
+
+                if (port.IsOpen == true)
+                {
+                    Thread.Sleep(100);
+                    port.Write("AT+CMGF=1\r");
+                    Thread.Sleep(100);
+                    port.Write("AT+CMGS=\"" + CellNumber + "\"\r\n");
+                    Thread.Sleep(100);
+                    port.Write(MyMessage + "\x1A");
+                    Thread.Sleep(100);
+                    string msg=port.ReadExisting();
+                    if (msg.Contains("OK"))
+                    {
+                        result=1;
+                    }
+                    else
+                    {
+                        result=0;
+                    }
+                }
+                return result;
+            }
+            catch
+            {
+                return -99;
             }
             finally
             {

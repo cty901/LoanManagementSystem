@@ -36,6 +36,10 @@ namespace LoanManagementSystem.Util
             {
                 TableNumber = "06";
             }
+            else if (TableName == "sms")
+            {
+                TableNumber = "07";
+            }
             
             string ID = String.Format("{0:d15}", (DateTime.Now.Ticks));
             ID = TableNumber + ID;

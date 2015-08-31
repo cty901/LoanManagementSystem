@@ -109,14 +109,14 @@
                     <Label Content="* Customer Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="3">
-                    <TextBox x:Name="CustomerNameTextBox"  Height="Auto" Width="Auto" Margin="0,0,41,0.4" HorizontalAlignment="Stretch" />
+                    <TextBox x:Name="CustomerNameTextBox"  Height="Auto" Width="Auto" Margin="0,0,41,0.4" HorizontalAlignment="Stretch" IsEnabled="False" />
                 </Grid>
                 
                 <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,5,0"  HorizontalAlignment="Right">
                     <Label Content="* Customer Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="5" Margin="0,10,0,0">
-                    <TextBox x:Name="CustomerCodeTextBox"  Height="Auto" Width="Auto" Margin="0" HorizontalAlignment="Stretch" />
+                    <TextBox x:Name="CustomerCodeTextBox"  Height="Auto" Width="Auto" Margin="0" HorizontalAlignment="Stretch" IsEnabled="False" />
                 </Grid>
 
                 <!--Second Row-->
@@ -133,7 +133,7 @@
                     <Label Content="* SMS Content" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="6" Grid.RowSpan="7" >
-                    <TextBox x:Name="SMSContentTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,0,0"/>
+                    <TextBox x:Name="SMSContentTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,0,0" MaxLength="160" />
                 </Grid>
 
                 <!--Fourth Row-->
@@ -145,7 +145,7 @@
             </Grid>
             <DockPanel DockPanel.Dock="Right" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
-                    <Button x:Name="SendButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                    <Button x:Name="SendButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="SendButton_Click">
                         <StackPanel Orientation="Horizontal"  Margin="0">
                             <Image Source="/LoanManagementSystem;component/Images/WpfPage/SMSPage/appbar.message.send.png" Margin="0,-1,0,-1" Height="30"/>
                             <Label Content="Send"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>

@@ -15,6 +15,7 @@ namespace LoanManagementSystem.DBModel
     public partial class sm
     {
         public string ID { get; set; }
+        public string PHONE_NUMBER { get; set; }
         public Nullable<System.DateTime> SEND_DATE_TIME { get; set; }
         public string CONTENT { get; set; }
         public string TYPE { get; set; }

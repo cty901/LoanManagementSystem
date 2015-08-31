@@ -150,6 +150,8 @@
     <Compile Include="DBService\Implementions\LoanService.cs" />
     <Compile Include="DBService\Implementions\LoanTypeService.cs" />
     <Compile Include="DBService\Implementions\PaymentService.cs" />
+    <Compile Include="DBService\Implementions\SMSService.cs" />
+    <Compile Include="Model\SMSModel\SMSManger.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />
     <Compile Include="Util\ImageHandller.cs" />
@@ -444,7 +446,6 @@
   <ItemGroup>
     <Folder Include="DBService\Interfaces\" />
     <Folder Include="Fonts\" />
-    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfWindow\LoginWindow\appbar.key.png" />
@@ -638,6 +639,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfPage\SMSPage\appbar.clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\packages\Doerit.SMSLib\Doerit.SMSLib\Doerit.SMSLib.csproj">
+      <Project>{e3e56447-2cde-4746-9dd0-e84e7d41d09c}</Project>
+      <Name>Doerit.SMSLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

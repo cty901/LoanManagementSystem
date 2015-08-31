@@ -200,6 +200,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="PHONE_NUMBER" Type="varchar" MaxLength="45" />
           <Property Name="SEND_DATE_TIME" Type="datetime" />
           <Property Name="CONTENT" Type="varchar" MaxLength="45" />
           <Property Name="TYPE" Type="set" />
@@ -522,6 +523,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE_NUMBER" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="SEND_DATE_TIME" Type="DateTime" Precision="0" />
           <Property Name="CONTENT" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="TYPE" Type="String" MaxLength="65531" Unicode="true" FixedLength="false" />
@@ -796,6 +798,7 @@
             <EntityTypeMapping TypeName="loandbModel.sm">
               <MappingFragment StoreEntitySet="sms">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PHONE_NUMBER" ColumnName="PHONE_NUMBER" />
                 <ScalarProperty Name="SEND_DATE_TIME" ColumnName="SEND_DATE_TIME" />
                 <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
                 <ScalarProperty Name="TYPE" ColumnName="TYPE" />
