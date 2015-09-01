@@ -28,7 +28,6 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
     public partial class SendAMail : Page
     {
         private static SendAMail _instance;
-        private customer _selectedCustomer;
         private EmailModel _emailModel;
 
         private SendAMail()
@@ -48,34 +47,6 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
             }
         }
 
-        public customer SelectedCustomer
-        {
-            get
-            {
-                return _selectedCustomer;
-            }
-            set
-            {
-               _selectedCustomer=value;
-               if (_selectedCustomer != null)
-               {
-                   CustomerNameTextBox.Text = _selectedCustomer.FULLNAME;
-                   CustomerCodeTextBox.Text = _selectedCustomer.CUSTOMER_ID;
-                   EmailAddressTextBox.Text = _selectedCustomer.EMAIL;
-               }
-               else
-               {
-                   CustomerNameTextBox.Clear();
-                   CustomerCodeTextBox.Clear();
-                   EmailAddressTextBox.Clear();
-                   EmailSubjectTextBox.Clear();
-                   EmailContentTextBox.Clear();
-                   AttachmentPathLabel.Content = "";
-               }
-            }
-
-        }
-
         public EmailModel EMAIL
         {
             get
@@ -91,7 +62,6 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
                     EmailSubjectTextBox.Clear();
                     EmailContentTextBox.Clear();
                     AttachmentPathLabel.Content = "";
-                    SelectedCustomer = null;
                 }
             }
         }
@@ -114,7 +84,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
             }
             else
             {
-                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please Select a Customer!", MessageDialogStyle.Affirmative);
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please Enter Valied Email!", MessageDialogStyle.Affirmative);
             }
         }
 
