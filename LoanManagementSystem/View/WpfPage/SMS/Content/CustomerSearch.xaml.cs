@@ -86,7 +86,6 @@ namespace LoanManagementSystem.View.WpfPage.SMS.Content
             {
                 customer selected = SearchedListCustomer.Single(emp => emp.ID == lbl.Content.ToString());
                 CreateASMS.Instance.SelectedCustomer = selected;
-                SendAMail.Instance.SelectedCustomer = selected;
             }
             else
             {

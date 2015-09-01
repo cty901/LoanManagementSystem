@@ -28,7 +28,6 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
         {
             InitializeComponent();
 
-            SearchContentFrame.Content = CustomerSearch.Instance;
             EmailContentFrame.Content = SendAMail.Instance;
         }
 
