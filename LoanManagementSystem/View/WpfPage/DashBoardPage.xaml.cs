@@ -16,6 +16,7 @@ using LoanManagementSystem.View.WpfPage.Customer;
 using LoanManagementSystem.View.WpfPage.Loan;
 using LoanManagementSystem.View.WpfPage.LoanTypes;
 using LoanManagementSystem.View.WpfPage.SMS;
+using LoanManagementSystem.View.WpfPage.Settings;
 
 
 namespace LoanManagementSystem.View.WpfPage
@@ -147,5 +148,16 @@ namespace LoanManagementSystem.View.WpfPage
             }
         }
 
+        private async void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Session.Account_Type == "admin")
+            {
+                MainWindow.Instance.ContentFrame.Content = SettingsPage.Instance;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Previlages", "Error: Insufficient Previlages", MessageDialogStyle.Affirmative);
+            }
+        }
     }
 }

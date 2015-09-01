@@ -1,6 +1,7 @@
 ﻿using LoanManagementSystem.DBModel;
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
+using LoanManagementSystem.View.WpfPage.Settings.Content;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -85,6 +86,7 @@ namespace LoanManagementSystem.View.WpfPage.SMS.Content
             {
                 customer selected = SearchedListCustomer.Single(emp => emp.ID == lbl.Content.ToString());
                 CreateASMS.Instance.SelectedCustomer = selected;
+                SendAMail.Instance.SelectedCustomer = selected;
             }
             else
             {

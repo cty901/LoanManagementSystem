@@ -152,15 +152,23 @@
     <Compile Include="DBService\Implementions\PaymentService.cs" />
     <Compile Include="DBService\Implementions\SMSService.cs" />
     <Compile Include="Model\SMSModel\SMSManger.cs" />
+    <Compile Include="Util\EmailHandler.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />
     <Compile Include="Util\ImageHandller.cs" />
     <Compile Include="Util\LetterHandller.cs" />
+    <Compile Include="Util\EmailModel.cs" />
     <Compile Include="Util\Messages.cs" />
     <Compile Include="Util\Mode.cs" />
     <Compile Include="Util\PageData.cs" />
     <Compile Include="Util\PagingCollection.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="View\WpfPage\Settings\Content\ContentPageSettings.xaml.cs">
+      <DependentUpon>ContentPageSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\LoanTypes\Content\LoanTypeDetails.xaml.cs">
       <DependentUpon>LoanTypeDetails.xaml</DependentUpon>
     </Compile>
@@ -193,15 +201,22 @@
     </Compile>
     <Compile Include="View\WpfPage\SMS\Content\ContentPageSMS.xaml.cs">
       <DependentUpon>ContentPageSMS.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\WpfPage\Settings\Content\SendAMail.xaml.cs">
+      <DependentUpon>SendAMail.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\WpfPage\SMS\Content\CreateASMS.xaml.cs">
       <DependentUpon>CreateASMS.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\SMS\Content\CustomerSearch.xaml.cs">
       <DependentUpon>CustomerSearch.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\WpfPage\SMS\SMSPage.xaml.cs">
       <DependentUpon>SMSPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\WpfPage\StaffPage.xaml.cs">
       <DependentUpon>StaffPage.xaml</DependentUpon>
@@ -266,6 +281,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\WpfPage\Settings\Content\ContentPageSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Settings\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\WpfPage\LoanTypes\Content\LoanTypeDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,9 +333,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\WpfPage\SMS\Content\CreateASMS.xaml">
+    <Page Include="View\WpfPage\Settings\Content\SendAMail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfPage\SMS\Content\CreateASMS.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\WpfPage\SMS\Content\CustomerSearch.xaml">
       <SubType>Designer</SubType>
