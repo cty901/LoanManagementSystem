@@ -54,7 +54,7 @@ namespace LoanManagementSystem.View.WpfPage
         {
             ContentFrame.Content = EditProfilePage.Instance;
             EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.NEW);
-
+            
             MenuDefaultEmployeeDetails.Height = 0;
             MenuAddEmployeeDetails.Height = Double.NaN;
         }

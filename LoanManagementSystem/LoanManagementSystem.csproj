@@ -412,6 +412,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EntityDeploy Include="DBModel\LoanDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -430,6 +431,7 @@
       <DependentUpon>LoanDBModel.edmx</DependentUpon>
       <LastGenOutput>LoanDBModel.cs</LastGenOutput>
     </None>
+    <Compile Include="DBModel\Validation\employee.validation.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

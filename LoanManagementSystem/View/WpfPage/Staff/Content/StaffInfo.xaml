@@ -5,11 +5,38 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:LoanManagementSystem.DBModel"
       mc:Ignorable="d" 
-      d:DesignHeight="480" d:DesignWidth="760" Background="#5133AB">   
-    
+      d:DesignHeight="480" d:DesignWidth="760" Background="#5133AB">
+
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="topRightCornerErrorTemplate">
+            <Grid>
+                <Polygon x:Name="toolTipCorner"
+                   Grid.ZIndex="2"
+                   Margin="0"
+                   Points="20,20 20,0 0,0"
+                   Fill="Red"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   IsHitTestVisible="True"
+                   ToolTip="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                <AdornedElementPlaceholder x:Name="adorner"/>
+            </Grid>
+        </ControlTemplate>
+    </Page.Resources>
     <!--<Page.Resources>-->
-        <!-- ValidatingControl Style -->
-        <!--<Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
+    <!-- ValidatingControl Style -->
+    <!--<Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="ToolTip" Value="{Binding 
@@ -29,8 +56,8 @@
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
         <SolidColorBrush x:Key="SolidBorderBrush" Color="Black" />-->
 
-        <!--creates a textbox with a transparent disabled background-->
-        <!--<Style x:Key="DisabledTextBox" TargetType="{x:Type TextBoxBase}">            
+    <!--creates a textbox with a transparent disabled background-->
+    <!--<Style x:Key="DisabledTextBox" TargetType="{x:Type TextBoxBase}">            
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBoxBase}">
@@ -75,7 +102,7 @@
 
 
     <StackPanel Orientation="Vertical"  >
-        <Grid Margin="10">            
+        <Grid Margin="10" x:Name="GridStaffInfo">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -104,19 +131,19 @@
                 <Label Content="* First Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Margin="0,10,0.4,0" Grid.Column="1">
-                <TextBox x:Name="EmpFNameTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+                <TextBox x:Name="EmpFNameTextBox" Text="{Binding Path=FIRST_NAME,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="1,0,-1.4,0" />
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15,0,5" HorizontalAlignment="Right" Height="16" Width="72" >
                 <Label Content="* Last Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Grid.Column="3" Margin="0,10,0,0" >
-                <TextBox x:Name="EmpLNameTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpLNameTextBox" Text="{Binding Path=LAST_NAME,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15,0,5" HorizontalAlignment="Right" Height="16" Width="70" >
                 <Label Content="* Emp Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Grid.Column="5" Margin="0,10,31,0" Grid.ColumnSpan="2">
-                <TextBox x:Name="EmpCodeTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpCodeTextBox" Text="{Binding Path=EMP_ID,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <Button x:Name="EmpCodeGenButton" Style="{DynamicResource ButtonFormPrimary}"  Margin="0,6,3,0" Background="{x:Null}" Grid.Column="6" Grid.Row="0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" ToolTip="Generate Employee ID" Click="EmpCodeGenButton_Click">
                 <StackPanel Orientation="Horizontal"  Margin="0">
@@ -128,7 +155,7 @@
                 <Label Content="* Address" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Margin="0,10,0,0">
-                <TextBox x:Name="EmpAddressTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
+                <TextBox x:Name="EmpAddressTextBox" Text="{Binding Path=ADDRESS,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
             </Grid>
 
             <!--Third Row-->
@@ -136,7 +163,7 @@
                 <Label Content="Date of Birth" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0.4,0" >
-                <DatePicker x:Name="EmpBirthDayPicker" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                <DatePicker x:Name="EmpBirthDayPicker" Text="{Binding Path=ADDRESS}" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
             </Grid>
             <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,16,5,4.8" HorizontalAlignment="Right" Height="16" Width="46" >
                 <Label Content="Gender" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -161,19 +188,19 @@
                 <Label Content="Religion" HorizontalAlignment="Center" Width="Auto" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="3" Grid.Column="1" Margin="0,10.2,0.4,0.6">
-                <TextBox x:Name="EmpReligionTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpReligionTextBox" Text="{Binding Path=RELIGION}" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15.2,5,5.6" HorizontalAlignment="Right" Height="16" Width="63" >
                 <Label Content="Nationality" HorizontalAlignment="Center" Width="Auto" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="3" Grid.Column="3" Margin="0.4,10.2,0,0.6">
-                <TextBox x:Name="EmpNationalityTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpNationalityTextBox" Text="{Binding Path=NATIONALITY}" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15.2,5,5.6" HorizontalAlignment="Right" Height="16" Width="78" >
                 <Label Content="Marital Status" HorizontalAlignment="Center" Width="78" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="3" Grid.Column="5" Margin="0,10.2,0,0.6" Grid.ColumnSpan="2">
-                <TextBox x:Name="EmpCivilStateTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="EmpCivilStateTextBox" Text="{Binding Path=CIVIL_STATUS}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
 
             <!--Fifth Row-->
@@ -191,7 +218,7 @@
                 <Label Content="ID Number" HorizontalAlignment="Center" Width="Auto" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="4" Grid.Column="3" Margin="0.4,9.4,0,0">
-                <TextBox x:Name="IDNumberTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="IDNumberTextBox" Text="{Binding Path=ID_NUM}"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
 
             <!--Sixth Row-->
@@ -230,30 +257,30 @@
                 <Label Content="User Name" HorizontalAlignment="Center" Width="Auto" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="7" Grid.Column="3"  Margin="0.4,9.8,0,0.2" >
-                <TextBox x:Name="UserNameTextBox" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <TextBox x:Name="UserNameTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="7" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,15.8,5,4.2" HorizontalAlignment="Right" Height="16" Width="54" >
                 <Label Content="Password" HorizontalAlignment="Center" Width="Auto" FontWeight="Bold" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="7" Grid.Column="5"  Margin="0,9.8,0,0.2" Grid.ColumnSpan="2">
-                <TextBox x:Name="PasswordTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                <PasswordBox x:Name="PasswordTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
 
             <!--eight Row-->
             <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,14.8,0.4,4.4" HorizontalAlignment="Right" Height="16" Width="84" >
-                <Label Content="Hand Phone 1" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+                <Label Content="Mobile 1" FontWeight="Bold" HorizontalAlignment="Center" Width="79" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="8" Grid.Column="1" Margin="0,9.8,0.4,0" >
                 <TextBox x:Name="EmpHandPhone1TextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
             </Grid>
             <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,14.8,5,4.4" HorizontalAlignment="Right" Height="16" Width="83" >
-                <Label Content="Hand Phone 2" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+                <Label Content="Mobile 2" FontWeight="Bold" HorizontalAlignment="Center" Width="82" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="8" Grid.Column="3" Margin="0.4,9.8,0,0">
                 <TextBox x:Name="EmpHandPhone2TextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True"/>
             </Grid>
             <StackPanel Grid.Row="8" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,14.8,0,4.4" HorizontalAlignment="Right" Height="16" Width="91" >
-                <Label Content="Recedence Phn" FontWeight="Bold" HorizontalAlignment="Center" Width="86" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
+                <Label Content="Residence Phn" FontWeight="Bold" HorizontalAlignment="Center" Width="86" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="8" Grid.Column="5" Margin="0,9.8,0,0" Grid.ColumnSpan="2">
                 <TextBox x:Name="EmpRecedencePhoneTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
@@ -266,7 +293,7 @@
             <Grid Grid.Row="9" Grid.Column="1" Margin="0,10.6,0.4,-0.6">
                 <TextBox x:Name="EmpEmailTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" />
             </Grid>
-           
+
 
 
         </Grid>

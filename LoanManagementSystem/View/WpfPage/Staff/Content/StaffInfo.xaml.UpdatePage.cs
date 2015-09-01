@@ -45,6 +45,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             if (mode.Equals(Mode.NEW))
             {
                 this.mode = mode;
+                GridStaffInfo.DataContext = new employee();
             }
         }
     }
