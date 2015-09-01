@@ -10,9 +10,19 @@ namespace LoanManagementSystem.DBModel
 {
     public partial class loan
     {
-        public PagingCollection<payment> PAYMENT_LIST
+        public PagingCollection<payment> PAYMENT_LIST(int page)
         {
-            get { return PaymentService.PaymentListByLoanID(this,1); }
+            return PaymentService.PaymentListByLoanID(this,page); 
+        }
+
+        public decimal sumPaidByLoanID()
+        {
+            return PaymentService.sumPaidByLoanID(this);
+        }
+
+        public decimal totalToPayByLoanID()
+        {
+            return PaymentService.totalToPayByLoanID(this);
         }
 
         public string LSTATUS

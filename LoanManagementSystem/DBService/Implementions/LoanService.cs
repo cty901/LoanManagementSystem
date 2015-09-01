@@ -75,7 +75,7 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        internal static PagingCollection<loan> GetPaginatedQuickSearchedLoanListByPage(string _searchText, int page)
+        internal static PagingCollection<loan> GetPaginatedQuickSearchedLoanListByPage(string _searchText, int page, Boolean _loanStatusActive)
         {
             PagingCollection<loan> pager = new PagingCollection<loan>();
             int pagesize = pager.PageSize;
@@ -84,8 +84,17 @@ namespace LoanManagementSystem.DBService.Implementions
             var loans = db.loans.Where
                 (e =>
                     (
-                        e.LOAN_ID == _searchText
+                        e.LOAN_ID.Contains(_searchText)
                     )).ToList();
+            loans = loans.OrderByDescending(ln=> ln.START_DATE).ToList();
+            loans = loans.Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
+
+            if (_searchText == "")
+            {
+                loans = db.loans.ToList();
+                loans = loans.OrderByDescending(ln => ln.START_DATE).ToList();
+                loans = loans.Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
+            }
 
             //var lns = from ln in db.loans
             //            join cus in db.customers on ln.FK_CUSTOMER_ID equals cus.ID
@@ -136,8 +145,8 @@ namespace LoanManagementSystem.DBService.Implementions
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var loans = db.loans.ToList();
-            //.Where(e => e.LOAN_STATUS == true)
+            var loans = db.loans.Where(e => e.LOAN_STATUS == true).ToList();
+            loans = loans.OrderByDescending(ln => ln.START_DATE).ToList();
 
             pager.Collection = loans.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = loans.Count();

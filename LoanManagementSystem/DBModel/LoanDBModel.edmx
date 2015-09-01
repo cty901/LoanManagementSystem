@@ -202,7 +202,7 @@
           <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="PHONE_NUMBER" Type="varchar" MaxLength="45" />
           <Property Name="SEND_DATE_TIME" Type="datetime" />
-          <Property Name="CONTENT" Type="varchar" MaxLength="45" />
+          <Property Name="CONTENT" Type="varchar" MaxLength="200" />
           <Property Name="TYPE" Type="set" />
           <Property Name="SENDING_STATUS" Type="bool" />
           <Property Name="STATUS" Type="bool" />
@@ -525,7 +525,7 @@
           <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_NUMBER" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="SEND_DATE_TIME" Type="DateTime" Precision="0" />
-          <Property Name="CONTENT" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="TYPE" Type="String" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="SENDING_STATUS" Type="Boolean" />
           <Property Name="STATUS" Type="Boolean" />

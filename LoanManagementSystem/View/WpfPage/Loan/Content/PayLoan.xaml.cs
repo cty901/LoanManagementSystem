@@ -51,13 +51,13 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             if (Session.SelectedLoan != null)
             {
                 setLoanDetails(Session.SelectedLoan);
-                refreshLoanPaymentList();
+                refreshLoanPaymentList(1);
             }
         }
 
         private void setLoanDetails(loan _loan)
         {
-            CustomerLabel.Content = LetterHandller.UppercaseFirst(_loan.customer.FULLNAME);
+            CustomerLabel.Content = LetterHandller.UppercaseFirst(_loan.customer.FIRST_NAME) + " " + LetterHandller.UppercaseFirst(_loan.customer.LAST_NAME);
             CustomerCodeLabel.Content = _loan.customer.CUSTOMER_ID;
             LoanIDTextBox.Text = _loan.LOAN_ID;
             EmployeeLabel.Content = LetterHandller.UppercaseFirst(_loan.employee.FULLNAME);
@@ -97,7 +97,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             {
                 await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Payment Added Success!", MessageDialogStyle.Affirmative);
                 clearLoanIssuePage();
-                refreshLoanPaymentList();
+                refreshLoanPaymentList(1);
             }
             else
             {
@@ -105,18 +105,32 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }
         }
 
-        private void refreshLoanPaymentList()
+        private void refreshLoanPaymentList(int page)
         {
-            PagingCollection<payment> _PagingCollection = Session.SelectedLoan.PAYMENT_LIST;
+            PagingCollection<payment> _PagingCollection = Session.SelectedLoan.PAYMENT_LIST(page);
 
             List<payment> PaymentL = _PagingCollection.Collection;
             List<PageData> PagingList = _PagingCollection.PagesList;
 
             PaymentList.ItemsSource = PaymentL;
+            decimal sumPaid = Session.SelectedLoan.sumPaidByLoanID();
+            sumPaidLable.Content = sumPaid.ToString();
+
+            decimal totalPaid = Session.SelectedLoan.totalToPayByLoanID();
+            totalToPayLable.Content = totalPaid.ToString();
+
             PaymentList.Items.Refresh();
 
             PagingListView.ItemsSource = PagingList;
             PagingListView.Items.Refresh();
+        }
+
+        private void PaginationButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int selectedpage = int.Parse(button.Content.ToString());
+
+            refreshLoanPaymentList(selectedpage);
         }
 
         private void clearLoanIssuePage()

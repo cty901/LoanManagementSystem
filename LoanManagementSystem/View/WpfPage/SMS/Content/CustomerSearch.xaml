@@ -58,7 +58,7 @@
 
                 <!--Second Row-->
             </Grid>
-            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="33,10,35.2,5" Height="232" Background="#000000" >
+            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="33,10,35.2,5" Background="#000000" >
                 <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
                     <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
                         <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
