@@ -124,7 +124,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
 
             try
             {
-                if(IsValidEmail(EmailAddressTextBox.Text)
+                if(IsValidEmail(EmailAddressTextBox.Text))
                 {
                     email.ToEmail = EmailAddressTextBox.Text;
                     email.Subject = EmailSubjectTextBox.Text;
