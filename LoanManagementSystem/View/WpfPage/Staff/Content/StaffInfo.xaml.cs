@@ -63,7 +63,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 {
                     employee.ID = IDHandller.generateID("employee");
                 }
-                employee.EMP_ID = "CheckID";
+                employee.EMP_ID = EmpCodeTextBox.Text;
                 employee.FIRST_NAME = EmpFNameTextBox.Text;
                 employee.LAST_NAME = EmpLNameTextBox.Text;
                 employee.ID_TYPE=setIDType(IDTypeComboBox.Text);
@@ -84,7 +84,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 employee.PROFPIC = _imageData;
 
                 employee.ACCOUNT_TYPE = AccountTypeComboBox.Text;
-                employee.PASSWORD = PasswordTextBox.Text;
+                employee.PASSWORD = PasswordTextBox.Password;
                 employee.USERNAME = UserNameTextBox.Text;
 
                 employee.ISRESIGN = false;
@@ -107,9 +107,11 @@ namespace LoanManagementSystem.View.WpfPage.Staff
         {
             try
             {
-                employee.EMP_ID = employee.ID.ToString();
-                EmpFNameTextBox.Text=employee.FIRST_NAME;
-                EmpLNameTextBox.Text=employee.LAST_NAME;
+                //employee.EMP_ID = employee.ID.ToString();
+                //EmpFNameTextBox.Text=employee.FIRST_NAME;
+                //EmpLNameTextBox.Text=employee.LAST_NAME;
+                GridStaffInfo.DataContext = employee;
+
                 if (employee.ID_TYPE != null)
                 {
                     string ID_TYPE = employee.ID_TYPE;
@@ -119,30 +121,30 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                     }
                     else if (ID_TYPE == "dl")
                     {
-                        IDTypeComboBox.SelectedIndex=2;
+                        IDTypeComboBox.SelectedIndex = 2;
                     }
                     else if (ID_TYPE == "pp")
                     {
-                        IDTypeComboBox.SelectedIndex=1;
+                        IDTypeComboBox.SelectedIndex = 1;
                     }
                 }
 
-                IDNumberTextBox.Text=employee.ID_NUM;
+                IDNumberTextBox.Text = employee.ID_NUM;
                 EmpBirthDayPicker.SelectedDate = employee.DOB;
                 setGender(employee.GENDER);
 
-                EmpAddressTextBox.Text=employee.ADDRESS;
-                EmpHandPhone1TextBox.Text=employee.PHONE_HP1;
-                EmpHandPhone2TextBox.Text=employee.PHONE_HP2;
-                EmpRecedencePhoneTextBox.Text=employee.PHONE_RECIDENCE;
-                EmpEmailTextBox.Text=employee.EMAIL;
+                //EmpAddressTextBox.Text = employee.ADDRESS;
+                EmpHandPhone1TextBox.Text = employee.PHONE_HP1;
+                EmpHandPhone2TextBox.Text = employee.PHONE_HP2;
+                EmpRecedencePhoneTextBox.Text = employee.PHONE_RECIDENCE;
+                EmpEmailTextBox.Text = employee.EMAIL;
 
-                EmpReligionTextBox.Text =employee.RELIGION;
-                EmpCivilStateTextBox.Text=employee.CIVIL_STATUS;
-                EmpNationalityTextBox.Text=employee.NATIONALITY ;
+                EmpReligionTextBox.Text = employee.RELIGION;
+                EmpCivilStateTextBox.Text = employee.CIVIL_STATUS;
+                EmpNationalityTextBox.Text = employee.NATIONALITY;
 
-                _imageData=employee.PROFPIC;
-                ImageHandller.setProfImage(_imageData,ProfPicBox);
+                _imageData = employee.PROFPIC;
+                ImageHandller.setProfImage(_imageData, ProfPicBox);
 
                 if (employee.ACCOUNT_TYPE != null)
                 {
@@ -160,8 +162,8 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                         AccountTypeComboBox.SelectedIndex = 2;
                     }
                 }
-                PasswordTextBox.Text=employee.PASSWORD;
-                UserNameTextBox.Text=employee.USERNAME;
+                PasswordTextBox.Password = employee.PASSWORD;
+                UserNameTextBox.Text = employee.USERNAME;
 
                 employee.ISRESIGN = false;
 
@@ -170,6 +172,8 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                 employee.INSERT_USER_ID = Session.LoggedEmployee.ID;
                 employee.UPDATE_DATETIME = DateTime.Now;
                 employee.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+
+                
             }
             catch (Exception)
             {
@@ -179,14 +183,18 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
         private string getGender()
         {
-            string SEX = "";
+            string sex = "";
 
             if (GenderRBM.IsChecked == true)
-                SEX = ((Label)GenderRBM.Content).Content.ToString();
+            {
+                sex = "male";
+            }
             else if (GenderRBF.IsChecked == true)
-                SEX = ((Label)GenderRBF.Content).Content.ToString();
+            {
+                sex = "female";
+            }
 
-            return SEX;
+            return sex;
         }
 
         private void setGender(string gender)
@@ -256,39 +264,78 @@ namespace LoanManagementSystem.View.WpfPage.Staff
 
         private async void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.mode==Mode.NEW)
+            if (ValidData())
             {
-                employee emp = GetEmployeeDetails();
-                if (EmployeeService.InsertEmployee(emp) == 1)
+                if (this.mode == Mode.NEW)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);                   
-                    QuickSearchPageStaff.Instance.RefreshPage();
+                    employee emp = GetEmployeeDetails();
+                    if (EmployeeService.InsertEmployee(emp) == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
+                        QuickSearchPageStaff.Instance.RefreshPage();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    }
                 }
-                else
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
-                }
-            }
 
-            else if (this.mode == Mode.EDIT)
-            {
-                employee emp = GetEmployeeDetails();
-                if (EmployeeService.UpdateEmployee(emp) == 1)
+                else if (this.mode == Mode.EDIT)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Update Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
-                    MainWindow.Instance.setLoginDeatails();
-                    QuickSearchPageStaff.Instance.RefreshPage();
-                }
-                else
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Employe Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    employee emp = GetEmployeeDetails();
+                    if (EmployeeService.UpdateEmployee(emp) == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Employee Update Success", "Employee Saved Successfully!", MessageDialogStyle.Affirmative);
+                        MainWindow.Instance.setLoginDeatails();
+                        QuickSearchPageStaff.Instance.RefreshPage();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Employee Update Error", "Please check Details", MessageDialogStyle.Affirmative);
+                    }
                 }
             }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync("Employee Error", "Please check errors", MessageDialogStyle.Affirmative);
+            }
+        }
+
+        private bool ValidData()
+        {
+            ForceValidation();
+           
+            if (Validation.GetHasError(EmpFNameTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(EmpLNameTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(EmpAddressTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(EmpCodeTextBox))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void ForceValidation()
+        {
+            EmpFNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            EmpLNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            EmpCodeTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            EmpAddressTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
         }
 
         private void EmpCodeGenButton_Click(object sender, RoutedEventArgs e)
         {
             EmpCodeTextBox.Text = IDHandller.generateCode("employee");
         }
+
     }
 }

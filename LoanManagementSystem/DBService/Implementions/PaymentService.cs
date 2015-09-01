@@ -90,5 +90,23 @@ namespace LoanManagementSystem.DBService.Implementions
 
             return pager;
         }
+        
+
+        internal static Decimal sumPaidByLoanID(loan loan)
+        {
+            List<payment> payments  = db.payments.Where(pay => pay.FK_LOAN_ID == loan.ID).ToList();
+            return payments.Sum(pl => pl.AMOUNT ?? 0);
+        }
+
+        internal static Decimal totalToPayByLoanID(loan loan)
+        {
+            List<payment> payments = db.payments.Where(pay => pay.FK_LOAN_ID == loan.ID).ToList();
+
+            TimeSpan difference = loan.END_DATE.Value.Date - loan.START_DATE.Value.Date;
+            decimal days = Convert.ToDecimal(difference.TotalDays);
+
+            decimal d=Convert.ToDecimal(loan.INSTALLMENT) * days;
+            return d;
+        }
     }
 }

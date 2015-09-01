@@ -1,9 +1,9 @@
 ﻿using LoanManagementSystem.DBModel;
 using LoanManagementSystem.DBService.Implementions;
+using LoanManagementSystem.Model.SMSModel;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +32,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private loan_type _selectedLoanType;
         private Mode _viewmode;
         private loan _selectedLoan;
+        private sm _sms;
 
         public Mode ViewMode
         {
@@ -143,6 +144,17 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 return _instance;
             }
         }
+        public sm SMS
+        {
+            get
+            {
+                return _sms;
+            }
+            set
+            {
+                _sms = value;
+            }
+        }
 
         private void clearData()
         {
@@ -203,6 +215,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 if (LoanService.InsertLoan(_loan) == 1)
                 {
                     await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Added Success!", MessageDialogStyle.Affirmative);
+                    SendConfirmationSMS();
                     clearLoanIssuePage();
                     MultiSearch.Instance.ClearSearchResult();
                 }
@@ -219,6 +232,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 if (LoanService.UpdateLoan(_loan) == 1)
                 {
                     await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Edit Success!", MessageDialogStyle.Affirmative);
+                    SendConfirmationSMS();
                 }
                 else
                 {
@@ -268,6 +282,54 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                     LoanCodeTextBox.Text = _selectedLoan.LOAN_ID;
                 }
             }        
+        }
+        private void SendConfirmationSMS()
+        {
+            createSMS();
+            if (SMS != null)
+            {
+                int result = SMSManager.Instance.SendASMS(SMS.PHONE_NUMBER, SMS.CONTENT);
+                if (result == 1)
+                {
+                    SMS.SENDING_STATUS = true;
+                    SMS.SEND_DATE_TIME = System.DateTime.Now;
+                    SMSService.InsertSMS(SMS);
+                    SMS = null;
+                }
+                else
+                {
+                    SMS.SENDING_STATUS = false;
+                    SMS.SEND_DATE_TIME = System.DateTime.Now;
+                    SMSService.InsertSMS(SMS);
+                }
+            }
+        }
+
+        private void createSMS()
+        {
+            sm _nsms = new sm();
+
+            try
+            {
+                _nsms.ID = IDHandller.generateID("sms");
+
+                _nsms.PHONE_NUMBER = SelectedCustomer.PHONE_HP1;
+                _nsms.CONTENT = "Dear "+LetterHandller.Uppercase(SelectedCustomer.FULLNAME)+", We confirm loan of Rs."+AmountTextBox.Text+" has been granted."+Environment.NewLine+Messages.TTL_MSG;
+                _nsms.TYPE = "send";
+                _nsms.SENDING_STATUS = true;
+
+                _nsms.STATUS = true;
+                _nsms.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                _nsms.INSERT_DATETIME = System.DateTime.Now;
+
+                _nsms.FK_EMPLOYEE_ID = Session.LoggedEmployee.ID;
+                _nsms.FK_CUSTOMER_ID = SelectedCustomer.ID;
+                SMS = _nsms;
+            }
+            catch
+            {
+                SMS = null;
+            }
         }
     }
 }

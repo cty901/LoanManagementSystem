@@ -11,6 +11,7 @@ using LoanManagementSystem.View.WpfPage;
 using MahApps.Metro.Controls.Dialogs;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.Properties;
+using LoanManagementSystem.Model.SMSModel;
 
 
 namespace LoanManagementSystem.View.WpfWindow
@@ -27,7 +28,8 @@ namespace LoanManagementSystem.View.WpfWindow
             InitializeComponent();
 
             ContentFrame.Content = DashBoardPage.Instance;
-            setLoginDeatails();            
+            setLoginDeatails();
+            SMSManager sm=SMSManager.Instance;
             instance = this;
         }
 

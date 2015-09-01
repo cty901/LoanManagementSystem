@@ -26,6 +26,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
         private bool _isSearchedPerformed = false;
         private string _searchText = "";
+        bool _loanStatusActive = true;
 
         private QuickSearchPageLoan()
         {
@@ -47,6 +48,13 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
 
         private void QuickSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            _isSearchedPerformed = true;
+            _searchText = QuickSearchTextBox.Text;
+            RefreshLoanListByPage(1);
+        }
+
+        private void QuickSearchButton_Click(object sender, TextChangedEventArgs e)
         {
             _isSearchedPerformed = true;
             _searchText = QuickSearchTextBox.Text;
@@ -83,14 +91,8 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         {
             if (_isSearchedPerformed)
             {
-                if (_searchText != "")
-                {
-                    _PagingCollection = LoanService.GetPaginatedQuickSearchedLoanListByPage(_searchText, page);
-                }
-                else
-                {
-                    _PagingCollection = LoanService.GetPaginatedLoanListByPage(page);
-                }
+                    _PagingCollection = LoanService.GetPaginatedQuickSearchedLoanListByPage(_searchText, page, _loanStatusActive);
+                
             }
             else
             {
@@ -110,6 +112,16 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         public void RefreshPage()
         {
             RefreshLoanListByPage(1);
+        }
+
+        private void ActiveCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _loanStatusActive = true;
+        }
+
+        private void ActiveCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _loanStatusActive = false;
         }
 
     }

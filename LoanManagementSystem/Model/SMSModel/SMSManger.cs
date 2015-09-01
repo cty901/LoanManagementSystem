@@ -15,10 +15,11 @@ namespace LoanManagementSystem.Model.SMSModel
         HSPAModem WorkingModem;
         SMS s;
         Boolean _SMSMangerStatus=false;
+        Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = new Doerit.SMSLib.DoerSMSDeviceManager();
 
         private SMSManager()
         {
-
+            DeviceManager.PropertyChanged += getModems;
         }
 
         public static SMSManager Instance
@@ -28,7 +29,7 @@ namespace LoanManagementSystem.Model.SMSModel
                 if (_instance == null)
                 {
                     _instance = new SMSManager();
-                    _instance.getModems();
+                    _instance.getModems(_instance,EventArgs.Empty);
                     _instance.setModem();
                 }
                 return _instance;
@@ -36,9 +37,8 @@ namespace LoanManagementSystem.Model.SMSModel
       
         }
 
-        public void getModems()
+        public void getModems(object source,EventArgs e)
         {
-            Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = new Doerit.SMSLib.DoerSMSDeviceManager();
             this.modems = DeviceManager.getData();
         }
 
