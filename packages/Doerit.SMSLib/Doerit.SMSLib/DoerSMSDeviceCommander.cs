@@ -152,30 +152,49 @@ namespace Doerit.SMSLib
             }
         }
 
-        //public static string get_Credit_Limit(SerialPort comPort)
-        //{
-        //    string operator_name = Find_Operator_Name(comPort);
+        public static string get_Credit_Limit(string comPort)
+        {
+            string operator_name = Find_Operator_Name(comPort);
+            SerialPort port = new SerialPort();
+            string msg = "";
 
-        //    if (operator_name == "Mobitel")
-        //    {
-        //        comPort.WriteLine("AT+CUSD=1,\"AA180C3652281A\",15\r");
-        //        System.Threading.Thread.Sleep(5000);
-        //        operator_name = port.ReadExisting();
-        //    }
+            try
+            {
+                port.PortName = comPort;
+                if (!port.IsOpen)
+                {
+                    port.Open();
+                }
+                if (port.IsOpen == true)
+                {
+                    if (operator_name == "Mobitel")
+                    {
+                        port.Write("AT+CMGF=1\r");
+                        Thread.Sleep(100);
+                        port.WriteLine("AT+CUSD=1,\"235ACD3602\",15\r");
+                        Thread.Sleep(100);
+                        msg = port.ReadExisting();
+                    }
+                    else if (operator_name == "Dialog")
+                    {
+                        port.Write("AT+CMGF=1\r");
+                        Thread.Sleep(100);
+                        port.WriteLine("AT+CUSD=1,\"235ACD3602\",15\r");
+                        Thread.Sleep(100);
+                        msg = port.ReadExisting();
+                    }
+                }
+                return msg;
+            }
+            catch
+            {
+                return "Code_Error";
+            }
+            finally
+            {
+                port.Close();
+            }
 
-        //    if (sub[1] == "41302")
-        //    {
-        //        Console.WriteLine("dialog");
-        //        port.WriteLine("AT+CUSD=1,\"AA11AD661B291A\",15\r");
-        //        System.Threading.Thread.Sleep(5000);
-        //        operator_name = port.ReadExisting();
-        //    }
-        //    else
-        //    {
-        //        operator_name = "Unknown";
-        //    }
-
-        //    return operator_name;
-        //}
+        }
     }
 }
