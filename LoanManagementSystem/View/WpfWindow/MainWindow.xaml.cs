@@ -181,6 +181,10 @@ namespace LoanManagementSystem.View.WpfWindow
                 else
                 {
                     ShouldClose = true;
+
+                    //stop Device watcher before SMSManger
+                    SMSManager.Instance.stopWacher();
+
                     Application.Current.Shutdown();
                 }
             }

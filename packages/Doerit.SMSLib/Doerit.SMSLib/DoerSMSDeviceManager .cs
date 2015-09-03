@@ -66,7 +66,7 @@ namespace Doerit.SMSLib
             // Stop the WMI monitors when this instance is disposed.
             _deviceWatcher.Stop();
         }
-
+        
         //  public delegate void PropertyChangedEventHandler(object source, EventArgs e);
         /// <summary>
         ///     Occurs when a property value changes.

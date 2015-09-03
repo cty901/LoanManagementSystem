@@ -22,6 +22,11 @@ namespace LoanManagementSystem.Model.SMSModel
             DeviceManager.PropertyChanged += getModems;
         }
 
+        public void stopWacher()
+        {
+            DeviceManager.Dispose();
+        }
+
         public static SMSManager Instance
         {
             get
