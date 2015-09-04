@@ -76,7 +76,9 @@
     <Compile Include="ContactManager.cs" />
     <Compile Include="DoerSMSDeviceCommander.cs" />
     <Compile Include="DoerSMSDeviceManager .cs" />
+    <Compile Include="HexadecimalEncoding.cs" />
     <Compile Include="HSPAModem.cs" />
+    <Compile Include="PduBitPacker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMS.cs" />
     <Compile Include="SMSManager.cs" />

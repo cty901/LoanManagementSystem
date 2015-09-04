@@ -13,15 +13,27 @@ namespace Doerit.SMSLib
         public static string SMSDevice_Status(string comPort)
         {
             SerialPort port = new SerialPort();
-            port.PortName = comPort;
-            if (!port.IsOpen)
+            String operatorString = "Error";
+            try
             {
-                port.Open();
+                port.PortName = comPort;
+                if (!port.IsOpen)
+                {
+                    port.Open();
+                }
+                port.WriteLine("AT+CREG?\r");
+                Thread.Sleep(2000);
+                operatorString = port.ReadExisting();
+                return operatorString;
             }
-            port.WriteLine("AT+CREG?\r");
-            Thread.Sleep(2000);
-            String operatorString = port.ReadExisting();
-            return operatorString;
+            catch
+            {
+                return operatorString;
+            }
+            finally
+            {
+                port.Close();
+            }
         }
         public static string Find_Operator_Name(string comPorts)
         {
@@ -34,8 +46,9 @@ namespace Doerit.SMSLib
                 {
                     port.Open();
                 }
+                Thread.Sleep(100);
                 port.WriteLine("AT+COPS?\r");
-                Thread.Sleep(2000);
+                Thread.Sleep(500);
                 String operatorString = port.ReadExisting();
 
                 string[] sub = operatorString.Split('\"');
@@ -47,7 +60,7 @@ namespace Doerit.SMSLib
                     operator_name = "Mobitel";
                 }
 
-                else if (sub[1] == "41302")
+                else if (sub[1] == "41302" || sub[1]=="SRI DIALOG")
                 {
                     //    Console.WriteLine("dialog");
                     //    port.WriteLine("AT+CUSD=1,\"AA11AD661B291A\",15\r");
@@ -131,7 +144,9 @@ namespace Doerit.SMSLib
                     port.Write(MyMessage + "\x1A");
                     Thread.Sleep(100);
                     string msg=port.ReadExisting();
-                    if (msg.Contains("OK"))
+                    var firstIndex = msg.IndexOf("OK");
+
+                    if (firstIndex != msg.LastIndexOf("OK") && firstIndex != -1)
                     {
                         result=1;
                     }
@@ -182,6 +197,11 @@ namespace Doerit.SMSLib
                         port.WriteLine("AT+CUSD=1,\"235ACD3602\",15\r");
                         Thread.Sleep(100);
                         msg = port.ReadExisting();
+                        byte[] packedBytes = PduBitPacker.ConvertHexToBytes(msg);
+                        byte[] unpackedBytes = PduBitPacker.UnpackBytes(packedBytes);
+                        string s=PduBitPacker.ConvertBytesToHex(unpackedBytes);
+                        string result = HexadecimalEncoding.HexToString(s);
+                        
                     }
                 }
                 return msg;

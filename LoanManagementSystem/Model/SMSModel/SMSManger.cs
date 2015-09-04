@@ -34,8 +34,7 @@ namespace LoanManagementSystem.Model.SMSModel
                 if (_instance == null)
                 {
                     _instance = new SMSManager();
-                    _instance.getModems(_instance,EventArgs.Empty);
-                    _instance.setModem();
+                    _instance.getModems(_instance,EventArgs.Empty);                    
                 }
                 return _instance;
             }
@@ -44,7 +43,8 @@ namespace LoanManagementSystem.Model.SMSModel
 
         public void getModems(object source,EventArgs e)
         {
-            this.modems = DeviceManager.getData();
+            _instance.modems = DeviceManager.getData();
+            _instance.setModem();
         }
 
         public void setModem()
