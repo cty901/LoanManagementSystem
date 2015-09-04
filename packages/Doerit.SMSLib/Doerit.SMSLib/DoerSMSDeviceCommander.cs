@@ -13,27 +13,15 @@ namespace Doerit.SMSLib
         public static string SMSDevice_Status(string comPort)
         {
             SerialPort port = new SerialPort();
-            String operatorString = "Error";
-            try
+            port.PortName = comPort;
+            if (!port.IsOpen)
             {
-                port.PortName = comPort;
-                if (!port.IsOpen)
-                {
-                    port.Open();
-                }
-                port.WriteLine("AT+CREG?\r");
-                Thread.Sleep(2000);
-                operatorString = port.ReadExisting();
-                return operatorString;
+                port.Open();
             }
-            catch
-            {
-                return operatorString;
-            }
-            finally
-            {
-                port.Close();
-            }
+            port.WriteLine("AT+CREG?\r");
+            Thread.Sleep(2000);
+            String operatorString = port.ReadExisting();
+            return operatorString;
         }
         public static string Find_Operator_Name(string comPorts)
         {
