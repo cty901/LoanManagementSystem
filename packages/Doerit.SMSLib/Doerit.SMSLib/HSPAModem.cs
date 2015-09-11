@@ -28,6 +28,18 @@ namespace Doerit.SMSLib
             this.ProviderName = proname;
             this.AttachedTo = at;
         }
+        public HSPAModem()
+        {
+            this.Name = "No Device";
+            this.DeviceID = "No Device";
+            this.Caption = "No Device";
+            this.Description = "No Device";
+            this.Model = "No Device";
+            this.ProviderName = "No Device";
+            this.AttachedTo = "No Device";
+            this.SignalStrength = "0";
+            this.Network = "No Service";
+        }
         int _number = 3;
         public int Test
         {
@@ -69,7 +81,7 @@ namespace Doerit.SMSLib
             }
             else
             {
-                this.SignalStrength = "10";
+                this.SignalStrength = "0";
             }
 
         }

@@ -152,6 +152,9 @@
     <Compile Include="DBService\Implementions\PaymentService.cs" />
     <Compile Include="DBService\Implementions\SMSService.cs" />
     <Compile Include="Model\SMSModel\SMSManger.cs" />
+    <Compile Include="UserControls\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\EmailHandler.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />
@@ -246,6 +249,9 @@
       <DependentUpon>StaffInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Staff\Content\StaffInfo.xaml.UpdatePage.cs" />
+    <Compile Include="View\WpfWindow\ContainerWindows\AreaCodeWindow.xaml.cs">
+      <DependentUpon>AreaCodeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -278,6 +284,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -382,6 +392,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WpfPage\Staff\Content\StaffInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WpfWindow\ContainerWindows\AreaCodeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -674,6 +688,9 @@
       <Project>{e3e56447-2cde-4746-9dd0-e84e7d41d09c}</Project>
       <Name>Doerit.SMSLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no_signal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,7 +21,7 @@ namespace Doerit.SMSLib
 
             public void setModems()
             {
-                Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = new Doerit.SMSLib.DoerSMSDeviceManager();
+                Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = Doerit.SMSLib.DoerSMSDeviceManager.Instance;
                 this.modems = DeviceManager.getData();
             }
 

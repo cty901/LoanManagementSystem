@@ -2,6 +2,7 @@
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfWindow;
+using LoanManagementSystem.View.WpfWindow.ContainerWindows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -318,7 +319,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         private void CustomerCodeGenButton_Click(object sender, RoutedEventArgs e)
         {
-            CusCodeTextBox.Text = IDHandller.generateCode("customer");
+            // CusCodeTextBox.Text = IDHandller.generateCode("customer");
+            AreaCodeWindow.Instance.Show();
         }        
     }
 }

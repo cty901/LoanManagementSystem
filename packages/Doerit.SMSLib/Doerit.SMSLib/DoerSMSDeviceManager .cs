@@ -32,7 +32,22 @@ namespace Doerit.SMSLib
         /// <summary>
         ///     Initialises a new instance of the <see cref="DoerSMSDeviceManager"/> class.
         /// </summary>
-        public DoerSMSDeviceManager()
+        /// 
+        private static DoerSMSDeviceManager _instance;
+
+        public static DoerSMSDeviceManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new DoerSMSDeviceManager();
+                }
+                return _instance;
+            }
+        }
+
+        private DoerSMSDeviceManager()
         {
             // Attach an event listener to the device watcher.
             _deviceWatcher.EventArrived += _deviceWatcher_EventArrived;
@@ -80,14 +95,18 @@ namespace Doerit.SMSLib
         /// <param name="e">The <see cref="EventArrivedEventArgs"/> instance containing the event data.</param>
         private void _deviceWatcher_EventArrived(object sender, EventArrivedEventArgs e)
         {
-            if (count == 5)
+            if(count == 5)
             {
-                DiscoverDoerSMSDevices();
+            DiscoverDoerSMSDevices();
                 count++;
             }
             else
             {
                 count++;
+                if (count > 5)
+                {
+                    count = 0;
+                }
             }
         }
 

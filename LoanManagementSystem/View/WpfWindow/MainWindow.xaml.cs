@@ -12,6 +12,8 @@ using MahApps.Metro.Controls.Dialogs;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.Properties;
 using LoanManagementSystem.Model.SMSModel;
+using System.ComponentModel;
+using System.Threading;
 
 
 namespace LoanManagementSystem.View.WpfWindow
@@ -22,15 +24,28 @@ namespace LoanManagementSystem.View.WpfWindow
     public partial class MainWindow : MetroWindow
     {
         private static MainWindow instance;
+        private SMSManager sm = SMSManager.Instance;
+        Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = Doerit.SMSLib.DoerSMSDeviceManager.Instance;
 
         private MainWindow()
         {
             InitializeComponent();
-
             ContentFrame.Content = DashBoardPage.Instance;
             setLoginDeatails();
-            SMSManager sm=SMSManager.Instance;
+            WorkingModemGrid.DataContext = sm.WorkingModem;
             instance = this;
+            sm.PropertyChanged += setWorkingModem;
+        }
+        public void setWorkingModem(object source, EventArgs e)
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (o, ea) =>
+            {
+                //no direct interaction with the UI is allowed from this method
+                Dispatcher.Invoke((Action)(() => WorkingModemGrid.DataContext = sm.WorkingModem));
+            };
+            //set the IsBusy before you start the thread
+            worker.RunWorkerAsync();
         }
 
         public static MainWindow Instance
@@ -193,6 +208,11 @@ namespace LoanManagementSystem.View.WpfWindow
 
             }
             ShouldClose = null;
+        }
+
+        private void UserSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

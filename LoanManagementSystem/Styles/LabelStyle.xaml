@@ -93,5 +93,13 @@
         <Setter Property="Margin" Value="{StaticResource CommonMargin}"/>
     </Style>
 
+    <Style x:Key="HSPALabel" TargetType="Label">
+        <Setter Property="Foreground" Value="#000000" />
+    </Style>
+
+    <Style x:Key="HSPADetailsLabel" TargetType="Label" BasedOn="{StaticResource HSPALabel}">
+        <Setter Property="FontSize" Value="8"  />
+        <Setter Property="VerticalContentAlignment" Value="Center"  />
+    </Style>
 
 </ResourceDictionary>

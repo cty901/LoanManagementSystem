@@ -4,18 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Doerit.SMSLib;
+using System.Diagnostics;
+using LoanManagementSystem.View.WpfWindow;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace LoanManagementSystem.Model.SMSModel
 {
     public class SMSManager
     {
         private static SMSManager _instance;
-        Dictionary<string, HSPAModem> modems;
+        public Dictionary<string, HSPAModem> modems { get; set; }
         List<SMSSender> senders = new List<SMSSender>();
-        HSPAModem WorkingModem;
+        private HSPAModem _workingModem;
+
+        public HSPAModem WorkingModem 
+        {
+            get
+            {
+                return _workingModem;
+            }
+            set
+            {
+                _workingModem = value;
+                OnPropertyChanged();
+            }
+        }
         SMS s;
         Boolean _SMSMangerStatus=false;
-        Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = new Doerit.SMSLib.DoerSMSDeviceManager();
+        Doerit.SMSLib.DoerSMSDeviceManager DeviceManager = DoerSMSDeviceManager.Instance;
 
         private SMSManager()
         {
@@ -34,7 +51,7 @@ namespace LoanManagementSystem.Model.SMSModel
                 if (_instance == null)
                 {
                     _instance = new SMSManager();
-                    _instance.getModems(_instance,EventArgs.Empty);                    
+                    _instance.getModems(_instance,EventArgs.Empty);
                 }
                 return _instance;
             }
@@ -51,20 +68,26 @@ namespace LoanManagementSystem.Model.SMSModel
         {
             _SMSMangerStatus = false;
 
-            foreach (var modem in modems)
+            if (modems.Count <= 0)
             {
-                if (modem.Value.Network == "Dialog")
+                WorkingModem = new HSPAModem();
+            }
+            else
+            {
+                foreach (var modem in modems)
                 {
-                    WorkingModem = modem.Value;
-                    _SMSMangerStatus = true;
-                }
-                else if(modem.Value.Network == "Mobitel")
-                {
-                    WorkingModem = modem.Value;
-                    _SMSMangerStatus = true;
+                    if (modem.Value.Network == "Dialog")
+                    {
+                        WorkingModem = modem.Value;
+                        _SMSMangerStatus = true;
+                    }
+                    else if (modem.Value.Network == "Mobitel")
+                    {
+                        WorkingModem = modem.Value;
+                        _SMSMangerStatus = true;
+                    }
                 }
             }
-
         }
 
         public int SendASMS(string _phonenumber,string _message)
@@ -75,6 +98,16 @@ namespace LoanManagementSystem.Model.SMSModel
                 result = DoerSMSDeviceCommander.SendSMS(_phonenumber,_message, _instance.WorkingModem.AttachedTo);
             }
             return result;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            //   if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
