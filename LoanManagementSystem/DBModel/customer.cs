@@ -21,7 +21,7 @@ namespace LoanManagementSystem.DBModel
         }
     
         public string ID { get; set; }
-        public string CUSTOMER_ID { get; set; }
+        public int CUSTOMER_ID { get; set; }
         public string ID_TYPE { get; set; }
         public string ID_NUM { get; set; }
         public string FIRST_NAME { get; set; }
@@ -43,7 +43,9 @@ namespace LoanManagementSystem.DBModel
         public string UPDATE_USER_ID { get; set; }
         public Nullable<System.DateTime> INSERT_DATETIME { get; set; }
         public Nullable<System.DateTime> UPDATE_DATETIME { get; set; }
+        public string FK_AREA_ID { get; set; }
     
+        public virtual area area { get; set; }
         public virtual ICollection<loan> loans { get; set; }
         public virtual ICollection<sm> sms { get; set; }
     }

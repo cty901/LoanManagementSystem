@@ -101,6 +101,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBModel\area.cs">
+      <DependentUpon>LoanDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModel\branch.cs">
       <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
@@ -168,6 +171,9 @@
     <Compile Include="Util\Session.cs" />
     <Compile Include="View\WpfPage\Settings\Content\ContentPageSettings.xaml.cs">
       <DependentUpon>ContentPageSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Settings\Content\AddArea.xaml.cs">
+      <DependentUpon>AddArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -249,9 +255,6 @@
       <DependentUpon>StaffInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WpfPage\Staff\Content\StaffInfo.xaml.UpdatePage.cs" />
-    <Compile Include="View\WpfWindow\ContainerWindows\AreaCodeWindow.xaml.cs">
-      <DependentUpon>AreaCodeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\WpfWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -292,6 +295,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\WpfPage\Settings\Content\ContentPageSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Settings\Content\AddArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -395,10 +402,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\WpfWindow\ContainerWindows\AreaCodeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\WpfWindow\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -455,6 +458,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="DBModel\Validation\employee.validation.cs" />
     <EntityDeploy Include="DBModel\LoanDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LoanDBModel.Designer.cs</LastGenOutput>
@@ -472,7 +476,6 @@
       <DependentUpon>LoanDBModel.edmx</DependentUpon>
       <LastGenOutput>LoanDBModel.cs</LastGenOutput>
     </None>
-    <Compile Include="DBModel\Validation\employee.validation.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -489,6 +492,7 @@
   <ItemGroup>
     <Folder Include="DBService\Interfaces\" />
     <Folder Include="Fonts\" />
+    <Folder Include="View\WpfWindow\ContainerWindows\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfWindow\LoginWindow\appbar.key.png" />
@@ -691,6 +695,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\no_signal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\common\appbar.save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\common\appbar.cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

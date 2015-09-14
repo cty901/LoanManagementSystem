@@ -2,7 +2,6 @@
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfWindow;
-using LoanManagementSystem.View.WpfWindow.ContainerWindows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -88,7 +87,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 customer _customer = new customer();
 
                 _customer.ID=IDHandller.generateID("customer");
-                _customer.CUSTOMER_ID = CusCodeTextBox.Text;
+                //_customer.CUSTOMER_ID = CusCodeTextBox.Text;
 
                 _customer.FIRST_NAME = CusFNameTextBox.Text;
                 _customer.LAST_NAME = CusLNameTextBox.Text;
@@ -126,7 +125,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             try
             {
-                CusCodeTextBox.Text = _customer.CUSTOMER_ID;
+                //CusCodeTextBox.Text = _customer.CUSTOMER_ID;
 
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
                 CusLNameTextBox.Text=_customer.LAST_NAME;
@@ -320,7 +319,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         private void CustomerCodeGenButton_Click(object sender, RoutedEventArgs e)
         {
             // CusCodeTextBox.Text = IDHandller.generateCode("customer");
-            AreaCodeWindow.Instance.Show();
         }        
     }
 }

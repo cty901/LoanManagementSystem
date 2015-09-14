@@ -90,7 +90,7 @@ namespace LoanManagementSystem.DBService.Implementions
                     (e =>
                         (e.FIRST_NAME == _searchText ||
                             e.LAST_NAME == _searchText ||
-                            e.CUSTOMER_ID == _searchText ||
+                            //e.CUSTOMER_ID == _searchText ||
                             e.PHONE_HP1 == _searchText ||
                             e.PHONE_HP2 == _searchText ||
                             e.PHONE_RECIDENCE == _searchText

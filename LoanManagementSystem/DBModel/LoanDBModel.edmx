@@ -6,6 +6,7 @@
     <edmx:StorageModels>
       <Schema Namespace="loandbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="loandbModelStoreContainer">
+          <EntitySet Name="area" EntityType="loandbModel.Store.area" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="branch" EntityType="loandbModel.Store.branch" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="customer" EntityType="loandbModel.Store.customer" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="employee" EntityType="loandbModel.Store.employee" store:Type="Tables" Schema="loandb" />
@@ -14,6 +15,10 @@
           <EntitySet Name="loan_type" EntityType="loandbModel.Store.loan_type" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="payment" EntityType="loandbModel.Store.payment" store:Type="Tables" Schema="loandb" />
           <EntitySet Name="sms" EntityType="loandbModel.Store.sms" store:Type="Tables" Schema="loandb" />
+          <AssociationSet Name="fk_customer_area1" Association="loandbModel.Store.fk_customer_area1">
+            <End Role="area" EntitySet="area" />
+            <End Role="customer" EntitySet="customer" />
+          </AssociationSet>
           <AssociationSet Name="fk_employee_cash_employee" Association="loandbModel.Store.fk_employee_cash_employee">
             <End Role="employee" EntitySet="employee" />
             <End Role="employee_cash" EntitySet="employee_cash" />
@@ -47,6 +52,20 @@
             <End Role="sms" EntitySet="sms" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="AREA_CODE" Type="varchar" MaxLength="45" />
+          <Property Name="AREA_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="STATUS" Type="bool" />
+          <Property Name="INSERT_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
+          <Property Name="INSERT_DATETIME" Type="datetime" />
+          <Property Name="UPDATE_DATETIME" Type="datetime" />
+        </EntityType>
         <EntityType Name="branch">
           <Key>
             <PropertyRef Name="ID" />
@@ -67,7 +86,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
-          <Property Name="CUSTOMER_ID" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
           <Property Name="ID_TYPE" Type="set" Nullable="false" />
           <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
@@ -89,6 +108,7 @@
           <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="32" />
           <Property Name="INSERT_DATETIME" Type="datetime" />
           <Property Name="UPDATE_DATETIME" Type="datetime" />
+          <Property Name="FK_AREA_ID" Type="varchar" MaxLength="32" />
         </EntityType>
         <EntityType Name="employee">
           <Key>
@@ -213,6 +233,18 @@
           <Property Name="FK_EMPLOYEE_ID" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="FK_CUSTOMER_ID" Type="varchar" Nullable="false" MaxLength="32" />
         </EntityType>
+        <Association Name="fk_customer_area1">
+          <End Role="area" Type="loandbModel.Store.area" Multiplicity="0..1" />
+          <End Role="customer" Type="loandbModel.Store.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="FK_AREA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_employee_cash_employee">
           <End Role="employee" Type="loandbModel.Store.employee" Multiplicity="1" />
           <End Role="employee_cash" Type="loandbModel.Store.employee_cash" Multiplicity="*" />
@@ -315,6 +347,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="loandbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="loandbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="areas" EntityType="loandbModel.area" />
           <EntitySet Name="branches" EntityType="loandbModel.branch" />
           <EntitySet Name="customers" EntityType="loandbModel.customer" />
           <EntitySet Name="employees" EntityType="loandbModel.employee" />
@@ -323,6 +356,10 @@
           <EntitySet Name="loan_type" EntityType="loandbModel.loan_type" />
           <EntitySet Name="payments" EntityType="loandbModel.payment" />
           <EntitySet Name="sms" EntityType="loandbModel.sm" />
+          <AssociationSet Name="fk_customer_area1" Association="loandbModel.fk_customer_area1">
+            <End Role="area" EntitySet="areas" />
+            <End Role="customer" EntitySet="customers" />
+          </AssociationSet>
           <AssociationSet Name="fk_loan_branch1" Association="loandbModel.fk_loan_branch1">
             <End Role="branch" EntitySet="branches" />
             <End Role="loan" EntitySet="loans" />
@@ -356,6 +393,21 @@
             <End Role="payment" EntitySet="payments" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="AREA_CODE" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="AREA_NAME" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="REMARK" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="INSERT_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customers" Relationship="loandbModel.fk_customer_area1" FromRole="area" ToRole="customer" />
+        </EntityType>
         <EntityType Name="branch">
           <Key>
             <PropertyRef Name="ID" />
@@ -377,7 +429,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="CUSTOMER_ID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
           <Property Name="ID_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
@@ -399,6 +451,8 @@
           <Property Name="UPDATE_USER_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="INSERT_DATETIME" Type="DateTime" Precision="0" />
           <Property Name="UPDATE_DATETIME" Type="DateTime" Precision="0" />
+          <Property Name="FK_AREA_ID" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="area" Relationship="loandbModel.fk_customer_area1" FromRole="customer" ToRole="area" />
           <NavigationProperty Name="loans" Relationship="loandbModel.fk_loan_customer1" FromRole="customer" ToRole="loan" />
           <NavigationProperty Name="sms" Relationship="loandbModel.fk_SMS_customer1" FromRole="customer" ToRole="sms" />
         </EntityType>
@@ -538,6 +592,18 @@
           <NavigationProperty Name="customer" Relationship="loandbModel.fk_SMS_customer1" FromRole="sms" ToRole="customer" />
           <NavigationProperty Name="employee" Relationship="loandbModel.fk_SMS_employee1" FromRole="sms" ToRole="employee" />
         </EntityType>
+        <Association Name="fk_customer_area1">
+          <End Role="area" Type="loandbModel.area" Multiplicity="0..1" />
+          <End Role="customer" Type="loandbModel.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="FK_AREA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_loan_branch1">
           <End Role="branch" Type="loandbModel.branch" Multiplicity="1" />
           <End Role="loan" Type="loandbModel.loan" Multiplicity="*" />
@@ -640,6 +706,21 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="loandbModelStoreContainer" CdmEntityContainer="loandbEntities">
+          <EntitySetMapping Name="areas">
+            <EntityTypeMapping TypeName="loandbModel.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AREA_CODE" ColumnName="AREA_CODE" />
+                <ScalarProperty Name="AREA_NAME" ColumnName="AREA_NAME" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="INSERT_USER_ID" ColumnName="INSERT_USER_ID" />
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
+                <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="branches">
             <EntityTypeMapping TypeName="loandbModel.branch">
               <MappingFragment StoreEntitySet="branch">
@@ -682,6 +763,7 @@
                 <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
                 <ScalarProperty Name="INSERT_DATETIME" ColumnName="INSERT_DATETIME" />
                 <ScalarProperty Name="UPDATE_DATETIME" ColumnName="UPDATE_DATETIME" />
+                <ScalarProperty Name="FK_AREA_ID" ColumnName="FK_AREA_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

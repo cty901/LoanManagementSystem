@@ -21,7 +21,8 @@
                 <ResourceDictionary Source="Styles/TabStyle.xaml"/>
                 <ResourceDictionary Source="Styles/MenuBarStyle.xaml"/>
 
-
+                <ResourceDictionary Source="Styles/ValidationStyles/MenuBarStyle.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

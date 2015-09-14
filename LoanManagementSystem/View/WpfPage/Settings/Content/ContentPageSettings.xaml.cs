@@ -29,6 +29,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
             InitializeComponent();
 
             EmailContentFrame.Content = SendAMail.Instance;
+            AddAreaContentFrame.Content = AddArea.Instance;
         }
 
         public static ContentPageSettings Instance

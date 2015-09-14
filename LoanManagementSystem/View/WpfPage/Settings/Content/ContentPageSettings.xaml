@@ -12,7 +12,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Frame x:Name="EmailContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" Grid.Row="1"/>
+            <Frame x:Name="EmailContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" Grid.Row="0"/>
+            <Frame x:Name="AddAreaContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" Grid.Row="1"/>
         </Grid>
     </ScrollViewer>
 </Page>

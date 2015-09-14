@@ -1,4 +1,4 @@
-﻿<Page x:Class="LoanManagementSystem.View.WpfPage.Settings.Content.SendAMail"
+﻿<Page x:Class="LoanManagementSystem.View.WpfPage.Settings.Content.AddArea"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,7 @@
         <Expander.Header>
             <StackPanel Orientation="Horizontal">
                 <Image Source="/LoanManagementSystem;component/Images/WpfPage/SMSPage/appbar.message.png" Margin="0,-10,0,-8" Height="30"/>
-                <Label Content="CREATE AN E-MAIL"/>
+                <Label Content="ADD AREA"/>
             </StackPanel>
         </Expander.Header>
 
@@ -49,40 +49,30 @@
 
                 <!--Second Row-->
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,5,0" HorizontalAlignment="Right" >
-                    <Label Content="* Email Address" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
+                    <Label Content="* Area Code" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="3">
-                    <TextBox x:Name="EmailAddressTextBox"  Height="Auto" Width="Auto" Margin="0,0,92.8,0" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                    <TextBox x:Name="AreaCodeTextBox"  Height="Auto" Width="Auto" Margin="0,0,92.8,0" HorizontalAlignment="Stretch" ClipToBounds="True"/>
                 </Grid>
                 <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,22.8,4.8,12.4"  HorizontalAlignment="Right"/>
 
                 <!--Second Row-->
                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,5,0" HorizontalAlignment="Right" >
-                    <Label Content="* Email Subject" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
+                    <Label Content="* Area Name" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="3">
-                    <TextBox x:Name="EmailSubjectTextBox"  Height="Auto" Width="Auto" Margin="0,0,92.8,0" HorizontalAlignment="Stretch" ClipToBounds="True"/>
+                    <TextBox x:Name="AreaNameTextBox"  Height="Auto" Width="Auto" Margin="0,0,92.8,0" HorizontalAlignment="Stretch" ClipToBounds="True"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center"  HorizontalAlignment="Right">
-                    <Label x:Name="AttachmentPathLabel" Content="" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </Grid>
-
                 <Grid Grid.Row="2" Grid.Column="5">
-                    <Button x:Name="AttachmentBrowseButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="AttachmentBrowseButton_Click">
-                        <StackPanel Orientation="Horizontal"  Margin="0">
-                            <!--<Image Source="/LoanManagementSystem;component/Images/WpfPage/SMSPage/appbar.clear.png" Margin="0,-1,0,-1" Height="30"/>-->
-                            <Label Content="Attach"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
                 </Grid>
-                
-
                 <!--Third Row-->
                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,5,0" HorizontalAlignment="Right">
-                    <Label Content="* Mail Body" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
+                    <Label Content="* Remark" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="3" Grid.Column="1" Margin="0,10,0,0" Grid.ColumnSpan="6" Grid.RowSpan="7" >
-                    <TextBox x:Name="EmailContentTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,0,0" MaxLength="160" />
+                    <TextBox x:Name="RemarkTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,0,0" MaxLength="160" />
                 </Grid>
 
                 <!--Fourth Row-->
@@ -94,15 +84,15 @@
             </Grid>
             <DockPanel DockPanel.Dock="Right" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
-                    <Button x:Name="SendButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="SendButton_Click">
+                    <Button x:Name="SaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
                         <StackPanel Orientation="Horizontal"  Margin="0">
-                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/SMSPage/appbar.message.send.png" Margin="0,-1,0,-1" Height="30"/>
+                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/common/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
                             <Label Content="Send"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="LoanCancelButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                    <Button x:Name="CancelButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
                         <StackPanel Orientation="Horizontal"  Margin="0">
-                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/SMSPage/appbar.clear.png" Margin="0,-1,0,-1" Height="30"/>
+                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/common/appbar.cancel.png" Margin="0,-1,0,-1" Height="30"/>
                             <Label Content="Clear"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Button>

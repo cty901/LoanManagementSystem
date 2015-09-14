@@ -60,7 +60,7 @@ namespace LoanManagementSystem.View.WpfPage.SMS.Content
                if (_selectedCustomer != null)
                {
                    CustomerNameTextBox.Text = _selectedCustomer.FULLNAME;
-                   CustomerCodeTextBox.Text = _selectedCustomer.CUSTOMER_ID;
+                   //CustomerCodeTextBox.Text = _selectedCustomer.CUSTOMER_ID;
                    PhoneNumberTextBox.Text = _selectedCustomer.PHONE_HP1;
                }
                else
