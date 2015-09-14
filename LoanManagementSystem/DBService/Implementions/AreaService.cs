@@ -79,5 +79,11 @@ namespace LoanManagementSystem.DBService.Implementions
             var areas = db.areas.Where(e => e.STATUS == true).ToList();
             return areas;
         }
+
+        internal static object GetAreaByID(string p)
+        {
+            var area = db.areas.Where(e => e.ID == p);
+            return area;
+        }
     }
 }

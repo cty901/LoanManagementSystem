@@ -93,7 +93,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 customer _customer = new customer();
 
                 _customer.ID=IDHandller.generateID("customer");
-                //_customer.CUSTOMER_ID = CusCodeTextBox.Text;
+                _customer.CUSTOMER_ID = Convert.ToInt16(CusCodeTextBox.Text);
 
                 _customer.FIRST_NAME = CusFNameTextBox.Text;
                 _customer.LAST_NAME = CusLNameTextBox.Text;
@@ -113,6 +113,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
                 _customer.ISACTIVE = true;
 
+                _customer.FK_AREA_ID = ((area)getAreaCodeComboxSelectedArea()).ID;
+
                 _customer.STATUS = true;
                 _customer.INSERT_DATETIME = DateTime.Now;
                 _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
@@ -131,7 +133,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             try
             {
-                //CusCodeTextBox.Text = _customer.CUSTOMER_ID;
+                AreaCodeComboBox.SelectedItem = AreaService.GetAreaByID(_customer.FK_AREA_ID);
+                CusCodeTextBox.Text = _customer.CUSTOMER_ID.ToString();
 
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
                 CusLNameTextBox.Text=_customer.LAST_NAME;
@@ -304,6 +307,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             CusFNameTextBox.Clear();
             CusLNameTextBox.Clear();
             CusIDTextBox.Clear();
+            AreaCodeComboBox.SelectedIndex = -1;
             IDTypeComboBox.SelectedIndex=0;
             setGender("male");
             CusBirthDayPicker.SelectedDate = null;
@@ -325,6 +329,35 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         private void AreaCodeRefreshButton_Click(object sender, RoutedEventArgs e)
         {
             setAreaCodeToComboBox();
+        }
+
+        private void AreaCodeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var _area=getAreaCodeComboxSelectedArea();
+            List<customer> _cusList;
+
+            if (_area != null)
+            {
+                area a = (area)_area;
+                _cusList = CustomerService.GetCustomerListByArea(a.ID);
+                int _code=1;
+                if (_cusList.Count != 0)
+                {
+                    var maxObject = _cusList.OrderByDescending(item => item.CUSTOMER_ID).First();
+
+                    if (maxObject != null)
+                    {
+                        _code = (maxObject.CUSTOMER_ID + 1);
+                    }
+                }
+                CusCodeTextBox.Text = _code.ToString();
+                AreaCodeComboBox.Tag = a.ID;
+            }
+        }
+
+        private object getAreaCodeComboxSelectedArea()
+        {
+            return AreaCodeComboBox.SelectedItem;
         }
        
     }

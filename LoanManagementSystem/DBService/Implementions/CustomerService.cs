@@ -123,5 +123,11 @@ namespace LoanManagementSystem.DBService.Implementions
             return pager;
         }
 
+
+        internal static List<customer> GetCustomerListByArea(string p)
+        {
+            List<customer> _cusList = db.customers.Where(cus => cus.FK_AREA_ID == p).ToList();
+            return _cusList;
+        }
     }
 }
