@@ -24,5 +24,7 @@ namespace LoanManagementSystem.Util
         public static readonly string ERR_PASSWORD = "Passwords Do not Matched!!";
         public static readonly string ERR_PATIENT_REGISTER = "Passwords Do not Matched!!";
         public static readonly string ERR_DATA = "Data Setting Error!, Contact Your Admin";
+
+        public static readonly string MSG_DELETE_STAFF = "Staff Delete";
     }
 }

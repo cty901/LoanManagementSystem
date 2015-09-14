@@ -16,9 +16,9 @@ namespace LoanManagementSystem.DBService.Implementions
         {
             try
             {
-                return db.employees.Where(m => m.USERNAME.Equals(userName) && m.PASSWORD.Equals(password)).ToList();
+                return db.employees.Where(m => m.USERNAME.Equals(userName) && m.PASSWORD.Equals(password) && m.ISRESIGN == false && m.STATUS == true).ToList();
             }
-            catch
+            catch (Exception e)
             {
                 return null;
             }
@@ -40,11 +40,11 @@ namespace LoanManagementSystem.DBService.Implementions
                             e.FIRST_NAME == _searchText ||
                             e.LAST_NAME == _searchText
                             //|| e.hrm_contacts.Where(c => c.HOME == searche.hrm_contacts.Single().HOME)
-                        )).ToList();
+                        ) && e.STATUS == true).ToList();
             }
             else
             {
-                employees = db.employees.ToList();
+                employees = db.employees.Where(e => e.STATUS == true).ToList();
             }
             pager.Collection = employees.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = employees.Count();
@@ -59,7 +59,7 @@ namespace LoanManagementSystem.DBService.Implementions
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var employees = db.employees.Where(e => e.ISRESIGN == false).ToList();
+            var employees = db.employees.Where(e => e.ISRESIGN == false && e.STATUS == true).ToList();
 
             pager.Collection = employees.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = employees.Count();
@@ -111,7 +111,7 @@ namespace LoanManagementSystem.DBService.Implementions
 
         public static employee getEmployeeByID(string id)
         {
-            var employee = db.employees.Where(e => e.ID == id).SingleOrDefault();
+            var employee = db.employees.Where(e => e.ID == id && e.STATUS == true).SingleOrDefault();
 
             if (employee != null)
             {
@@ -122,6 +122,27 @@ namespace LoanManagementSystem.DBService.Implementions
                 return null;
             }
         }
-        
+
+
+        public static int DeleteEmployee(employee employee)
+        {
+            try
+            {
+                db.employees.Single(c => c.ID == employee.ID).STATUS = false;
+
+                return db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                return 0;
+            }
+        }
     }
 }

@@ -144,6 +144,7 @@
       <DependentUpon>LoanDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Validation\AddArea.cs.Validate.cs" />
+    <Compile Include="DBModel\Validation\customer.validation.cs" />
     <Compile Include="DBModel\Validation\customer.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\loan.cs.Validate.cs" />
@@ -497,7 +498,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DBService\Interfaces\" />
-    <Folder Include="Fonts\" />
     <Folder Include="View\WpfWindow\ContainerWindows\" />
   </ItemGroup>
   <ItemGroup>

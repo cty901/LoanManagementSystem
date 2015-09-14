@@ -94,7 +94,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
 
             try
             {
-                if(IsValidEmail(EmailAddressTextBox.Text))
+                if(EmailHandler.IsValidEmail(EmailAddressTextBox.Text))
                 {
                     email.ToEmail = EmailAddressTextBox.Text;
                     email.Subject = EmailSubjectTextBox.Text;
@@ -113,20 +113,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
             {
                 EMAIL = null;
             }
-        }
-
-        bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        }        
 
         private void AttachmentBrowseButton_Click(object sender, RoutedEventArgs e)
         {
