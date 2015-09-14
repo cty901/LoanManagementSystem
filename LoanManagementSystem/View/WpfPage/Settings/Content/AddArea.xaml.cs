@@ -28,11 +28,12 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
     public partial class AddArea : Page
     {
         private static AddArea _instance;
-        private EmailModel _emailModel;
+        private int _noOfErrorsOnScreen = 0;
 
         private AddArea()
         {
             InitializeComponent();
+            GridAddArea.DataContext = new area();
         }
 
         public static AddArea Instance
@@ -47,97 +48,71 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
             }
         }
 
-        //public EmailModel EMAIL
-        //{
-        //    get
-        //    {
-        //        return _emailModel;
-        //    }
-        //    set
-        //    {
-        //        _emailModel = value;
-        //        if (_emailModel== null)
-        //        {
-        //            EmailAddressTextBox.Clear();
-        //            EmailSubjectTextBox.Clear();
-        //            EmailContentTextBox.Clear();
-        //            AttachmentPathLabel.Content = "";
-        //        }
-        //    }
-        //}
+        private bool ValidData()
+        {
+            ForceValidation();
 
-        //private async void SendButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    createEmail();
-        //    if (EMAIL != null)
-        //    {
-        //        bool result = EmailHandler.SendMail(EMAIL);
-        //        if (result)
-        //        {
-        //            await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Email has been sent", MessageDialogStyle.Affirmative);
-        //            EMAIL = null;
-        //        }
-        //        else
-        //        {
-        //            await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Email sending failed", MessageDialogStyle.Affirmative);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please Enter Valied Email!", MessageDialogStyle.Affirmative);
-        //    }
-        //}
+            if (Validation.GetHasError(AreaCodeTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(AreaNameTextBox))
+            {
+                return false;
+            }
+            return true;
+        }
 
-        //private void createEmail()
-        //{
-        //    EmailModel email = new EmailModel();
+        private void ForceValidation()
+        {
+            AreaCodeTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            AreaNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+        }
 
-        //    try
-        //    {
-        //        if(IsValidEmail(EmailAddressTextBox.Text))
-        //        {
-        //            email.ToEmail = EmailAddressTextBox.Text;
-        //            email.Subject = EmailSubjectTextBox.Text;
-        //            email.Body = EmailContentTextBox.Text;
-        //            email.AttachmentPath = AttachmentPathLabel.Content.ToString();
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidData())
+            {
+                    area _area = GetAreaDetails();
+                    if (AreaService.InsertArea(_area) == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Area Added Success!", MessageDialogStyle.Affirmative);
+                        GridAddArea.DataContext = new area();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                    }
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check errors", MessageDialogStyle.Affirmative);
+            }
+        }
 
-        //            EMAIL = email;
-        //        }
-        //        else 
-        //        {
-        //            EMAIL = email;
-        //        }
+        private area GetAreaDetails()
+        {
+            try
+            {
+                area _area = new area();
+                _area.ID = IDHandller.generateID("area");
 
-        //    }
-        //    catch
-        //    {
-        //        EMAIL = null;
-        //    }
-        //}
+                _area.AREA_CODE = AreaCodeTextBox.Text;
+                _area.AREA_NAME = AreaNameTextBox.Text;
+                _area.REMARK = RemarkTextBox.Text;
 
-        //bool IsValidEmail(string email)
-        //{
-        //    try
-        //    {
-        //        var addr = new System.Net.Mail.MailAddress(email);
-        //        return addr.Address == email;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
+                _area.STATUS = true;
+                _area.INSERT_DATETIME = DateTime.Now;
+                _area.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                _area.UPDATE_DATETIME = DateTime.Now;
+                _area.UPDATE_USER_ID = Session.LoggedEmployee.ID;
 
-        //private void AttachmentBrowseButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-        //    Nullable<bool> result = dlg.ShowDialog();
-
-        //    if (result == true)
-        //    {
-        //        AttachmentPathLabel.Content = dlg.FileName;
-        //    }
-        //}
+                return _area;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }     
     }
 }

@@ -41,6 +41,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         public DetailsPage(Mode mode)
         {
             InitializeComponent();
+            setAreaCodeToComboBox();
             this.mode = mode;
 
             if (mode.Equals(Mode.EDIT))
@@ -65,6 +66,11 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             if (mode.Equals(Mode.NEW))
             {
             }
+        }
+
+        public void setAreaCodeToComboBox()
+        {
+            AreaCodeComboBox.ItemsSource = AreaService.getAreaCodes();
         }
 
         public static DetailsPage Instance
@@ -316,9 +322,10 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             clearDetailsPage();
         }
 
-        private void CustomerCodeGenButton_Click(object sender, RoutedEventArgs e)
+        private void AreaCodeRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            // CusCodeTextBox.Text = IDHandller.generateCode("customer");
-        }        
+            setAreaCodeToComboBox();
+        }
+       
     }
 }
