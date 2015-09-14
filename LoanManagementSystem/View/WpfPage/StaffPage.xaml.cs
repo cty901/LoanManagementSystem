@@ -101,7 +101,7 @@ namespace LoanManagementSystem.View.WpfPage
             {
                 ContentFrame.Content = EditProfilePage.Instance;
                 EditProfilePage.Instance.EmployeeContentFrame.Content = new StaffInfo(Mode.EDIT);
-
+                DeleteProfileButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -147,6 +147,7 @@ namespace LoanManagementSystem.View.WpfPage
                 this.CashBorrowButton.Visibility = System.Windows.Visibility.Collapsed;
                 this.CashReturnButton.Visibility = System.Windows.Visibility.Collapsed;
                 this.BackButtonTemp.Visibility = System.Windows.Visibility.Collapsed;
+                DeleteProfileButton.Visibility = Visibility.Collapsed;
             }
             else if (type == 1)
             {
@@ -157,6 +158,7 @@ namespace LoanManagementSystem.View.WpfPage
                 this.CashBorrowButton.Visibility = System.Windows.Visibility.Visible;
                 this.CashReturnButton.Visibility = System.Windows.Visibility.Visible;
                 this.BackButtonTemp.Visibility = System.Windows.Visibility.Collapsed;
+                DeleteProfileButton.Visibility = Visibility.Collapsed;
             }
             else if (type == 2)
             {
@@ -167,6 +169,7 @@ namespace LoanManagementSystem.View.WpfPage
                 this.CashBorrowButton.Visibility = System.Windows.Visibility.Collapsed;
                 this.CashReturnButton.Visibility = System.Windows.Visibility.Collapsed;
                 this.BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+                DeleteProfileButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -194,6 +197,31 @@ namespace LoanManagementSystem.View.WpfPage
         {
             ContentFrame.Content = EditProfilePage.Instance;
             EditProfilePage.Instance.EmployeeContentFrame.Content = CashReturn.Instance;
+        }
+
+        private async void DeleteProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Session.LoggedEmployee.ID.Equals(Session.SelectedEmployee.ID))
+            {
+                MessageDialogResult result = await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_STAFF, "Do you want to Delete Staff?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    if (Session.deleteSelectedEmployee() == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_STAFF, "Staff Deleted Successfully..", MessageDialogStyle.Affirmative);
+                        Session.LogOutSelectedEmployee();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_STAFF, "Staff Delete failed!", MessageDialogStyle.Affirmative);
+                    }
+                }
+            }            
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.MSG_DELETE_STAFF, "You Cannot Delete Your Profile!", MessageDialogStyle.Affirmative);
+            }
         }
     }
 }

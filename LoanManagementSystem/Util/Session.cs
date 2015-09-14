@@ -166,6 +166,18 @@ namespace LoanManagementSystem.Util
             }
             SelectedLoan = null;
         }
+        public static int deleteSelectedEmployee()
+        {
+            if (SelectedEmployee != null)
+            {
+                EmployeeService.DeleteEmployee(SelectedEmployee);
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public static int deleteSelectedCustomer()
         {
             if (SelectedCustomer != null)

@@ -273,10 +273,11 @@ namespace LoanManagementSystem.View.WpfPage.Staff
                     {
                         await MainWindow.Instance.ShowMessageAsync("Employe Insert Success", "Employee Added Success!", MessageDialogStyle.Affirmative);
                         QuickSearchPageStaff.Instance.RefreshPage();
+                        _clearStaffInfoPage();
                     }
                     else
                     {
-                        await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                        await MainWindow.Instance.ShowMessageAsync("Employe Insert Error", "Please check Details", MessageDialogStyle.Affirmative);
                     }
                 }
 
@@ -321,6 +322,11 @@ namespace LoanManagementSystem.View.WpfPage.Staff
             {
                 return false;
             }
+            else if (EmpEmailTextBox.Text != "")
+            {
+                if (!EmailHandler.IsValidEmail(EmpEmailTextBox.Text))
+                    return false;
+            }
             return true;
         }
 
@@ -335,6 +341,34 @@ namespace LoanManagementSystem.View.WpfPage.Staff
         private void EmpCodeGenButton_Click(object sender, RoutedEventArgs e)
         {
             EmpCodeTextBox.Text = IDHandller.generateCode("employee");
+        }
+
+        private void EmployeeDetailsCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            _clearStaffInfoPage();
+        }
+
+        private void _clearStaffInfoPage()
+        {
+            EmpCodeTextBox.Text = "";
+            EmpFNameTextBox.Text = "";
+            EmpLNameTextBox.Text = "";
+            IDTypeComboBox.Text = "";
+            IDNumberTextBox.Text = "";
+            EmpBirthDayPicker.SelectedDate = null;
+            EmpAddressTextBox.Text = "";
+            EmpHandPhone1TextBox.Text = "";
+            EmpHandPhone2TextBox.Text = "";
+            EmpRecedencePhoneTextBox.Text = "";
+            EmpEmailTextBox.Text = "";
+            EmpReligionTextBox.Text = "";
+            EmpCivilStateTextBox.Text = "";
+            EmpNationalityTextBox.Text = "";
+            ImageHandller.setProfImage(null, ProfPicBox);
+            AccountTypeComboBox.Text = "";
+            PasswordTextBox.Password = "";
+            UserNameTextBox.Text = "";
+
         }
 
     }
