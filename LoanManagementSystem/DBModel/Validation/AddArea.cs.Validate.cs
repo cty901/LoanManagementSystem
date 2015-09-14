@@ -34,7 +34,14 @@ namespace LoanManagementSystem.DBModel
                     {
                         result = "Area Name cannot be empty";
                     }
-                }                
+                }
+                if (columnName == "ID")
+                {
+                    if (string.IsNullOrWhiteSpace(ID))
+                    {
+                        result = "Area Cannot be Empty";
+                    }
+                }
 
                 return result;
             }

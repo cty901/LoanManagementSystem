@@ -67,6 +67,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             {
                 this.mode = mode;
                 GridCustomerInfo.DataContext = new customer();
+                AreaCodeComboBox.DataContext = new area();
             }
         }
 
@@ -330,9 +331,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             CusResidencePhoneTextBox.Clear();
             CusAddressTextBox.Clear();
             CusCodeTextBox.Clear();
-            GridCustomerInfo.DataContext = new customer();
-            AreaCodeComboBox.Tag = "";
-
         }
 
         private void CustoerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
@@ -368,7 +366,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             CusFNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
             CusLNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
-            AreaCodeComboBox.GetBindingExpression(ComboBox.TagProperty).ValidateWithoutUpdate();
+            AreaCodeComboBox.GetBindingExpression(ComboBox.SelectedValueProperty).ValidateWithoutUpdate();
         }
 
         private void AreaCodeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -391,7 +389,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                     }
                 }
                 CusCodeTextBox.Text = _code.ToString();
-                AreaCodeComboBox.Tag = a.ID;
             }
         }
 
