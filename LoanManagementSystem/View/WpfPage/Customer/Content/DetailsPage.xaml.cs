@@ -330,8 +330,10 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             CusResidencePhoneTextBox.Clear();
             CusAddressTextBox.Clear();
             CusCodeTextBox.Clear();
-            GridCustomerInfo.DataContext = new customer();
-            AreaCodeComboBox.Tag = "";
+            var cus = new customer();
+            
+            GridCustomerInfo.DataContext = cus;
+            cus.FK_AREA_ID = null;
 
         }
 
@@ -397,6 +399,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         private object getAreaCodeComboxSelectedArea()
         {
-            return AreaCodeComboBox.SelectedItem;}
+            return AreaCodeComboBox.SelectedItem;
         }
+    }
 }
