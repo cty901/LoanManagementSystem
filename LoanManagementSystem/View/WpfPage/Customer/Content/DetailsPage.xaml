@@ -7,7 +7,7 @@
       mc:Ignorable="d" d:DesignWidth="760" Background="#5133AB" Height="512.325">   
     
     <StackPanel Orientation="Vertical"  >
-        <Grid Margin="10" Height="391" x:Name="GridCustomerInfo">
+        <Grid Margin="10" Height="Auto" x:Name="GridCustomerInfo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="2" />
@@ -58,31 +58,8 @@
                     </RadioButton>
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="4" Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,33,3,12" HorizontalAlignment="Right" Height="0" Width="0" />
-            <StackPanel Grid.Row="6" Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,26,0,3" HorizontalAlignment="Right" Height="16" Width="78" />
 
-            <!--Fifth Row-->
-            <StackPanel Grid.Row="8"  Orientation="Horizontal" VerticalAlignment="Center" Margin="0,24,0,1" HorizontalAlignment="Right" Height="16" Width="45" Grid.ColumnSpan="2" />
-            <StackPanel Grid.Row="8" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,24,0,1" HorizontalAlignment="Right" Height="16" Width="64" />
-
-            <!--Sixth Row-->
-            <StackPanel Grid.Row="12" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0.5,0,21.5" HorizontalAlignment="Right" Grid.Column="2" Height="16" Width="79" />
-
-            <!--Seventh Row-->
-            <StackPanel Grid.Row="17"  Orientation="Horizontal" VerticalAlignment="Center" Margin="0,16,0,69" HorizontalAlignment="Right" Height="16" Width="77" Grid.ColumnSpan="2" />
-            <StackPanel Grid.Row="17" Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,16,0,69" HorizontalAlignment="Right" Height="16" Width="55" />
-
-            <Label Content="Area Code" HorizontalAlignment="Right" Width="94" Margin="0,6.8,0.6,0" FlowDirection="RightToLeft" Height="21" VerticalAlignment="Top" Grid.Column="4" Grid.Row="10"/>
-            <ComboBox x:Name="AreaCodeComboBox" DisplayMemberPath="AREA_NAME" SelectedValue="{Binding Path=ID,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}" TabIndex="13" Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="5" Margin="1.4,2.8,2.4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="10" SelectionChanged="AreaCodeComboBox_SelectionChanged"/>
-            <Button x:Name="AreaCodeRefreshButton" Style="{DynamicResource ButtonFormPrimary}"  Margin="0.4,0,0,8" Background="{x:Null}" Grid.Column="7" Grid.Row="10" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="28"  ToolTip="Refresh Area Codes" Click="AreaCodeRefreshButton_Click">
-                <StackPanel Orientation="Horizontal"  Margin="0">
-                    <Image Source="/LoanManagementSystem;component/Images/WpfPage/common/appbar.refresh.png" Margin="0" Height="15"/>
-                </StackPanel>
-            </Button>
-
-            <Label Content="Customer Code" HorizontalAlignment="Right" Width="94" Margin="0,6.8,0.6,0" FlowDirection="RightToLeft" Height="21" VerticalAlignment="Top" Grid.Column="4" Grid.Row="12"/>
-            <TextBox x:Name="CusCodeTextBox" TabIndex="13" Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="5" Margin="1.4,2.8,2.4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="12" IsEnabled="False" />
-
+            
             <Label Content="Residence Phone" HorizontalAlignment="Right" Width="103" Margin="0,6,0,18" FlowDirection="RightToLeft" Grid.Row="4" Grid.Column="4"/>
             <Label Content="* Last Name" HorizontalAlignment="Right" Width="68" Margin="0,6,2,0" FlowDirection="RightToLeft" Grid.Row="2" Height="22" VerticalAlignment="Top"/>
             <TextBox x:Name="CusLNameTextBox" TabIndex="2" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding Path=LAST_NAME,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}"/>
@@ -104,13 +81,50 @@
             </ComboBox>
             <TextBox x:Name="CusIDTextBox" TabIndex="3" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" Grid.Row="4" VerticalAlignment="Top"/>
             <TextBox x:Name="CusResidencePhoneTextBox" TabIndex="11" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="6" Margin="1,6,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-            <Label Content="Civil Status" HorizontalAlignment="Right" Width="58" Margin="0,6,2,0" FlowDirection="RightToLeft" Grid.Row="14" Height="16" VerticalAlignment="Top"/>
             <Label Content="Address" HorizontalAlignment="Right" Width="103" Margin="0,5,0,19" FlowDirection="RightToLeft" Grid.Row="6" Grid.Column="4"/>
             <Label Content="Gender" HorizontalAlignment="Right" Width="68" Margin="0,4,0,0" FlowDirection="RightToLeft" Grid.Row="6" Height="22" VerticalAlignment="Top"/>
+            
+        </Grid>
+
+        <Grid Margin="10" Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="88*" />
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="155*" />
+                <ColumnDefinition Width="108*" />
+                <ColumnDefinition Width="138*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="155*"/>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
             <Label Content="Nationality" HorizontalAlignment="Right" Width="59" Margin="0,6,2,0" FlowDirection="RightToLeft" Grid.Row="10" RenderTransformOrigin="0.458,-0.188" Height="16" VerticalAlignment="Top"/>
             <TextBox x:Name="CusNationalityTextBox" TabIndex="6" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" Grid.Row="10" VerticalAlignment="Top"/>
             <Label Content="Religion" HorizontalAlignment="Right" Width="59" Margin="0,6.5,2,0" FlowDirection="RightToLeft" Grid.Row="12" RenderTransformOrigin="0.458,-0.188" Height="16" VerticalAlignment="Top"/>
             <TextBox x:Name="CusReligionTextBox" TabIndex="7" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="0,6.5,0,0" Grid.Row="12" VerticalAlignment="Top"/>
+            <Label Content="Civil Status" HorizontalAlignment="Right" Width="58" Margin="0,6,2,0" FlowDirection="RightToLeft" Grid.Row="14" Height="16" VerticalAlignment="Top"/>
+
             <TextBox x:Name="CusCivilStatus" TabIndex="8" Height="24" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="2" Margin="2,6,0,0" Grid.Row="14" VerticalAlignment="Top"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Grid.Column="6" Margin="0,6,3,0" Grid.Row="16" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
             <Button x:Name="CustomerDetailsSaveButton" TabIndex="14" Style="{DynamicResource ButtonFormPrimary}"  Margin="0,8,89,0" Background="{x:Null}" Click="EmployeeDetailsSaveButton_Click" VerticalAlignment="Top" Grid.Column="4" Grid.Row="16" HorizontalAlignment="Right" Width="84" Grid.ColumnSpan="3">
@@ -125,6 +139,17 @@
                     <Label Content="Cancel"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <Label Content="Area Code" HorizontalAlignment="Right" Width="94" Margin="0,6.8,0.6,0" FlowDirection="RightToLeft" Height="21" VerticalAlignment="Top" Grid.Column="4" Grid.Row="10"/>
+            <ComboBox x:Name="AreaCodeComboBox" DisplayMemberPath="AREA_NAME" SelectedIndex="0" SelectedValuePath="{Binding Path=ID,NotifyOnValidationError=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}" TabIndex="13" Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="5" Margin="1.4,2.8,2.4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="10" SelectionChanged="AreaCodeComboBox_SelectionChanged"/>
+            <Button x:Name="AreaCodeRefreshButton" Style="{DynamicResource ButtonFormPrimary}"  Margin="0.4,0,0,8" Background="{x:Null}" Grid.Column="7" Grid.Row="10" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="28"  ToolTip="Refresh Area Codes" Click="AreaCodeRefreshButton_Click">
+                <StackPanel Orientation="Horizontal"  Margin="0">
+                    <Image Source="/LoanManagementSystem;component/Images/WpfPage/common/appbar.refresh.png" Margin="0" Height="15"/>
+                </StackPanel>
+            </Button>
+
+            <Label Content="Customer Code" HorizontalAlignment="Right" Width="94" Margin="0,6.8,0.6,0" FlowDirection="RightToLeft" Height="21" VerticalAlignment="Top" Grid.Column="4" Grid.Row="12"/>
+            <TextBox x:Name="CusCodeTextBox" TabIndex="13" Height="25" HorizontalAlignment="Stretch" ClipToBounds="True" Grid.Column="5" Margin="1.4,2.8,2.4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="12" IsEnabled="False" />
+
         </Grid>
         <DockPanel />
 
