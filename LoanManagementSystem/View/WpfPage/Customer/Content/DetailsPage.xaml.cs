@@ -65,6 +65,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
             if (mode.Equals(Mode.NEW))
             {
+                this.mode = mode;
+                GridCustomerInfo.DataContext = new customer();
             }
         }
 
@@ -131,6 +133,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             try
             {
+                GridCustomerInfo.DataContext = _customer;
                 //CusCodeTextBox.Text = _customer.CUSTOMER_ID;
 
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
@@ -266,36 +269,43 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         private async void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.mode==Mode.NEW)
+            if (_hasValidData())
             {
-                customer cus = GetCustomerDetails();
-                if (CustomerService.InsertCustomer(cus) == 1)
+                if (this.mode == Mode.NEW)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
-                    clearDetailsPage();
-                    QuickSearchPage.Instance.RefreshPage();
+                    customer cus = GetCustomerDetails();
+                    if (CustomerService.InsertCustomer(cus) == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                        clearDetailsPage();
+                        QuickSearchPage.Instance.RefreshPage();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Customer Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    }
                 }
-                else
+
+                else if (this.mode == Mode.EDIT)
                 {
-                    await MainWindow.Instance.ShowMessageAsync("Customer Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    customer cus = GetCustomerDetails();
+                    cus.ID = Session.SelectedCustomer.ID;
+
+                    if (CustomerService.UpdateCustomer(cus) == 1)
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Customer Update Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                        MainWindow.Instance.setLoginDeatails();
+                        QuickSearchPage.Instance.RefreshPage();
+                    }
+                    else
+                    {
+                        await MainWindow.Instance.ShowMessageAsync("Customer Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                    }
                 }
             }
-
-            else if (this.mode == Mode.EDIT)
+            else
             {
-                customer cus = GetCustomerDetails();
-                cus.ID = Session.SelectedCustomer.ID;
-
-                if (CustomerService.UpdateCustomer(cus) == 1)
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Customer Update Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
-                    MainWindow.Instance.setLoginDeatails();
-                    QuickSearchPage.Instance.RefreshPage();
-                }
-                else
-                {
-                    await MainWindow.Instance.ShowMessageAsync("Customer Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
-                }
+                await MainWindow.Instance.ShowMessageAsync("Customer Error", "Please check errors", MessageDialogStyle.Affirmative);
             }
         }
 
@@ -326,6 +336,32 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             setAreaCodeToComboBox();
         }
-       
+
+        private bool _hasValidData()
+        {
+            _forceValidation();
+
+            if (Validation.GetHasError(CusFNameTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(CusLNameTextBox))
+            {
+                return false;
+            }
+            else if (Validation.GetHasError(AreaCodeComboBox))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void _forceValidation()
+        {
+            CusFNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            CusLNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
+            AreaCodeComboBox.GetBindingExpression(ComboBox.TagProperty).ValidateWithoutUpdate();
+        }
+
     }
 }
