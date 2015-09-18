@@ -35,15 +35,7 @@ namespace LoanManagementSystem.UserControls
         // Using a DependencyProperty as the backing store for RatingValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RatingValueProperty =
             DependencyProperty.Register("RatingValue", typeof(int), typeof(UserControl1), new UIPropertyMetadata(0));
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //void SetValueDp(DependencyProperty property, object value, [System.Runtime.CompilerServices.CallerMemberName] String p = null)
-        //{
-        //    var handler = PropertyChanged;
-        //    SetValue(property, value);
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(p));
-        //}
+        
     }
     public class RatingConverter : IValueConverter
     {

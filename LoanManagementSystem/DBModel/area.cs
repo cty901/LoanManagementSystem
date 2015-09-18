@@ -18,17 +18,6 @@ namespace LoanManagementSystem.DBModel
         {
             this.customers = new HashSet<customer>();
         }
-    
-        public string ID { get; set; }
-        public string AREA_CODE { get; set; }
-        public string AREA_NAME { get; set; }
-        public string REMARK { get; set; }
-        public Nullable<bool> STATUS { get; set; }
-        public string INSERT_USER_ID { get; set; }
-        public string UPDATE_USER_ID { get; set; }
-        public Nullable<System.DateTime> INSERT_DATETIME { get; set; }
-        public Nullable<System.DateTime> UPDATE_DATETIME { get; set; }
-    
-        public virtual ICollection<customer> customers { get; set; }
+
     }
 }

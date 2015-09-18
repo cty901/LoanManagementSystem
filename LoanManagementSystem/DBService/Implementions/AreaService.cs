@@ -80,9 +80,9 @@ namespace LoanManagementSystem.DBService.Implementions
             return areas;
         }
 
-        internal static object GetAreaByID(string p)
+        internal static area GetAreaByID(string p)
         {
-            var area = db.areas.Where(e => e.ID == p);
+            area area = db.areas.Where(e => e.ID.Trim() == p.Trim()).SingleOrDefault();
             return area;
         }
     }

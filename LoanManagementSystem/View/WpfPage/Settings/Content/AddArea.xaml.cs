@@ -28,12 +28,13 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
     public partial class AddArea : Page
     {
         private static AddArea _instance;
-        private int _noOfErrorsOnScreen = 0;
+        private area _area;
 
         private AddArea()
         {
             InitializeComponent();
-            GridAddArea.DataContext = new area();
+            _area=new area();
+            GridAddArea.DataContext = _area;
         }
 
         public static AddArea Instance
@@ -50,8 +51,6 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
 
         private bool ValidData()
         {
-            ForceValidation();
-
             if (Validation.GetHasError(AreaCodeTextBox))
             {
                 return false;
@@ -73,11 +72,13 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
         {
             if (ValidData())
             {
-                    area _area = GetAreaDetails();
+                    GetAreaDetails();
                     if (AreaService.InsertArea(_area) == 1)
                     {
                         await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Area Added Success!", MessageDialogStyle.Affirmative);
-                        GridAddArea.DataContext = new area();
+                        _area = null;
+                        _area=new area();
+                        GridAddArea.DataContext = _area;
                     }
                     else
                     {
@@ -94,12 +95,7 @@ namespace LoanManagementSystem.View.WpfPage.Settings.Content
         {
             try
             {
-                area _area = new area();
                 _area.ID = IDHandller.generateID("area");
-
-                _area.AREA_CODE = AreaCodeTextBox.Text;
-                _area.AREA_NAME = AreaNameTextBox.Text;
-                _area.REMARK = RemarkTextBox.Text;
 
                 _area.STATUS = true;
                 _area.INSERT_DATETIME = DateTime.Now;

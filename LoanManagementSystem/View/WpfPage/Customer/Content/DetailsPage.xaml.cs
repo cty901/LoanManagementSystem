@@ -31,6 +31,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         private byte[] _imageData { get; set; }
         public IList<string> ErrorList { get; set; }
         public List<Control> ControlList { get; set; }
+        public List<area> AreaCodeList { get; set; }
         Mode mode;
 
         private DetailsPage()
@@ -67,12 +68,16 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             {
                 this.mode = mode;
                 GridCustomerInfo.DataContext = new customer();
+                AreaCodeComboBox.DataContext = new area();
             }
         }
 
         public void setAreaCodeToComboBox()
         {
-            AreaCodeComboBox.ItemsSource = AreaService.getAreaCodes();
+            AreaCodeList = (List<area>)AreaService.getAreaCodes();
+            AreaCodeComboBox.ItemsSource = AreaCodeList;
+            AreaCodeComboBox.DisplayMemberPath = "AREA_NAME";
+
         }
 
         public static DetailsPage Instance
@@ -125,8 +130,9 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
                 return _customer;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 return null;
             }
         }
@@ -138,6 +144,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 GridCustomerInfo.DataContext = _customer;
 
                 AreaCodeComboBox.SelectedItem = AreaService.GetAreaByID(_customer.FK_AREA_ID);
+                
                 CusCodeTextBox.Text = _customer.CUSTOMER_ID.ToString();
 
                 CusFNameTextBox.Text=_customer.FIRST_NAME;
@@ -164,10 +171,13 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                 _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
                 _customer.UPDATE_DATETIME = DateTime.Now;
                 _customer.UPDATE_USER_ID = Session.LoggedEmployee.ID;
+
+                this.UpdateLayout();
+
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -330,11 +340,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             CusResidencePhoneTextBox.Clear();
             CusAddressTextBox.Clear();
             CusCodeTextBox.Clear();
-            var cus = new customer();
-            
-            GridCustomerInfo.DataContext = cus;
-            cus.FK_AREA_ID = null;
-
         }
 
         private void CustoerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
@@ -361,7 +366,8 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
             else if (Validation.GetHasError(AreaCodeComboBox))
             {
-                return false;
+                
+                return true;
             }
             return true;
         }
@@ -370,7 +376,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         {
             CusFNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
             CusLNameTextBox.GetBindingExpression(TextBox.TextProperty).ValidateWithoutUpdate();
-            AreaCodeComboBox.GetBindingExpression(ComboBox.TagProperty).ValidateWithoutUpdate();
+            AreaCodeComboBox.GetBindingExpression(ComboBox.SelectedValuePathProperty).ValidateWithoutUpdate();
         }
 
         private void AreaCodeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -393,7 +399,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
                     }
                 }
                 CusCodeTextBox.Text = _code.ToString();
-                AreaCodeComboBox.Tag = a.ID;
             }
         }
 

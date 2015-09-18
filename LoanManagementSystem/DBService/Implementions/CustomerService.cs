@@ -37,7 +37,7 @@ namespace LoanManagementSystem.DBService.Implementions
         {
             try
             {
-                var cus = db.customers.Single(c => c.ID == _customer.ID);
+                var cus = db.customers.Single(c => c.ID == Session.SelectedCustomer.ID);
                 db.Entry(cus).CurrentValues.SetValues(_customer);
 
                 return db.SaveChanges();
