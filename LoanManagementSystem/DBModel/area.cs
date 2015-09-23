@@ -18,6 +18,7 @@ namespace LoanManagementSystem.DBModel
         {
             this.customers = new HashSet<customer>();
         }
-
+        
+        public virtual ICollection<customer> customers { get; set; }
     }
 }

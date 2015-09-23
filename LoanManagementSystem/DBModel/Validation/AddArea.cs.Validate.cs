@@ -129,10 +129,7 @@ namespace LoanManagementSystem.DBModel
                 OnPropertyChanged("UPDATE_DATETIME");
             }
         }
-
-        public virtual ICollection<customer> customers { get; set; }
-
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string name)

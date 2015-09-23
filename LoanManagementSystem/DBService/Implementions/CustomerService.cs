@@ -129,5 +129,12 @@ namespace LoanManagementSystem.DBService.Implementions
             List<customer> _cusList = db.customers.Where(cus => cus.FK_AREA_ID == p).ToList();
             return _cusList;
         }
+
+        internal static customer RefreshCustomerByID(customer _customer)
+        {
+            db.Entry(_customer).Reload();
+            _customer.NeedToSave = false;
+            return _customer;
+        }
     }
 }

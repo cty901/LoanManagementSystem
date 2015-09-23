@@ -12,7 +12,6 @@ using LoanManagementSystem.View.WpfPage.Customer.Content;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
 
-
 namespace LoanManagementSystem.View.WpfPage.Customer
 {
     /// <summary>
@@ -103,14 +102,33 @@ namespace LoanManagementSystem.View.WpfPage.Customer
 
         private void BackButtonTemp_Click(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = navigation;
-            ViewMode = Mode.LIST;
-            Session.LogOutSelectedCustomer();
+            SaveChanges(DetailsPage.Instance, e);
+           // ContentFrame.Content = navigation;
+           //ViewMode = Mode.LIST;
         }
 
         private void SelectedCusLogOutButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.LogOutSelectedCustomer(); 
+            SaveChanges(DetailsPage.Instance, e);  
+        }
+        private async void SaveChanges(object sender, RoutedEventArgs e)
+        {
+            DetailsPage page = (DetailsPage)sender;
+
+            if (page.Customer.NeedToSave == true)
+            {
+                MessageDialogResult result = await MainWindow.Instance.ShowMessageAsync(this.Title, "Do You Want to Save Changes?", MessageDialogStyle.AffirmativeAndNegative);
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    DetailsPage.Instance.CustomerDetailsSaveButton_Click(sender, e);
+                }
+                else
+                {
+                    DetailsPage.Instance.clearDetailsPage();
+                }
+                Session.LogOutSelectedCustomer();
+            }
+            Session.LogOutSelectedCustomer();
         }
 
         private async void EditProfileButton_Click(object sender, RoutedEventArgs e)

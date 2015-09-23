@@ -8,6 +8,7 @@ using LoanManagementSystem.DBModel;
 using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
+using System.ComponentModel;
 
 
 namespace LoanManagementSystem.View.WpfPage.Customer
@@ -15,17 +16,26 @@ namespace LoanManagementSystem.View.WpfPage.Customer
     /// <summary>
     /// Interaction logic for Employee QuickSearchPage.xaml
     /// </summary>
-    public partial class QuickSearchPage : Page
+    public partial class QuickSearchPage : Page, INotifyPropertyChanged
     {
         private static QuickSearchPage instance;
         //public IList<string> ErrorList { get; set; }
-        public List<customer> CustomerList { get; set; }
+        private bool _isSearchedPerformed = false;
+        private string _searchText = "";
+        private List<customer> _customerList;
+
+        public List<customer> CustomerList
+        {
+            get { return _customerList; }
+            set 
+            {
+                _customerList = value;
+                OnPropertyChanged("CustomerList");
+            }
+        }
         public List<PageData> PagingList { get; set; }
 
         private PagingCollection<customer> _PagingCollection { get; set; }
-
-        private bool _isSearchedPerformed = false;
-        private string _searchText = "";
 
         private QuickSearchPage()
         {
@@ -72,6 +82,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             {
                 customer selected = CustomerList.Single(c => c.ID == lbl.Content.ToString());
                 Session.SelectedCustomer = selected;
+                Session.CopySelected = selected;
             }
             else
             {
@@ -130,5 +141,16 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             RefreshCustomerListByPage(1);
         }
 
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
     }
 }

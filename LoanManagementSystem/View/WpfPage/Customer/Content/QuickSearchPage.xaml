@@ -3,10 +3,16 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:util="clr-namespace:LoanManagementSystem.Util"
       mc:Ignorable="d" 
       d:DesignHeight="430" d:DesignWidth="760"
       Background="Black"
 	  >
+    <Page.Resources>
+        <util:AlternationIndexToRowCountConverter x:Key="rowcountconverter" />
+    </Page.Resources>
+    
+    
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
         <DockPanel DockPanel.Dock="Top" Height="60">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -27,7 +33,7 @@
                         <DockPanel DockPanel.Dock="Top">
                             <Label Foreground="Black" Content="Searched Customer List" HorizontalAlignment="Left" Width="139" FontWeight="Bold" FontStyle="Italic" Height="32"/>
                         </DockPanel>
-                        <DockPanel DockPanel.Dock="Top">
+                        <!--<DockPanel DockPanel.Dock="Top">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -46,13 +52,13 @@
                                 <Label Grid.Column="3" Foreground="Black" FontWeight="Bold" Content="City" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
                                 <Label Grid.Column="4" Foreground="Black" FontWeight="Bold" Content="Status" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
                             </Grid>
-                        </DockPanel>
+                        </DockPanel>-->
 
                         <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <StackPanel>
                                 <StackPanel>
-                                    <ListView x:Name="CustomerListView" ItemsSource="{Binding SearchedCustomerList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
-                                        <ListView.ItemTemplate>
+                                    <ListView x:Name="CustomerListView" AlternationCount="10000" ItemsSource="{Binding CustomerList}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
+                                        <!--<ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.RowDefinitions>
@@ -81,12 +87,64 @@
                                                     </StackPanel>
                                                 </Grid>
                                             </DataTemplate>
-                                        </ListView.ItemTemplate>
+                                        </ListView.ItemTemplate>-->
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex),RelativeSource={RelativeSource AncestorType=ListViewItem},Converter={StaticResource rowcountconverter}}" >
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding FULLNAME}" >
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Customer Name">Customer Name</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding PHONE_HP1}">
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Phone">Phone</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding CITY}">
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="City">City</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="75" DisplayMemberBinding="{Binding CURRENT_STATUS}">
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Status">Status</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="50">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button x:Name="CustomerDetailsButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="25" Height="25" Margin="0,0.5,0,0" Click="CustomerDetailsButton_Click">
+                                                                <StackPanel>
+                                                                    <Image Source="/LoanManagementSystem;component/images/WpfPage/CustomerPage/appbar.arrow.right.black.png" Width="28" Height="28" Margin="-5" />
+                                                                    <Label Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                                                                </StackPanel>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                
+                                            </GridView>
+                                        </ListView.View>
+                                        
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="ListViewItem">
                                                 <Setter Property="BorderBrush" Value="LightGray" />
                                                 <Setter Property="BorderThickness" Value="0,0,0,1" />
                                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=NeedToSave}" Value="True">
+                                                        <!--<Setter Property="Background" Value="Gainsboro"  />
+                                                        <Setter Property="FontWeight" Value="Bold" />-->
+                                                        <Setter Property="BorderBrush" Value="LightBlue"/>
+                                                        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                                                        <Setter Property="ToolTip" Value="Please Save Changes"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
                                             </Style>
                                         </ListView.ItemContainerStyle>
                                     </ListView>

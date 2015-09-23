@@ -27,6 +27,7 @@ namespace LoanManagementSystem.Util
         private static customer _selectedCustomer = null;
         private static loan _selectedLoan = null;
         public static Object Navigation = null;
+        public static Object CopySelected { get; set; }
 
         public static customer SelectedCustomer
         {

@@ -6,6 +6,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,31 +26,55 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
     /// <summary>
     /// Interaction logic for DetailsPage.xaml
     /// </summary>
-    public partial class DetailsPage : Page
+    public partial class DetailsPage : Page, INotifyPropertyChanged
     {
         private static DetailsPage _instance;
         private byte[] _imageData { get; set; }
         public IList<string> ErrorList { get; set; }
         public List<Control> ControlList { get; set; }
         public List<area> AreaCodeList { get; set; }
-        Mode mode;
+        private customer _customer;
+        private Mode _mode;
+
+        public customer Customer
+        {
+            get
+            {
+                return _customer;
+            }
+        }
+
+        public Mode mode
+        {
+            get
+            {
+                return _mode;
+            }
+            set
+            {
+                _mode = value;
+                OnPropertyChanged("mode");
+            }
+        }
 
         private DetailsPage()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         public DetailsPage(Mode mode)
         {
             InitializeComponent();
-            setAreaCodeToComboBox();
+            // setAreaCodeToComboBox();
             this.mode = mode;
 
             if (mode.Equals(Mode.EDIT))
             {
                 if (Session.SelectedCustomer != null)
                 {
-                    SetCustomerDetails(Session.SelectedCustomer);
+                    _customer = Session.SelectedCustomer;
+                    GridCustomerInfo.DataContext = _customer;
                 }
             }
             if (mode.Equals(Mode.VIEW))
@@ -61,15 +86,18 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
                 if (Session.SelectedCustomer != null)
                 {
-                    SetCustomerDetails(Session.SelectedCustomer);
+                    _customer = Session.SelectedCustomer;
+                    GridCustomerInfo.DataContext = _customer;
                 }
             }
             if (mode.Equals(Mode.NEW))
             {
                 this.mode = mode;
-                GridCustomerInfo.DataContext = new customer();
-                AreaCodeComboBox.DataContext = new area();
+                _customer = new customer();
+                GridCustomerInfo.DataContext = _customer;
             }
+            this.DataContext = this;
+            _instance = this;
         }
 
         public void setAreaCodeToComboBox()
@@ -93,46 +121,29 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             }
         }
 
-        public customer GetCustomerDetails()
+        public customer GetCustomerDetails(object sender, RoutedEventArgs e)
         {
             try
             {
-                customer _customer = new customer();
-
-                _customer.ID=IDHandller.generateID("customer");
-                _customer.CUSTOMER_ID = Convert.ToInt16(CusCodeTextBox.Text);
-
-                _customer.FIRST_NAME = CusFNameTextBox.Text;
-                _customer.LAST_NAME = CusLNameTextBox.Text;
-                _customer.ID_TYPE=setIDType(IDTypeComboBox.Text);
-                _customer.ID_NUM = CusIDTextBox.Text;
-                _customer.DOB = Convert.ToDateTime(CusBirthDayPicker.SelectedDate);                
+                if (this.mode == Mode.NEW)
+                {
+                    _customer.ID = IDHandller.generateID("customer");
+                    _customer.INSERT_DATETIME = DateTime.Now;
+                    _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
+                }
+                _customer.CUSTOMER_ID = Convert.ToInt16(CusCodeTextBox.Text);               
                 _customer.GENDER = getGender();
-
-                _customer.ADDRESS = CusAddressTextBox.Text;
-                _customer.PHONE_HP1 = CusMobile1TextBox.Text;
-                _customer.PHONE_HP2 =CusMobile2TextBox.Text;
-                _customer.PHONE_RECIDENCE = CusResidencePhoneTextBox.Text;
-
-                _customer.RELIGION = CusReligionTextBox.Text;
-                _customer.CIVIL_STATUS = CusCivilStatus.Text;                
-                _customer.NATIONALITY = CusNationalityTextBox.Text;
-
                 _customer.ISACTIVE = true;
-
                 _customer.FK_AREA_ID = ((area)getAreaCodeComboxSelectedArea()).ID;
-
                 _customer.STATUS = true;
-                _customer.INSERT_DATETIME = DateTime.Now;
-                _customer.INSERT_USER_ID = Session.LoggedEmployee.ID;
                 _customer.UPDATE_DATETIME = DateTime.Now;
                 _customer.UPDATE_USER_ID = Session.LoggedEmployee.ID;
 
                 return _customer;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
                 return null;
             }
         }
@@ -245,104 +256,73 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
 
         }
 
-        //private  async void LoadImageButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    bool error = false;
-
-        //    try
-        //    {
-        //        Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-        //        dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
-
-        //        Nullable<bool> result = dlg.ShowDialog();
-
-        //        if (result == true)
-        //        {
-        //            string filename = dlg.FileName;
-        //            FileStream fs;
-        //            BinaryReader br;
-
-        //            fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        //            br = new BinaryReader(fs);
-        //            _imageData = br.ReadBytes((int)fs.Length);
-
-        //            ProfPicBox.ImageSource = new BitmapImage(new Uri(filename)); //Image.FromFile(newFileName);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        error = true;
-        //    }
-        //    if (error)
-        //    {
-        //        await MainWindow.Instance.ShowMessageAsync("Image Uploding Error","Image Content is Corrupted",MessageDialogStyle.Affirmative);
-        //    }
-        //}
-
-
-        private async void EmployeeDetailsSaveButton_Click(object sender, RoutedEventArgs e)
+      
+        public async void CustomerDetailsSaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (_hasValidData())
             {
                 if (this.mode==Mode.NEW)
                 {
-                    customer cus = GetCustomerDetails();
+                    customer cus = GetCustomerDetails(sender,e);
                     if (CustomerService.InsertCustomer(cus) == 1)
                     {
-                        await MainWindow.Instance.ShowMessageAsync("Customer Insert Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Customer Added Success!", MessageDialogStyle.Affirmative);
+                        cus.NeedToSave = false;
                         clearDetailsPage();
                         QuickSearchPage.Instance.RefreshPage();
                     }
                     else
                     {
-                        await MainWindow.Instance.ShowMessageAsync("Customer Insert Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
                     }
                 }
 
-                else if (this.mode == Mode.EDIT)
+                else if (this.mode == Mode.EDIT || this.mode == Mode.VIEW)
                 {
-                    customer cus = GetCustomerDetails();
+                    customer cus = GetCustomerDetails(sender,e);
+
                     cus.ID = Session.SelectedCustomer.ID;
 
                     if (CustomerService.UpdateCustomer(cus) == 1)
                     {
-                        await MainWindow.Instance.ShowMessageAsync("Customer Update Success", "Customer Added Success!", MessageDialogStyle.Affirmative);
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Customer Update Success!", MessageDialogStyle.Affirmative);
+                        cus.NeedToSave = false;
                         MainWindow.Instance.setLoginDeatails();
                         QuickSearchPage.Instance.RefreshPage();
                     }
                     else
                     {
-                        await MainWindow.Instance.ShowMessageAsync("Customer Update Error", "Please check Deatails", MessageDialogStyle.Affirmative);
+                        await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
                     }
                 }
             }
             else
             {
-                await MainWindow.Instance.ShowMessageAsync("Customer Error", "Please check errors", MessageDialogStyle.Affirmative);
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check errors", MessageDialogStyle.Affirmative);
             }
         }
 
-        private void clearDetailsPage()
+        public void clearDetailsPage()
         {
-            CusFNameTextBox.Clear();
-            CusLNameTextBox.Clear();
-            CusIDTextBox.Clear();
-            AreaCodeComboBox.SelectedIndex = -1;
-            IDTypeComboBox.SelectedIndex=0;
-            setGender("male");
-            CusBirthDayPicker.SelectedDate = null;
-            CusNationalityTextBox.Clear();
-            CusReligionTextBox.Clear();
-            CusCivilStatus.Clear();
-            CusMobile1TextBox.Clear();
-            CusMobile2TextBox.Clear();
-            CusResidencePhoneTextBox.Clear();
-            CusAddressTextBox.Clear();
-            CusCodeTextBox.Clear();
+            if (mode.Equals(Mode.NEW))
+            {
+                _customer = new customer();
+                GridCustomerInfo.DataContext = _customer;
+            }
+            else if (mode.Equals(Mode.EDIT))
+            {
+                _customer = CustomerService.RefreshCustomerByID(Session.SelectedCustomer);
+                GridCustomerInfo.DataContext = new customer();
+                GridCustomerInfo.DataContext = _customer;
+            }
+            else if (mode.Equals(Mode.VIEW))
+            {
+                _customer = CustomerService.RefreshCustomerByID(Session.SelectedCustomer);
+                GridCustomerInfo.DataContext = _customer;
+            }
         }
 
-        private void CustoerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
+        private void CustomerDetailsCancelButton_Click(object sender, RoutedEventArgs e)
         {
             clearDetailsPage();
         }
@@ -364,10 +344,29 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             {
                 return false;
             }
+            else if (Validation.GetHasError(CusIDTextBox))
+            {
+
+                return false;
+            }
+            else if (Validation.GetHasError(CusMobile1TextBox))
+            {
+
+                return false;
+            }
+            else if (Validation.GetHasError(CusAddressTextBox))
+            {
+
+                return false;
+            }
             else if (Validation.GetHasError(AreaCodeComboBox))
             {
-                
-                return true;
+
+                return false;
+            }
+            else if (Validation.GetHasError(CusCodeTextBox))
+            {
+                return false;
             }
             return true;
         }
@@ -405,6 +404,17 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
         private object getAreaCodeComboxSelectedArea()
         {
             return AreaCodeComboBox.SelectedItem;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
         }
     }
 }

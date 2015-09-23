@@ -6,6 +6,7 @@ using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
         private void changeMode(Mode _viewmode)
         {
+
             if (_viewmode.Equals(Mode.EDIT))
             {
                 clearLoanIssuePage();
@@ -74,6 +76,10 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 List<Control> ControlList = HandleControllers.GetLogicalChildCollection<Control>(this);
                 HandleControllers.enableContent(ControlList, true, true, true, true, true);
             }
+
+            CustomerTextBox.IsEnabled = false;
+            EmployeeTextBox.IsEnabled = false;
+            LoanTypeTextBox.IsEnabled = false;
         }
         
         public employee SelectedEmployee
@@ -215,7 +221,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 if (LoanService.InsertLoan(_loan) == 1)
                 {
                     await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Added Success!", MessageDialogStyle.Affirmative);
-                    SendConfirmationSMS();
+                    //SendConfirmationSMS();
                     clearLoanIssuePage();
                     MultiSearch.Instance.ClearSearchResult();
                 }
@@ -232,7 +238,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 if (LoanService.UpdateLoan(_loan) == 1)
                 {
                     await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Edit Success!", MessageDialogStyle.Affirmative);
-                    SendConfirmationSMS();
+                    //SendConfirmationSMS();
                 }
                 else
                 {
@@ -284,6 +290,14 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }        
         }
         private void SendConfirmationSMS()
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerAsync();
+            
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             createSMS();
             if (SMS != null)

@@ -46,18 +46,18 @@ namespace LoanManagementSystem.Util
                 if (tb is TextBox)
                 {
                     tb.IsEnabled = enableTextbox;
-                    tb.Background= null;
+                    //tb.Background= null;
                 }
                 else if (tb is ComboBox)
                 {
                     tb.IsEnabled = enableCombobox;
-                    tb.Foreground = Brushes.Black;
+                    //tb.Foreground = Brushes.Black;
                 }
                 else if (tb is Button)
                 {
                     tb.IsEnabled = enableButton;
-                    tb.Foreground = Brushes.Black;
-                    tb.Background = Brushes.Transparent;
+                    //tb.Foreground = Brushes.Black;
+                    //tb.Background = Brushes.Transparent;
                 }
                 else if (tb is DatePicker)
                 {
@@ -66,7 +66,7 @@ namespace LoanManagementSystem.Util
                 else if (tb is RadioButton)
                 {
                     tb.IsEnabled = enableRadioButtonPicker;
-                    tb.Foreground = Brushes.Black;
+                    //tb.Foreground = Brushes.Black;
                 }
             }
         }

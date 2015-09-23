@@ -13,12 +13,12 @@ namespace LoanManagementSystem.DBModel
         public event PropertyChangedEventHandler PropertyChanged;
         private string _id;
         private int _customerID;
-        private string _idType;
+        private string _idType="nic";
         private string _idNum;
         private string _firstName;
         private string _lastName;
-        private DateTime _dob;
-        private string _gender;
+        private DateTime _dob=System.DateTime.Now;
+        private string _gender="male";
         private string _nationality;
         private string _religion;
         private string _civilStatus;
@@ -34,6 +34,30 @@ namespace LoanManagementSystem.DBModel
         private string _updateUserId;
         private DateTime? _insertDateTime;
         private DateTime? _updateDateTime;
+        private List<DBModel.area> _areaList;
+        private DBModel.area _areaSelected;
+
+        private int _eventCount;
+        private string _fk_area_id;
+
+        public Boolean NeedToSave
+        {
+            get
+            {
+                if (_eventCount > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                if (value == false)
+                {
+                    _eventCount = 0;
+                }
+            }
+        }
 
         public string ID 
         {
@@ -45,6 +69,35 @@ namespace LoanManagementSystem.DBModel
             {
                 _id = value;
                 OnPropertyChanged("ID");
+            }
+        }
+        public List<area> AREA_LIST
+        {
+            get
+            {
+                _areaList=(List<area>)AreaService.getAreaCodes();
+                return _areaList;
+            }
+            set
+            {
+                _areaList = value;
+                OnPropertyChanged("AREA_LIST");
+            }
+        }
+        public area AREA_SELECTED
+        {
+            get
+            {
+                if (_fk_area_id != null)
+                {
+                    _areaSelected = AreaService.GetAreaByID(_fk_area_id);
+                }
+                return _areaSelected;
+            }
+            set
+            {
+                _areaSelected = value;
+                OnPropertyChanged("AREA_SELECTED");
             }
         }
         public int CUSTOMER_ID
@@ -127,8 +180,8 @@ namespace LoanManagementSystem.DBModel
             }
             set
             {
-                _gender = value;
-                OnPropertyChanged("GENDER");
+                    _gender = value;
+                    OnPropertyChanged("GENDER");
             }
         }
         public string NATIONALITY
@@ -312,7 +365,18 @@ namespace LoanManagementSystem.DBModel
             }
         }
 
-        public string FK_AREA_ID { get; set; }
+        public string FK_AREA_ID
+        {
+            get
+            {
+                return _fk_area_id;
+            }
+            set
+            {
+                _fk_area_id = value;
+                OnPropertyChanged("FK_AREA_ID");
+            }
+        }
 
         public string FULLNAME
         {
@@ -382,11 +446,18 @@ namespace LoanManagementSystem.DBModel
                         result = "Address cannot be empty";
                     }
                 }
-                if (columnName == "FK_AREA_ID")
+                if (columnName == "AREA_SELECTED")
                 {
-                    if (string.IsNullOrEmpty(FK_AREA_ID))
+                    if (AREA_SELECTED == null)
                     {
                         result = "Please Select an Area";
+                    }
+                }
+                if (columnName == "CUSTOMER_ID")
+                {
+                    if (CUSTOMER_ID == 0 || CUSTOMER_ID == null)
+                    {
+                        result = "Cutomer ID cannot be empty";
                     }
                 }
 
@@ -400,6 +471,7 @@ namespace LoanManagementSystem.DBModel
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(name));
+                _eventCount++;
             }
         }
     }

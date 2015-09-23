@@ -86,16 +86,16 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="varchar" Nullable="false" MaxLength="32" />
-          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
-          <Property Name="ID_TYPE" Type="set" Nullable="false" />
-          <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="LAST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="DOB" Type="datetime" Nullable="false" />
-          <Property Name="GENDER" Type="set" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="int" />
+          <Property Name="ID_TYPE" Type="set" />
+          <Property Name="ID_NUM" Type="varchar" MaxLength="45" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="GENDER" Type="set" />
           <Property Name="NATIONALITY" Type="varchar" MaxLength="45" />
           <Property Name="RELIGION" Type="varchar" MaxLength="45" />
-          <Property Name="CIVIL_STATUS" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="CIVIL_STATUS" Type="varchar" MaxLength="45" />
           <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
           <Property Name="EMAIL" Type="varchar" MaxLength="70" />
           <Property Name="PHONE_HP1" Type="varchar" MaxLength="15" />
@@ -120,11 +120,11 @@
           <Property Name="ID_NUM" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="LAST_NAME" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="DOB" Type="datetime" Nullable="false" />
-          <Property Name="GENDER" Type="set" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="GENDER" Type="set" />
           <Property Name="NATIONALITY" Type="varchar" MaxLength="45" />
           <Property Name="RELIGION" Type="varchar" MaxLength="45" />
-          <Property Name="CIVIL_STATUS" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="CIVIL_STATUS" Type="varchar" MaxLength="45" />
           <Property Name="ADDRESS" Type="varchar" MaxLength="100" />
           <Property Name="EMAIL" Type="varchar" MaxLength="70" />
           <Property Name="PHONE_HP1" Type="varchar" MaxLength="15" />
@@ -429,16 +429,16 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
-          <Property Name="ID_TYPE" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
-          <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="LAST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="CUSTOMER_ID" Type="Int32" />
+          <Property Name="ID_TYPE" Type="String" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="ID_NUM" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="GENDER" Type="String" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="NATIONALITY" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="RELIGION" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="CIVIL_STATUS" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CIVIL_STATUS" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="EMAIL" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_HP1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
@@ -466,11 +466,11 @@
           <Property Name="ID_NUM" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="FIRST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="LAST_NAME" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="GENDER" Type="String" Nullable="false" MaxLength="65531" Unicode="true" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="GENDER" Type="String" MaxLength="65531" Unicode="true" FixedLength="false" />
           <Property Name="NATIONALITY" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="RELIGION" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="CIVIL_STATUS" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CIVIL_STATUS" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="EMAIL" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
           <Property Name="PHONE_HP1" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />

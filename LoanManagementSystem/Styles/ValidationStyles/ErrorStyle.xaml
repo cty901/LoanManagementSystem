@@ -11,12 +11,25 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <!--<Style TargetType="ComboBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="Red"/>
+                <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+    
+    
     <ControlTemplate x:Key="topRightCornerErrorTemplate">
         <Grid>
             <Polygon x:Name="toolTipCorner"
                    Grid.ZIndex="2"
                    Margin="0"
-                   Points="20,20 20,0 0,0"
+                   Points="15,15 15,0 0,0"
                    Fill="Red"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Top"

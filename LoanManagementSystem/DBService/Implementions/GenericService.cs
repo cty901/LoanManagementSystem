@@ -10,7 +10,7 @@ namespace LoanManagementSystem.DBService.Implementions
 {
     class GenericService<T>
     {
-        protected static loandbEntities  db = new loandbEntities();      
+        protected static loandbEntities  db = new loandbEntities();
 
         public static void Insert(T entity)
         {

@@ -130,7 +130,7 @@
 
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0">
                                         <Label Content="Selected Customer" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <Label x:Name="SelectedCustomerName" Content="No Customer Selected" FontStyle="Italic" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <Label x:Name="SelectedCustomerName" Content="No Customer Selected" FontStyle="Italic" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="LeftToRight" MaxWidth="200"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DockPanel>

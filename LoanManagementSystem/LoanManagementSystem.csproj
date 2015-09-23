@@ -160,6 +160,8 @@
     <Compile Include="UserControls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\AlternationIndexToRowCountConverter.cs" />
+    <Compile Include="Util\RadioButtonConverter.cs" />
     <Compile Include="Util\EmailHandler.cs" />
     <Compile Include="Util\HandleControllers.cs" />
     <Compile Include="Util\IDHandller.cs" />

@@ -27,7 +27,7 @@ namespace LoanManagementSystem.DBModel
         public string ID_NUM { get; set; }
         public string FIRST_NAME { get; set; }
         public string LAST_NAME { get; set; }
-        public System.DateTime DOB { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
         public string GENDER { get; set; }
         public string NATIONALITY { get; set; }
         public string RELIGION { get; set; }
