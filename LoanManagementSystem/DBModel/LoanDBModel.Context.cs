@@ -18,6 +18,7 @@ namespace LoanManagementSystem.DBModel
         public loandbEntities()
             : base("name=loandbEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

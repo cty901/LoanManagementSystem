@@ -85,5 +85,10 @@ namespace LoanManagementSystem.DBService.Implementions
             area area = db.areas.Where(e => e.ID.Trim() == p.Trim()).SingleOrDefault();
             return area;
         }
+
+        //internal static area IsAreaNameExist(string p)
+        //{
+        //    return db.areas.GroupBy(a => a.AREA_NAME).Where(r => r.Count() > 1);
+        //}
     }
 }

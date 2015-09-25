@@ -105,7 +105,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer.Content
             AreaCodeList = (List<area>)AreaService.getAreaCodes();
             AreaCodeComboBox.ItemsSource = AreaCodeList;
             AreaCodeComboBox.DisplayMemberPath = "AREA_NAME";
-
+            AreaCodeComboBox.DataContext = this;
         }
 
         public static DetailsPage Instance

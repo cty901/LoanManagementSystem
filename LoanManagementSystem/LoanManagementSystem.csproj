@@ -161,6 +161,7 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\AlternationIndexToRowCountConverter.cs" />
+    <Compile Include="Util\GridViewColumnResize.cs" />
     <Compile Include="Util\RadioButtonConverter.cs" />
     <Compile Include="Util\EmailHandler.cs" />
     <Compile Include="Util\HandleControllers.cs" />

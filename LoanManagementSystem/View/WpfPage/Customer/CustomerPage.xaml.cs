@@ -163,7 +163,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer
                }
            }
 
-        }
-
+        }       
     }
 }

@@ -37,10 +37,10 @@ namespace LoanManagementSystem.DBModel
         public string FK_LOAN_TYPE_ID { get; set; }
         public string FK_BRANCH_ID { get; set; }
     
-        public virtual branch branch { get; set; }
-        public virtual customer customer { get; set; }
-        public virtual employee employee { get; set; }
-        public virtual loan_type loan_type { get; set; }
-        public virtual ICollection<payment> payments { get; set; }
+        public branch branch { get; set; }
+        public customer customer { get; set; }
+        public employee employee { get; set; }
+        public loan_type loan_type { get; set; }
+        public ICollection<payment> payments { get; set; }
     }
 }

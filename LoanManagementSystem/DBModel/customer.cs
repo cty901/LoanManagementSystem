@@ -20,8 +20,8 @@ namespace LoanManagementSystem.DBModel
             this.sms = new HashSet<sm>();
         }
         
-        public virtual area area { get; set; }
-        public virtual ICollection<loan> loans { get; set; }
-        public virtual ICollection<sm> sms { get; set; }
+        public area area { get; set; }
+        public ICollection<loan> loans { get; set; }
+        public ICollection<sm> sms { get; set; }
     }
 }

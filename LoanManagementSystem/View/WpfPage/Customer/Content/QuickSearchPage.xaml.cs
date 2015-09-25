@@ -9,6 +9,7 @@ using LoanManagementSystem.DBService.Implementions;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
+using System;
 
 
 namespace LoanManagementSystem.View.WpfPage.Customer
@@ -23,6 +24,28 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         private bool _isSearchedPerformed = false;
         private string _searchText = "";
         private List<customer> _customerList;
+        private List<area> _areaList;
+        private area _selectedArea;
+
+        public List<area> AreaList
+        {
+            get { return _areaList; }
+            set
+            {
+                _areaList = value;
+                OnPropertyChanged("AreaList");
+            }
+        }
+
+        public area SelectedArea
+        {
+            get { return _selectedArea; }
+            set
+            {
+                _selectedArea = value;
+                OnPropertyChanged("SelectedArea");
+            }
+        }
 
         public List<customer> CustomerList
         {
@@ -40,6 +63,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         private QuickSearchPage()
         {
             InitializeComponent();
+            this.DataContext = this;
             RefreshCustomerListByPage(1);
         }
 
@@ -55,7 +79,16 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             }
         }
 
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            AreaList = (List<area>)AreaService.getAreaCodes();
+        }
+        private void QuickSearchTextBox_ContentChange(object sender, TextChangedEventArgs e)
+        {
+            _isSearchedPerformed = true;
+            _searchText = QuickSearchTextBox.Text;
+            RefreshCustomerListByPage(1);
+        }
         private void QuickSearchButton_Click(object sender, RoutedEventArgs e)
         {
             _isSearchedPerformed = true;
@@ -90,22 +123,43 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             }
         }
 
+        //public void setAreaCodeToComboBox()
+        //{
+        //    _areaList = (List<area>)AreaService.getAreaCodes();
+        //    AreaComboBox.ItemsSource = AreaList;
+        //    AreaComboBox.DisplayMemberPath = "AREA_NAME";
+        //}
+
+        private void AreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            QuickSearchTextBox.Text = "";
+            RefreshCustomerListByPage(1);
+        }
+
+        
         private void RefreshCustomerListByPage(int page)
         {
+            area _area = SelectedArea;
+            if (_area == null)
+            {
+                _area = new area();
+                _area.AREA_NAME = "ALL";
+            }
+
             if (_isSearchedPerformed)
             {
                 if (_searchText != "")
                 {
-                    _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+                    _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page,_area.AREA_NAME);
                 }
                 else
                 {
-                    _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page);
+                    _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page,_area.AREA_NAME);
                 }
             }
             else
             {
-                _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page);
+                _PagingCollection = CustomerService.GetPaginatedCustomerListByPage(page,_area.AREA_NAME);
             }
 
             CustomerList = _PagingCollection.Collection;
@@ -141,7 +195,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             RefreshCustomerListByPage(1);
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string name)
@@ -152,5 +205,6 @@ namespace LoanManagementSystem.View.WpfPage.Customer
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
+                
     }
 }

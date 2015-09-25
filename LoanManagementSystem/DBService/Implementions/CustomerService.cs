@@ -76,30 +76,39 @@ namespace LoanManagementSystem.DBService.Implementions
             }
         }
 
-        internal static PagingCollection<customer> GetPaginatedQuickSearchedCustomerListByPage(string _searchText, int page)
+        internal static PagingCollection<customer> GetPaginatedQuickSearchedCustomerListByPage(string _searchText, int page,string areaName)
         {
             PagingCollection<customer> pager = new PagingCollection<customer>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
             List<customer> customers=null;
-
-            if (_searchText != "")
+            if (areaName == "ALL")
             {
-                     customers = db.customers.Where
+                customers = db.customers.Where(e => (e.ISACTIVE == true)).ToList();
+            }
+            else
+            {
+                customers = db.customers.Where(e => (e.ISACTIVE == true && e.area.AREA_NAME == areaName)).ToList();
+            }
+
+           if (_searchText != "")
+            {
+                    customers = customers.Where
                     (e =>
-                        (e.FIRST_NAME == _searchText ||
-                            e.LAST_NAME == _searchText ||
-                            //e.CUSTOMER_ID == _searchText ||
-                            e.PHONE_HP1 == _searchText ||
-                            e.PHONE_HP2 == _searchText ||
-                            e.PHONE_RECIDENCE == _searchText
+                        (   
+                            e.ISACTIVE == true &&
+                            e.FIRST_NAME.ToLower().Contains(_searchText) ||
+                            e.LAST_NAME.ToLower().Contains(_searchText) ||
+                            e.PHONE_HP1.ToLower().Contains(_searchText) ||
+                            e.ID_NUM.ToLower().Contains(_searchText)
                         )).ToList();
             }
             else
             {
-                customers = db.customers.ToList();
+                customers = customers.Where(e => (e.ISACTIVE == true)).ToList();
             }
+            customers = customers.OrderByDescending(cus => cus.FK_AREA_ID).ThenBy(cus=>cus.CUSTOMER_ID).ToList();
 
             pager.Collection = customers.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = customers.Count();
@@ -108,13 +117,22 @@ namespace LoanManagementSystem.DBService.Implementions
             return pager;
         }
 
-        internal static PagingCollection<customer> GetPaginatedCustomerListByPage(int page)
+        internal static PagingCollection<customer> GetPaginatedCustomerListByPage(int page,string areaName)
         {
             PagingCollection<customer> pager = new PagingCollection<customer>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
+            List<customer> customers;
+            if (areaName == "ALL")
+            {
+                customers = db.customers.Where(e => (e.ISACTIVE == true)).ToList();
+            }
+            else
+            {
+                customers = db.customers.Where(e => (e.ISACTIVE == true && e.area.AREA_NAME == areaName)).ToList();
+            }
 
-            var customers = db.customers.Where(e => e.ISACTIVE == true).ToList();
+            customers = customers.OrderByDescending(cus => cus.FK_AREA_ID).ThenBy(cus => cus.CUSTOMER_ID).ToList();
 
             pager.Collection = customers.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = customers.Count();

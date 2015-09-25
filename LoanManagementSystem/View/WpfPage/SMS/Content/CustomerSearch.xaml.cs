@@ -57,7 +57,7 @@ namespace LoanManagementSystem.View.WpfPage.SMS.Content
 
         private void RefreshSearchedListByPage(int page)
         {
-            PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+            PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page,"ALL");
             SearchedListCustomer = _PagingCollection.Collection;
             PagingList = _PagingCollection.PagesList;
 

@@ -6,7 +6,7 @@
       xmlns:util="clr-namespace:LoanManagementSystem.Util"
       mc:Ignorable="d" 
       d:DesignHeight="430" d:DesignWidth="760"
-      Background="Black"
+      Background="Black" Loaded="Page_Loaded"
 	  >
     <Page.Resources>
         <util:AlternationIndexToRowCountConverter x:Key="rowcountconverter" />
@@ -15,9 +15,14 @@
     
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
         <DockPanel DockPanel.Dock="Top" Height="60">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Content="Enter Customer ID for Quick Search" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-                <TextBox x:Name="QuickSearchTextBox" Margin="5" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="175"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0">
+                <Label Content="Area" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox x:Name="AreaComboBox" ItemsSource="{Binding AreaList}" DisplayMemberPath="AREA_NAME" SelectedItem="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5" MinWidth="150" SelectedIndex="0" SelectionChanged="AreaComboBox_SelectionChanged" >
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label Content="Customer Name/Phone/ID" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="QuickSearchTextBox" ToolTip="Enter Customer Name/Phone/ID for Search" Margin="5" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="175" TextChanged="QuickSearchTextBox_ContentChange"/>
                 <Button x:Name="QuickSearchButton" Style="{StaticResource ButtonFormPrimaryAdd}"  HorizontalAlignment="left"  Margin="0" Padding="5" Width="Auto" Height="35" Click="QuickSearchButton_Click" IsDefault="True">
                     <StackPanel Orientation="Horizontal"  Margin="0">
                         <Image Source="/LoanManagementSystem;component/Images/WpfPage/CustomerPage/appbar.people.magnify.png" Margin="0,-3,0,0" Height="30"/>
@@ -57,7 +62,7 @@
                         <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <StackPanel>
                                 <StackPanel>
-                                    <ListView x:Name="CustomerListView" AlternationCount="10000" ItemsSource="{Binding CustomerList}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
+                                    <ListView x:Name="CustomerListView" AlternationCount="10000" ItemsSource="{Binding CustomerList}" util:GridViewColumnResize.Enabled="True" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
                                         <!--<ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
@@ -89,33 +94,43 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>-->
                                         <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex),RelativeSource={RelativeSource AncestorType=ListViewItem},Converter={StaticResource rowcountconverter}}" >
+                                            <GridView AllowsColumnReorder="False">
+                                                <GridViewColumn util:GridViewColumnResize.Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex),RelativeSource={RelativeSource AncestorType=ListViewItem},Converter={StaticResource rowcountconverter}}" >
                                                     <GridViewColumn.Header>
                                                         <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
-                                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding FULLNAME}" >
+                                                <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding AREA_SELECTED.AREA_NAME}">
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Area">Area</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn util:GridViewColumnResize.Width="40" DisplayMemberBinding="{Binding CUSTOMER_ID}" >
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Code">Code</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn util:GridViewColumnResize.Width="3*" DisplayMemberBinding="{Binding FULLNAME}" >
                                                     <GridViewColumn.Header>
                                                         <GridViewColumnHeader Tag="Customer Name">Customer Name</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
-                                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding PHONE_HP1}">
+                                                <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding PHONE_HP1}">
                                                     <GridViewColumn.Header>
                                                         <GridViewColumnHeader Tag="Phone">Phone</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
-                                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding CITY}">
+                                                <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding ID_NUM}">
                                                     <GridViewColumn.Header>
-                                                        <GridViewColumnHeader Tag="City">City</GridViewColumnHeader>
+                                                        <GridViewColumnHeader Tag="ID">ID Number</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
-                                                <GridViewColumn Width="75" DisplayMemberBinding="{Binding CURRENT_STATUS}">
+                                                <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding CURRENT_STATUS}">
                                                     <GridViewColumn.Header>
                                                         <GridViewColumnHeader Tag="Status">Status</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
-                                                <GridViewColumn Width="50">
+                                                <GridViewColumn util:GridViewColumnResize.Width="50">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <Button x:Name="CustomerDetailsButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="25" Height="25" Margin="0,0.5,0,0" Click="CustomerDetailsButton_Click">
@@ -126,8 +141,7 @@
                                                             </Button>
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-                                                
+                                                </GridViewColumn>                                                
                                             </GridView>
                                         </ListView.View>
                                         

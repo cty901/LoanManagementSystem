@@ -81,7 +81,7 @@ namespace LoanManagementSystem.DBService.Implementions
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var loans = db.loans.Where
+            var loans = db.loans.Include("customer").Include("employee").Where
                 (e =>
                     (
                         e.LOAN_ID.Contains(_searchText)
@@ -95,43 +95,7 @@ namespace LoanManagementSystem.DBService.Implementions
                 loans = loans.OrderByDescending(ln => ln.START_DATE).ToList();
                 loans = loans.Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
             }
-
-            //var lns = from ln in db.loans
-            //            join cus in db.customers on ln.FK_CUSTOMER_ID equals cus.ID
-            //            join emp in db.employees on ln.FK_EMPLOYEE_ID equals emp.ID
-            //            join brch in db.branches on ln.FK_BRANCH_ID equals brch.ID
-            //            join ltype in db.loan_type on ln.FK_LOAN_TYPE_ID equals ltype.ID
-            //            select ln;
-
-            //List<loan> loans = lns.ToList();
-
-            //var lns = db.loans
-            //    .Join(db.customers
-            //        , c => c.FK_CUSTOMER_ID
-            //        , cm => cm.ID
-            //        , (c, cm) => new { c, cm })
-            //    .Join(db.employees
-            //        , ccm => ccm.c.FK_EMPLOYEE_ID
-            //        , t => t.ID
-            //        , (ccm, t) => new {ccm,t})
-            //    .Join(db.branches
-            //        ,ccmt=> ccmt.ccm.c.FK_BRANCH_ID
-            //        ,b => b.ID
-            //        ,(ccmt,b) =>new {ccmt,b})
-            //    .Join(db.loan_type
-            //        ,ccmtb=> ccmtb.ccmt.ccm.c.FK_LOAN_TYPE_ID
-            //        ,lty=>lty.ID
-            //        ,(ccmtb,lty) =>new
-            //          {
-            //              LOAN_ID=ccmtb.ccmt.ccm.c.LOAN_ID,
-            //              BRANCH_NAME = ccmtb.b.ADDRESS,
-            //              LOAN_TYPE_NAME = lty.LOAN_TYPE_ID,
-            //              STATUS=ccmtb.ccmt.ccm.c.STATUS,
-            //          })
-            //        .Where(a => a.LOAN_ID == _searchText).ToList();
-
-            //dynamic loans = (dynamic)lns;
-
+            
             pager.Collection = loans.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = loans.Count();
             pager.CurrentPage = page;
@@ -145,11 +109,32 @@ namespace LoanManagementSystem.DBService.Implementions
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var loans = db.loans.Where(e => e.LOAN_STATUS == true).ToList();
-            loans = loans.OrderByDescending(ln => ln.START_DATE).ToList();
+            var query = db.loans.Include("customer").Include("employee").Where(e => e.LOAN_STATUS == true).ToList();
 
-            pager.Collection = loans.Skip(offset).Take(pagesize).ToList();
-            pager.TotalCount = loans.Count();
+           // var query = db.loans.Join(db.customers, l => l.FK_CUSTOMER_ID, c => c.ID, (l, c) => new { loan = l, customer = c }).ToList();
+
+           //         var query = database.Posts    // your starting point - table in the "from" statement
+           //.Join(database.Post_Metas, // the source table of the inner join
+           //   post => post.ID,        // Select the primary key (the first part of the "on" clause in an sql "join" statement)
+           //   meta => meta.Post_ID,   // Select the foreign key (the second part of the "on" clause)
+           //   (post, meta) => new { Post = post, Meta = meta }) // selection
+           //.Where(postAndMeta => postAndMeta.Post.ID == id);    // where statement
+
+
+            //var loans = db.loans.Where(e => e.LOAN_STATUS == true).ToList();
+           
+            //var loans = (from l in db.loans
+            //             join c in db.customers on l.FK_CUSTOMER_ID equals c.ID into cus
+            //             join e in db.employees on l.FK_EMPLOYEE_ID equals e.ID into emp
+            //             select new loan()
+            //             {
+            //                 ID = l.ID
+            //             }).ToList();
+            
+            query = query.OrderByDescending(q=>q.START_DATE).ToList();
+
+            pager.Collection = query.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = query.Count();
             pager.CurrentPage = page;
 
             return pager;

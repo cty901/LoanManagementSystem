@@ -75,7 +75,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }
             else if (getSearchType() == 0)
             {
-                PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+                PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page,"ALL");
                 SearchedListCustomer = _PagingCollection.Collection;
                 PagingList = _PagingCollection.PagesList;
 
@@ -93,7 +93,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }
             else
             {
-                PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page);
+                PagingCollection<customer> _PagingCollection = CustomerService.GetPaginatedQuickSearchedCustomerListByPage(_searchText, page,"ALL");
                 SearchedListCustomer = _PagingCollection.Collection;
                 PagingList = _PagingCollection.PagesList;
 
