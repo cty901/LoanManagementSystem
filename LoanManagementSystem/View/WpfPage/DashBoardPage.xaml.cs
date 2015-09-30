@@ -17,6 +17,7 @@ using LoanManagementSystem.View.WpfPage.Loan;
 using LoanManagementSystem.View.WpfPage.LoanTypes;
 using LoanManagementSystem.View.WpfPage.SMS;
 using LoanManagementSystem.View.WpfPage.Settings;
+using LoanManagementSystem.View.WpfPage.Reports;
 
 
 namespace LoanManagementSystem.View.WpfPage
@@ -93,7 +94,7 @@ namespace LoanManagementSystem.View.WpfPage
 
         private void ReportsBtn_Click(object sender, RoutedEventArgs e)
         {
-           // MainWindow.Instance.ContentFrame.Content = ReportPage.Instance;
+           MainWindow.Instance.ContentFrame.Content = ReportsPage.Instance;
         }
         
         private async void HolidaysBtn_Click(object sender, RoutedEventArgs e)

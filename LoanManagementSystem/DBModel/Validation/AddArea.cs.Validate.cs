@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoanManagementSystem.DBService.Implementions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -163,6 +164,10 @@ namespace LoanManagementSystem.DBModel
                     if (String.IsNullOrWhiteSpace(AREA_NAME))
                     {
                         result = "Area Name cannot be empty";
+                    }
+                    if(AreaService.IsAreaNameExist(AREA_NAME))
+                    {
+                        result = "Area Name Exist hence use Different Name";
                     }
                 }
                 if (columnName == "ID")

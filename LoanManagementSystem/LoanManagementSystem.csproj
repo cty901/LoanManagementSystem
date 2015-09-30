@@ -161,6 +161,7 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\AlternationIndexToRowCountConverter.cs" />
+    <Compile Include="Util\SumConverter.cs" />
     <Compile Include="Util\GridViewColumnResize.cs" />
     <Compile Include="Util\RadioButtonConverter.cs" />
     <Compile Include="Util\EmailHandler.cs" />
@@ -174,6 +175,15 @@
     <Compile Include="Util\PageData.cs" />
     <Compile Include="Util\PagingCollection.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="View\WpfPage\Reports\Content\LoanReportPage.xaml.cs">
+      <DependentUpon>LoanReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Reports\Content\PaymentReportPage.xaml.cs">
+      <DependentUpon>PaymentReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WpfPage\Reports\ReportsPage.xaml.cs">
+      <DependentUpon>ReportsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\Settings\Content\ContentPageSettings.xaml.cs">
       <DependentUpon>ContentPageSettings.xaml</DependentUpon>
     </Compile>
@@ -300,6 +310,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Reports\Content\LoanReportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Reports\Content\PaymentReportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Reports\ReportsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -709,6 +731,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WpfPage\common\appbar.cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WpfPage\common\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

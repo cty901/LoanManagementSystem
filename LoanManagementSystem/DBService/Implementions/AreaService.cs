@@ -86,9 +86,14 @@ namespace LoanManagementSystem.DBService.Implementions
             return area;
         }
 
-        //internal static area IsAreaNameExist(string p)
-        //{
-        //    return db.areas.GroupBy(a => a.AREA_NAME).Where(r => r.Count() > 1);
-        //}
+        internal static Boolean IsAreaNameExist(string p)
+        {
+           int result=db.areas.GroupBy(a => a.AREA_NAME==p).Count();
+           if (result > 1)
+           {
+               return true;
+           }
+           return false;
+        }
     }
 }

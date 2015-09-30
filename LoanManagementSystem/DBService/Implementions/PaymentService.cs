@@ -108,5 +108,26 @@ namespace LoanManagementSystem.DBService.Implementions
             decimal d=Convert.ToDecimal(loan.INSTALLMENT) * days;
             return d;
         }
+
+        internal static PagingCollection<payment> GetPaginatedQuickSearchedPaymentListByPage(int page, string p, DateTime _dateFrom, DateTime _dateTo)
+        {
+            PagingCollection<payment> pager = new PagingCollection<payment>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            var payments = db.payments.Include("loan").Where
+                (pay => (
+                        pay.loan.LOAN_STATUS == true &&
+                        (pay.loan.customer.area.AREA_NAME == p || p == "ALL") &&
+                        pay.DATE_TIME >= _dateFrom.Date &&
+                        pay.DATE_TIME <= _dateTo.Date
+                      )).ToList();
+
+            pager.Collection = payments.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = payments.Count();
+            pager.CurrentPage = page;
+
+            return pager;
+        }
     }
 }

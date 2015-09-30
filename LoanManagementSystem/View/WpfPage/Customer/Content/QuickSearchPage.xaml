@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:util="clr-namespace:LoanManagementSystem.Util"
+      xmlns:dbmodel="clr-namespace:LoanManagementSystem.DBModel"
       mc:Ignorable="d" 
       d:DesignHeight="430" d:DesignWidth="760"
       Background="Black" Loaded="Page_Loaded"
@@ -17,7 +18,16 @@
         <DockPanel DockPanel.Dock="Top" Height="60">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0">
                 <Label Content="Area" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
-                <ComboBox x:Name="AreaComboBox" ItemsSource="{Binding AreaList}" DisplayMemberPath="AREA_NAME" SelectedItem="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5" MinWidth="150" SelectedIndex="0" SelectionChanged="AreaComboBox_SelectionChanged" >
+                <ComboBox x:Name="AreaComboBox" DisplayMemberPath="AREA_NAME" SelectedIndex="0" SelectedValue="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5" MinWidth="150" SelectionChanged="AreaComboBox_SelectionChanged" >
+                    <ComboBox.Resources>
+                        <CollectionViewSource x:Key="comboBoxSource" Source="{Binding Path=AreaList}" />
+                    </ComboBox.Resources>
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <dbmodel:area AREA_NAME="ALL"/>
+                            <CollectionContainer Collection="{Binding Source={StaticResource comboBoxSource}}" />
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">

@@ -56,9 +56,9 @@ namespace LoanManagementSystem.DBService.Implementions
 
         public static int DeleteLoan(loan _loan)
         {
+            var query = db.loans.Single(ln => ln.ID == _loan.ID);
             try
             {
-                var query = db.loans.Single(ln => ln.ID == _loan.ID);
                 db.loans.Remove(query);
                 return db.SaveChanges();
             }
@@ -73,15 +73,30 @@ namespace LoanManagementSystem.DBService.Implementions
                 }
                 return 0;
             }
+            catch(Exception ex)
+            {
+                db.Entry(query).Reload();
+                return 0;
+            }
         }
 
-        internal static PagingCollection<loan> GetPaginatedQuickSearchedLoanListByPage(string _searchText, int page, Boolean _loanStatusActive)
+        internal static PagingCollection<loan> GetPaginatedQuickSearchedLoanListByPage(string _searchText, int page, Boolean _loanStatusActive,string areaName)
         {
             PagingCollection<loan> pager = new PagingCollection<loan>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var loans = db.loans.Include("customer").Include("employee").Where
+            List<loan> loans = null;
+            if (areaName == "ALL")
+            {
+                loans = db.loans.Include("customer").Include("employee").Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
+            }
+            else
+            {
+                loans = db.loans.Include("customer").Include("employee").Where(e => (e.LOAN_STATUS == _loanStatusActive && e.customer.area.AREA_NAME == areaName)).ToList();
+            }
+
+            loans = loans.Where
                 (e =>
                     (
                         e.LOAN_ID.Contains(_searchText)
@@ -91,7 +106,7 @@ namespace LoanManagementSystem.DBService.Implementions
 
             if (_searchText == "")
             {
-                loans = db.loans.ToList();
+                loans = loans.ToList();
                 loans = loans.OrderByDescending(ln => ln.START_DATE).ToList();
                 loans = loans.Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
             }
@@ -103,13 +118,21 @@ namespace LoanManagementSystem.DBService.Implementions
             return pager;
         }
 
-        internal static PagingCollection<loan> GetPaginatedLoanListByPage(int page)
+        internal static PagingCollection<loan> GetPaginatedLoanListByPage(int page, string areaName)
         {
             PagingCollection<loan> pager = new PagingCollection<loan>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
 
-            var query = db.loans.Include("customer").Include("employee").Where(e => e.LOAN_STATUS == true).ToList();
+            List<loan> loans = null;
+            if (areaName == "ALL")
+            {
+                loans = db.loans.Include("customer").Include("employee").Where(e => (e.LOAN_STATUS == true)).ToList();
+            }
+            else
+            {
+                loans = db.loans.Include("customer").Include("employee").Where(e => (e.LOAN_STATUS == true && e.customer.area.AREA_NAME == areaName)).ToList();
+            }
 
            // var query = db.loans.Join(db.customers, l => l.FK_CUSTOMER_ID, c => c.ID, (l, c) => new { loan = l, customer = c }).ToList();
 
@@ -131,10 +154,10 @@ namespace LoanManagementSystem.DBService.Implementions
             //                 ID = l.ID
             //             }).ToList();
             
-            query = query.OrderByDescending(q=>q.START_DATE).ToList();
+            loans = loans.OrderByDescending(q=>q.START_DATE).ToList();
 
-            pager.Collection = query.Skip(offset).Take(pagesize).ToList();
-            pager.TotalCount = query.Count();
+            pager.Collection = loans.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = loans.Count();
             pager.CurrentPage = page;
 
             return pager;
@@ -164,6 +187,27 @@ namespace LoanManagementSystem.DBService.Implementions
         internal static void ReloadLoanEntity()
         {
             db.Entry(Session.SelectedLoan).Reload();
+        }
+
+        internal static PagingCollection<loan> GetPaginatedQuickSearchedLoanListByPage(int page, string p, DateTime _dateFrom, DateTime _dateTo)
+        {
+            PagingCollection<loan> pager = new PagingCollection<loan>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            var loans = db.loans.Include("customer").Include("employee").Where
+                (ln =>( 
+                        ln.LOAN_STATUS==true &&
+                        (ln.customer.area.AREA_NAME==p || p=="ALL") &&
+                        ln.START_DATE >= _dateFrom.Date &&
+                        ln.START_DATE <= _dateTo.Date                        
+                      )).ToList();
+
+            pager.Collection = loans.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = loans.Count();
+            pager.CurrentPage = page;
+
+            return pager;
         }
     }
 }

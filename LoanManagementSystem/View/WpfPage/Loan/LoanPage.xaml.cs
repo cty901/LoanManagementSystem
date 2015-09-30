@@ -79,6 +79,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             else if (ViewMode == Mode.EDIT)
             {
                 BackButtonTemp.Visibility = System.Windows.Visibility.Visible;
+                DeleteLoanButton.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -136,6 +137,24 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             ContentPageLoan.Instance.SearchContentFrame.Content = null;
             IssueLoan.Instance.ViewMode = Mode.EDIT;
             ViewMode = Mode.EDIT;
+        }
+
+        private async void DeleteLoanButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialogResult result = await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Do you want to Delete Loan?", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                if (Session.deleteSelectedLoan() == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Deleted Successfully..", MessageDialogStyle.Affirmative);
+                    Session.LogOutSelectedLoan();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Delete fail..", MessageDialogStyle.Affirmative);
+                }
+            }
         }
         
     }

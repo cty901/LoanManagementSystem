@@ -39,7 +39,15 @@ namespace LoanManagementSystem.View.WpfPage.Customer
 
         public area SelectedArea
         {
-            get { return _selectedArea; }
+            get 
+            {
+                if (_selectedArea == null)
+                {
+                   _selectedArea = new area();
+                   _selectedArea.AREA_NAME = "ALL";
+                }
+                return _selectedArea; 
+            }
             set
             {
                 _selectedArea = value;
@@ -82,6 +90,12 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             AreaList = (List<area>)AreaService.getAreaCodes();
+            SelectedArea = this.SelectedArea;
+
+            if (AreaComboBox.SelectedIndex == -1)
+            {
+                AreaComboBox.SelectedIndex = 0;
+            }
         }
         private void QuickSearchTextBox_ContentChange(object sender, TextChangedEventArgs e)
         {
@@ -132,20 +146,18 @@ namespace LoanManagementSystem.View.WpfPage.Customer
 
         private void AreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            QuickSearchTextBox.Text = "";
-            RefreshCustomerListByPage(1);
+            if (QuickSearchTextBox != null)
+            {
+                QuickSearchTextBox.Text = "";
+                RefreshCustomerListByPage(1);
+            }
         }
 
         
         private void RefreshCustomerListByPage(int page)
         {
             area _area = SelectedArea;
-            if (_area == null)
-            {
-                _area = new area();
-                _area.AREA_NAME = "ALL";
-            }
-
+            
             if (_isSearchedPerformed)
             {
                 if (_searchText != "")
@@ -205,6 +217,7 @@ namespace LoanManagementSystem.View.WpfPage.Customer
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
+        
                 
     }
 }

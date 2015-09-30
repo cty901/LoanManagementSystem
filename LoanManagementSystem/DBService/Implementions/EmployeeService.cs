@@ -126,10 +126,11 @@ namespace LoanManagementSystem.DBService.Implementions
 
         public static int DeleteEmployee(employee employee)
         {
+
+            var query=db.employees.Single(c => c.ID == employee.ID);
             try
             {
-                db.employees.Single(c => c.ID == employee.ID).STATUS = false;
-
+                db.employees.Remove(query);
                 return db.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -141,6 +142,11 @@ namespace LoanManagementSystem.DBService.Implementions
                         Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
                     }
                 }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                db.Entry(query).Reload();
                 return 0;
             }
         }

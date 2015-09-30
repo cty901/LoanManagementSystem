@@ -96,7 +96,7 @@ namespace LoanManagementSystem.Util
                 if (value != null)
                 {
                     _selectedLoan = value;
-                    LoanPage.Instance.SelectedLoan.Content = value.LOAN_ID;
+                    LoanPage.Instance.SelectedLoan.Content = value.FK_CUSTOMER.AREA_SELECTED.AREA_NAME+" "+value.LOAN_ID;
                     LoanPage.Instance.SelectedLoanLogOutButton.Visibility = Visibility.Visible;
 
                     if (Navigation != null)
@@ -171,8 +171,14 @@ namespace LoanManagementSystem.Util
         {
             if (SelectedEmployee != null)
             {
-                EmployeeService.DeleteEmployee(SelectedEmployee);
-                return 1;
+                if (EmployeeService.DeleteEmployee(SelectedEmployee) == 1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -183,8 +189,14 @@ namespace LoanManagementSystem.Util
         {
             if (SelectedCustomer != null)
             {
-                CustomerService.DeleteCustomer(SelectedCustomer);
-                return 1;
+                if (CustomerService.DeleteCustomer(SelectedCustomer) == 1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -195,8 +207,14 @@ namespace LoanManagementSystem.Util
         {
             if (SelectedLoan != null)
             {
-                LoanService.DeleteLoan(SelectedLoan);
-                return 1;
+                if (LoanService.DeleteLoan(SelectedLoan) == 1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {

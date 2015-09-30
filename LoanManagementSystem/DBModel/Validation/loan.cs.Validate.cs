@@ -39,5 +39,22 @@ namespace LoanManagementSystem.DBModel
                 }
             }
         }
+
+        public customer FK_CUSTOMER
+        {
+            get
+            {
+                return CustomerService.GetCustomerByID(this.FK_CUSTOMER_ID);
+            }
+        }
+
+        public employee FK_EMPLOYEE
+        {
+            get
+            {
+                return EmployeeService.getEmployeeByID(this.FK_EMPLOYEE_ID);
+            }
+        }
+
     }
 }

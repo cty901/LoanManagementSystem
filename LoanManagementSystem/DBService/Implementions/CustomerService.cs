@@ -57,9 +57,9 @@ namespace LoanManagementSystem.DBService.Implementions
 
         public static int DeleteCustomer(customer _customer)
         {
+            var query = db.customers.Single(c => c.ID == _customer.ID);
             try
             {
-                var query = db.customers.Single(c => c.ID == _customer.ID);
                 db.customers.Remove(query);
                 return db.SaveChanges();
             }
@@ -72,6 +72,11 @@ namespace LoanManagementSystem.DBService.Implementions
                         Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
                     }
                 }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                db.Entry(query).Reload();
                 return 0;
             }
         }
@@ -153,6 +158,12 @@ namespace LoanManagementSystem.DBService.Implementions
             db.Entry(_customer).Reload();
             _customer.NeedToSave = false;
             return _customer;
+        }
+
+        internal static customer GetCustomerByID(string p)
+        {
+            customer _cus = db.customers.Where(cus => cus.ID == p).SingleOrDefault();
+            return _cus;
         }
     }
 }
