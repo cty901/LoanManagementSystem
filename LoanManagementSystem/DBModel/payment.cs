@@ -16,8 +16,6 @@ namespace LoanManagementSystem.DBModel
     {
         public string ID { get; set; }
         public string PAYMENT_ID { get; set; }
-        public Nullable<System.DateTime> DATE_TIME { get; set; }
-        public Nullable<decimal> AMOUNT { get; set; }
         public string REMARK { get; set; }
         public string PAIDBY { get; set; }
         public Nullable<bool> STATUS { get; set; }

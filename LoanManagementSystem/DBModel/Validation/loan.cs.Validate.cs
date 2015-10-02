@@ -25,6 +25,15 @@ namespace LoanManagementSystem.DBModel
             return PaymentService.totalToPayByLoanID(this);
         }
 
+        public string FullLoanCode
+        {
+            get
+            {
+                return this.FK_CUSTOMER.AREA_SELECTED.AREA_NAME+ " / " + this.LOAN_ID;
+            }
+
+        }
+
         public string LSTATUS
         {
             get

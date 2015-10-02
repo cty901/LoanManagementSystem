@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:LoanManagementSystem.DBModel"
+      xmlns:util="clr-namespace:LoanManagementSystem.Util"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" d:DesignWidth="760" Background="#5133AB" Height="550">
 
@@ -16,7 +17,7 @@
         </Expander.Header>
 
 
-            <Grid Margin="10">
+            <Grid Margin="10" x:Name="GridPayment">
 
                 <!--<StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Label Content="* ID" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
@@ -59,29 +60,42 @@
             <Label Grid.Row="1"  Grid.Column="0" Content="* Loan ID" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
             <TextBox  Grid.Row="1" Grid.Column="1" x:Name="LoanIDTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" IsEnabled="False"/>
             <Label Grid.Row="1"  Grid.Column="2" Content="* Pay Date" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
-            <DatePicker Grid.Row="1" Grid.Column="3"  x:Name="PayDatePicker" SelectedDate="{Binding Mode=OneWay, Source={x:Static System:DateTime.Now}, StringFormat=\{0:dd-MM-yyyy\}}" Background="White" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" />
+            <DatePicker Grid.Row="1" Grid.Column="3"  x:Name="PayDatePicker" Padding="0" SelectedDate="{Binding Mode=OneWay,Path=DATE_TIME,UpdateSourceTrigger=PropertyChanged}" Background="White" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" />
                 <!--Third Row-->
             <Label Grid.Row="2"  Grid.Column="0" Content="* Amount" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
-            <TextBox  Grid.Row="2" Grid.Column="1" x:Name="AmountTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="AmountTextBox" Validation.ErrorTemplate="{StaticResource topRightCornerErrorTemplate}" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center">
+                <Binding Path="AMOUNT" Mode="OneWay" NotifyOnValidationError="True" ValidatesOnDataErrors="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <!--<Binding.ValidationRules>
+                        <util:CurrencyValidator></util:CurrencyValidator>
+                    </Binding.ValidationRules>-->
+                </Binding>
+            </TextBox>    
             <Label Grid.Row="2"  Grid.Column="2" Content="Payed By" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft"/>
-            <TextBox  Grid.Row="2" Grid.Column="3" x:Name="PayedByTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5"/>
+            <TextBox Text="{Binding Path=PAIDBY}" Grid.Row="2" Grid.Column="3" x:Name="PayedByTextBox" Height="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5"/>
 
                 <!--Fourth Row-->
             <Label Grid.Row="3" Grid.Column="0"  Content="Remark" FontWeight="Bold" HorizontalAlignment="Right" Height="Auto" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft" />
-            <TextBox  Grid.Row="3" Grid.Column="1" x:Name="RemarkTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+            <TextBox  Text="{Binding Path=REMARK}" Grid.Row="3" Grid.Column="1" x:Name="RemarkTextBox" HorizontalAlignment="Stretch" Margin="0,5,0,5" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
 
             <Label Grid.Row="5" Grid.Column="0"  Content="Ref Employee" FontWeight="Bold" HorizontalAlignment="Right" Height="Auto" Width="Auto" Margin="0,5,5,5" FlowDirection="RightToLeft" />
             <Label Grid.Row="5" Grid.Column="1" x:Name="EmployeeLabel"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5" Grid.ColumnSpan="2" />
 
-            <DockPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" >
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0">
-                        <Button x:Name="LoanSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="LoanSaveButton_Click">
+            <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ControlButtonDock">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="right" Margin="0" x:Name="ControlButtonPanel">
+                        <Button x:Name="LoanDeleteButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,0,1,2.4" Background="{x:Null}" Click="LoanDeleteButton_Click" Height="30" VerticalAlignment="Bottom">
                             <StackPanel Orientation="Horizontal"  Margin="0">
                                 <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
-                                <Label Content="Save"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                <Label Content="Delete"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="LoanCancelButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}">
+                    <Button x:Name="LoanSaveButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="LoanSaveButton_Click">
+                            <StackPanel Orientation="Horizontal"  Margin="0">
+                                <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.save.png" Margin="0,-1,0,-1" Height="30"/>
+                                <Label x:Name="SaveButtonContentLable" Content="Save"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="LoanCancelButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Background="{x:Null}" Click="LoanCancelButton_Click">
                             <StackPanel Orientation="Horizontal"  Margin="0">
                                 <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.cancel.png" Margin="0,-1,0,-1" Height="30"/>
                                 <Label Content="Cancel"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -116,14 +130,14 @@
 
                                             <Label Grid.Column="0" Foreground="Black" FontWeight="Bold" Content="Date" HorizontalAlignment="Left" Width="Auto" />
                                             <Label Grid.Column="1" Foreground="Black" FontWeight="Bold" Content="Payment" HorizontalAlignment="Left" Width="Auto" />
-                                            <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Select" HorizontalAlignment="Left" Width="Auto" ToolTip="Today borrowing status"/>
-                                        </Grid>
+                                            <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Select" HorizontalAlignment="Left" Width="Auto" />
+                                    </Grid>
                                     </DockPanel>
 
                                     <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                         <StackPanel>
                                             <StackPanel>
-                                                <ListView x:Name="PaymentList" ItemsSource="{Binding SearchedList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                <ListView x:Name="PaymentList" ItemsSource="{Binding SearchedList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible" IsSynchronizedWithCurrentItem="False">
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate>
                                                             <Grid>
@@ -140,15 +154,15 @@
                                                                 <Label Grid.Column="1" Foreground="Black" Content="{Binding AMOUNT}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto"/>
 
                                                                 <StackPanel Grid.Column="2" Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left"  Margin="7,0,0,0">
-                                                                    <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25">
+                                                                    <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="SelectButton_Click">
                                                                         <StackPanel>
                                                                             <Image Source="/LoanManagementSystem;component/images/WpfPage/StaffPage/money_yes.png" Width="28" Height="28" Margin="-5" />
                                                                             <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
                                                                         </StackPanel>
                                                                     </Button>
-                                                                </StackPanel>
+                                                                </StackPanel>                                                                
                                                             </Grid>
-                                                        </DataTemplate>
+                                                    </DataTemplate>
 
                                                     </ListView.ItemTemplate>
                                                     <ListView.ItemContainerStyle>
@@ -156,8 +170,10 @@
                                                             <Setter Property="BorderBrush" Value="LightGray" />
                                                             <Setter Property="BorderThickness" Value="0,0,0,1" />
                                                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                                        </Style>
-                                                    </ListView.ItemContainerStyle>
+                                                            <Setter Property="Focusable" Value="false"/>
+                                                    </Style>                                                   
+                                                </ListView.ItemContainerStyle>
+                                                    
                                                 </ListView>
 
                                             </StackPanel>
@@ -179,10 +195,36 @@
                                                                 </DataTrigger>
                                                             </DataTemplate.Triggers>
                                                         </DataTemplate>
-
                                                     </ListView.ItemTemplate>
+                                                    <!--<ListView.Resources>
+                                                        <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
+                                                            <Border SnapsToDevicePixels="true" 
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                Background="{TemplateBinding Background}"
+                                                                CornerRadius="5" x:Name="border">
+                                                                                                        <ContentControl 
+                                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                                Margin="2,2,2,2" 
+                                                                VerticalAlignment="Stretch"
+                                                                Content="{TemplateBinding Content}" />
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Style.Triggers>
+                                                                <MultiTrigger>
+                                                                    <MultiTrigger.Conditions>
+                                                                        <Condition Property="IsSelected" Value="true" />
+                                                                        <Condition Property="Selector.IsSelectionActive" Value="true" />
+                                                                    </MultiTrigger.Conditions>
+                                                                    <Setter Property="Background" Value="Pink" />
+                                                                    <Setter Property="Template" Value="{StaticResource SelectedTemplate}" />
+                                                                </MultiTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ListView.Resources>-->
 
-                                                </ListView>
+                                            </ListView>
                                             </StackPanel>
                                     </StackPanel>
                                     </DockPanel>

@@ -40,6 +40,15 @@ namespace LoanManagementSystem.DBModel
         private int _eventCount;
         private string _fk_area_id;
 
+        public string FullCustomerCode
+        {
+            get
+            {
+                return this.AREA_SELECTED.AREA_NAME + " / " + this.CUSTOMER_ID.ToString();
+            }
+
+        }
+
         public Boolean NeedToSave
         {
             get

@@ -78,16 +78,16 @@
                                                             <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
                                                     </GridViewColumn>
-                                                    <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding Path=loan.FK_CUSTOMER.AREA_SELECTED.AREA_NAME}">
+                                                    <GridViewColumn util:GridViewColumnResize.Width="2*" DisplayMemberBinding="{Binding Path=loan.FullLoanCode}">
                                                         <GridViewColumn.Header>
-                                                            <GridViewColumnHeader Tag="Area">Area</GridViewColumnHeader>
+                                                            <GridViewColumnHeader Tag="Loan Code">Loan Code</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
                                                     </GridViewColumn>
-                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding loan.LOAN_ID}" >
+                                                    <!--<GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding loan.LOAN_ID}" >
                                                         <GridViewColumn.Header>
                                                             <GridViewColumnHeader Tag="Loan ID">Loan ID</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
-                                                    </GridViewColumn>
+                                                    </GridViewColumn>-->
                                                     <GridViewColumn util:GridViewColumnResize.Width="2.5*" DisplayMemberBinding="{Binding loan.FK_CUSTOMER.FULLNAME}" >
                                                         <GridViewColumn.Header>
                                                             <GridViewColumnHeader Tag="Customer Name">Customer Name</GridViewColumnHeader>

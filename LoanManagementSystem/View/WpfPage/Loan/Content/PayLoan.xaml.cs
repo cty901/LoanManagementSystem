@@ -26,10 +26,21 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
     public partial class PayLoan : Page
     {
         private static PayLoan _instance;
+        private static Util.Mode _mode;
+        payment _newPayment;
 
         private PayLoan()
         {
             InitializeComponent();
+            _newPayment = new payment();
+            PaymentReset(_newPayment);
+            GridPayment.DataContext = _newPayment;
+        }
+
+        public void PaymentReset(payment _p)
+        {
+            _p.DATE_TIME = System.DateTime.Now;
+            _p.AMOUNT = (decimal)0.00;
         }
 
         public static PayLoan Instance
@@ -41,9 +52,49 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                     _instance = new PayLoan();
                 }
                 _instance.setLoan();
+                Mode = Mode.NEW;
                 return _instance;
             }
 
+        }
+
+        public List<payment> PaymentL { get; set; }
+        public payment Selected { get; set; }
+
+        public static Mode Mode
+        {
+            get { return _mode; }
+            set
+            {
+                _mode = value;
+                _instance.updateControlButtonPanelView();
+            }
+        }
+
+        private void collapseAllControlButtonPanelItems()
+        {
+            foreach (Button child in ControlButtonPanel.Children)
+            {
+                child.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
+        private void updateControlButtonPanelView()
+        {
+            collapseAllControlButtonPanelItems();
+            if (Mode == Mode.NEW)
+            {
+                LoanSaveButton.Visibility = System.Windows.Visibility.Visible;
+                SaveButtonContentLable.Content = "Save";
+                LoanCancelButton.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (Mode == Mode.EDIT)
+            {
+                LoanDeleteButton.Visibility = System.Windows.Visibility.Visible;
+                LoanSaveButton.Visibility = System.Windows.Visibility.Visible;
+                SaveButtonContentLable.Content = "Update";
+                LoanCancelButton.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         private void setLoan()
@@ -58,7 +109,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private void setLoanDetails(loan _loan)
         {
             CustomerLabel.Content = LetterHandller.UppercaseFirst(_loan.customer.FIRST_NAME) + " " + LetterHandller.UppercaseFirst(_loan.customer.LAST_NAME);
-            CustomerCodeLabel.Content = _loan.customer.CUSTOMER_ID;
+            CustomerCodeLabel.Content = _loan.customer.FullCustomerCode;
             LoanIDTextBox.Text = _loan.LOAN_ID;
             EmployeeLabel.Content = LetterHandller.UppercaseFirst(_loan.employee.FULLNAME);
         }
@@ -93,15 +144,39 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private async void LoanSaveButton_Click(object sender, RoutedEventArgs e)
         {
             payment _payment = setLoanPaymentDetails();
-            if (PaymentService.InsertPayment(_payment) == 1)
+            if (Mode == Mode.NEW)
             {
-                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Payment Added Success!", MessageDialogStyle.Affirmative);
-                clearLoanIssuePage();
-                refreshLoanPaymentList(1);
+                if (PaymentService.InsertPayment(_payment) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Payment Added Success!", MessageDialogStyle.Affirmative);
+                    clearLoanIssuePage();
+                    refreshLoanPaymentList(1);
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
             }
-            else
+            else if (Mode == Mode.EDIT)
             {
-                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                _payment.ID = Selected.ID;
+                int _result=PaymentService.UpdatePayment(_payment);
+
+                if (_result == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Payment Update Success!", MessageDialogStyle.Affirmative);
+                    clearLoanIssuePage();
+                    refreshLoanPaymentList(1);
+                }
+                else if (_result == 0)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Loan Payment Update Success!", MessageDialogStyle.Affirmative);
+                    clearLoanIssuePage();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Please check Deatails", MessageDialogStyle.Affirmative);
+                }
             }
         }
 
@@ -109,7 +184,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         {
             PagingCollection<payment> _PagingCollection = Session.SelectedLoan.PAYMENT_LIST(page);
 
-            List<payment> PaymentL = _PagingCollection.Collection;
+            PaymentL = _PagingCollection.Collection;
             List<PageData> PagingList = _PagingCollection.PagesList;
 
             PaymentList.ItemsSource = PaymentL;
@@ -139,29 +214,67 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             PayDatePicker.SelectedDate=System.DateTime.Now;
             PayedByTextBox.Clear();
             RemarkTextBox.Clear();
+
+            PaymentReset(_newPayment);
+            Selected = _newPayment;
+            refreshLoanPaymentList(1);
+            Mode = Mode.NEW;
         }
 
+        ListViewItem _previousRow;
 
+        private async void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_previousRow != null)
+            {
+                _previousRow.Background = Brushes.Transparent;
+            }
 
+            Button button = (Button)sender;
+            StackPanel sp = (StackPanel)button.Content;
+            Label lbl = sp.Children.OfType<Label>().FirstOrDefault();
 
+            if (lbl.Content.ToString() != "")
+            {
+                Selected = PaymentL.Single(c => c.ID == lbl.Content.ToString());
+               
+                int index=PaymentList.Items.IndexOf(Selected);
+                //PaymentList.SelectedIndex = index;
+                ListViewItem row = PaymentList.ItemContainerGenerator.ContainerFromIndex(index) as ListViewItem;
+                row.Background = Brushes.Red;
+                _previousRow = row;
+                GridPayment.DataContext = new payment();
+                GridPayment.DataContext = Selected;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Select a Payment", MessageDialogStyle.Affirmative);
+            }
+            Mode=Mode.EDIT;
+        }
 
+        private async void LoanDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialogResult result = await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Do you want to Delete Payment?", MessageDialogStyle.AffirmativeAndNegative);
 
+            if (result == MessageDialogResult.Affirmative)
+            {
+                if (PaymentService.DeletePayment(Selected) == 1)
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Payment Deleted Successfully..", MessageDialogStyle.Affirmative);
+                    clearLoanIssuePage();
+                }
+                else
+                {
+                    await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, "Payment Delete fail..", MessageDialogStyle.Affirmative);
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        private void LoanCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            clearLoanIssuePage();
+        }
 
         }
     }

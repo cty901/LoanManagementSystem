@@ -39,7 +39,8 @@ namespace LoanManagementSystem.DBService.Implementions
                 var pay = db.payments.Single(p => p.ID == _payment.ID);
                 db.Entry(pay).CurrentValues.SetValues(_payment);
 
-                return db.SaveChanges();
+                int x=db.SaveChanges();
+                return x;
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -83,6 +84,7 @@ namespace LoanManagementSystem.DBService.Implementions
             int offset = pager.PageSize * (page - 1);
 
             List<payment> payments  = db.payments.Where(pay => pay.FK_LOAN_ID == loan.ID).ToList();
+            payments = payments.OrderByDescending(pay => pay.DATE_TIME).ToList();
 
             pager.Collection = payments.Skip(offset).Take(pagesize).ToList();
             pager.TotalCount = payments.Count();
