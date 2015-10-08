@@ -163,6 +163,21 @@ namespace LoanManagementSystem.View.WpfPage.Customer
                }
            }
 
+        }
+
+        private void IssueLoanButton_Click(object sender, RoutedEventArgs e)
+        {
+            //logout
+            //CustomerPage.Instance.Dispatcher.Invoke(new Action(() => CustomerPage.Instance.SelectedCusLogOutButton_Click(sender, e)));
+            //DashBoardPage.Instance.Dispatcher.Invoke(new Action(() =>DashBoardPage.Instance.LoanBtn_Click(sender, e)));
+        }
+
+        private void LoanPaymentButton_Click(object sender, RoutedEventArgs e)
+        {
+            //var _customer = Session.SelectedCustomer;
+            //var _loan = _customer.loans;
+            //SelectedCusLogOutButton_Click(sender, e);//logout
+            //DashBoardPage.Instance.LoanBtn_Click(sender, e);
         }       
     }
 }

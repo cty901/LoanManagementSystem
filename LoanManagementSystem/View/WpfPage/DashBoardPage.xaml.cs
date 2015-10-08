@@ -110,7 +110,7 @@ namespace LoanManagementSystem.View.WpfPage
             }
         }
 
-        private async void LoanBtn_Click(object sender, RoutedEventArgs e)
+        public async void LoanBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Session.Account_Type == "admin")
             {

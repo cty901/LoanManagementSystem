@@ -139,6 +139,20 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             }
         }
 
+        private async void LoginByLoanID(loan _loan)
+        {
+            if (_loan!=null)
+            {
+                loan selected = LoanList.Single(ln => ln.ID == _loan.ID );
+                Session.SelectedLoan = selected;
+            }
+            else
+            {
+                await MainWindow.Instance.ShowMessageAsync(Messages.TTL_MSG, Messages.MSG_SELECT_LOAN, MessageDialogStyle.Affirmative);
+            }
+        }
+
+
         private void AreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (QuickSearchTextBox != null)

@@ -153,7 +153,7 @@ namespace LoanManagementSystem.View.WpfWindow
             //ContentFrame.Content = ReportPage.Instance;
         }
 
-        private async void HomeBtn_Click(object sender, RoutedEventArgs e)
+        public async void HomeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Session.LogOut())
             {
