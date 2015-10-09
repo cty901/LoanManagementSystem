@@ -104,13 +104,13 @@ namespace LoanManagementSystem.View.WpfPage.Loan
             Session.LogOutSelectedLoan(); 
         }
 
-        private void IssueLoanButton_Click(object sender, RoutedEventArgs e)
+        public void IssueLoanButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = ContentPageLoan.Instance;
             ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
             ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
             IssueLoan.Instance.ViewMode = Mode.NEW;
-            ViewMode = Mode.LOANISSUE;
+            LoanPage.ViewMode = Mode.LOANISSUE;
         }
 
         private void LoanViewButton_Click(object sender, RoutedEventArgs e)

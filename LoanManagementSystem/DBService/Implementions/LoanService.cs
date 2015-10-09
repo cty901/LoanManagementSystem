@@ -98,9 +98,13 @@ namespace LoanManagementSystem.DBService.Implementions
 
             loans = loans.Where
                 (e =>
-                    (
-                        e.LOAN_ID.Contains(_searchText)
+                    (   e.LOAN_ID.ToLower().Contains(_searchText.ToLower())||
+                        e.FullLoanCode.ToLower().Replace(" ", "").Contains(_searchText.ToLower().Replace(" ", "")) ||
+                        e.customer.ID_NUM.ToLower().Contains(_searchText.ToLower())||
+                        e.customer.FullCustomerCode.ToLower().Replace(" ", "").Contains(_searchText.ToLower().Replace(" ", ""))||
+                        e.customer.FullCustomerCode.ToString().Contains(_searchText.ToLower())
                     )).ToList();
+
             loans = loans.OrderByDescending(ln=> ln.START_DATE).ToList();
             loans = loans.Where(e => (e.LOAN_STATUS == _loanStatusActive)).ToList();
 
@@ -133,26 +137,6 @@ namespace LoanManagementSystem.DBService.Implementions
             {
                 loans = db.loans.Include("customer").Include("employee").Where(e => (e.LOAN_STATUS == true && e.customer.area.AREA_NAME == areaName)).ToList();
             }
-
-           // var query = db.loans.Join(db.customers, l => l.FK_CUSTOMER_ID, c => c.ID, (l, c) => new { loan = l, customer = c }).ToList();
-
-           //         var query = database.Posts    // your starting point - table in the "from" statement
-           //.Join(database.Post_Metas, // the source table of the inner join
-           //   post => post.ID,        // Select the primary key (the first part of the "on" clause in an sql "join" statement)
-           //   meta => meta.Post_ID,   // Select the foreign key (the second part of the "on" clause)
-           //   (post, meta) => new { Post = post, Meta = meta }) // selection
-           //.Where(postAndMeta => postAndMeta.Post.ID == id);    // where statement
-
-
-            //var loans = db.loans.Where(e => e.LOAN_STATUS == true).ToList();
-           
-            //var loans = (from l in db.loans
-            //             join c in db.customers on l.FK_CUSTOMER_ID equals c.ID into cus
-            //             join e in db.employees on l.FK_EMPLOYEE_ID equals e.ID into emp
-            //             select new loan()
-            //             {
-            //                 ID = l.ID
-            //             }).ToList();
             
             loans = loans.OrderByDescending(q=>q.START_DATE).ToList();
 
@@ -182,7 +166,6 @@ namespace LoanManagementSystem.DBService.Implementions
             }
 
         }
-
 
         internal static void ReloadLoanEntity()
         {

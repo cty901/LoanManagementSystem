@@ -161,6 +161,7 @@
     <Compile Include="UserControls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\TemplateSelectors\TemplateSelector.cs" />
     <Compile Include="Util\Validators\CurrencyValidator.cs" />
     <Compile Include="Util\Converters\AlternationIndexToRowCountConverter.cs" />
     <Compile Include="Util\Converters\SumConverter.cs" />

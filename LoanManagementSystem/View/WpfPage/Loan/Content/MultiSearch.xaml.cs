@@ -56,7 +56,13 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             return SearchTypeComboBox.SelectedIndex;
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _searchText = SearchTextBox.Text;
+            RefreshSearchedListByPage(1); 
+        }
+
+        public void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             _searchText = SearchTextBox.Text;
             RefreshSearchedListByPage(1); 

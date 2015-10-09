@@ -18,6 +18,7 @@ using LoanManagementSystem.View.WpfPage.LoanTypes;
 using LoanManagementSystem.View.WpfPage.SMS;
 using LoanManagementSystem.View.WpfPage.Settings;
 using LoanManagementSystem.View.WpfPage.Reports;
+using LoanManagementSystem.View.WpfPage.Loan.Content;
 
 
 namespace LoanManagementSystem.View.WpfPage
@@ -83,6 +84,7 @@ namespace LoanManagementSystem.View.WpfPage
         {
             if (Session.Account_Type == "admin")
             {
+                CustomerPage.Instance.ContentFrame.Content = QuickSearchPage.Instance;
                 MainWindow.Instance.ContentFrame.Content = CustomerPage.Instance;
             }
             else
@@ -114,6 +116,7 @@ namespace LoanManagementSystem.View.WpfPage
         {
             if (Session.Account_Type == "admin")
             {
+                //LoanPage.Instance.ContentFrame.Content = QuickSearchPageLoan.Instance;
                 MainWindow.Instance.ContentFrame.Content = LoanPage.Instance;
             }
             else

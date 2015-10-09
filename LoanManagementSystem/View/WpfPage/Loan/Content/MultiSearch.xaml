@@ -5,8 +5,92 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:util="clr-namespace:Util"
       d:DesignWidth="760" Background="#5133AB" Height="Auto" Loaded="Page_Loaded">
+    <Page.Resources>
+        <DataTemplate x:Key="customerDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
 
+                <Label Grid.Column="0" Foreground="Black" Content="{Binding FullCustomerCode}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="1" Foreground="Black" Content="{Binding ID_NUM}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="2" Foreground="Black" Content="{Binding FULLNAME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Width="100" HorizontalAlignment="Left"  Margin="7,0,0,0">
+                    <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="SelectButton_Click">
+                        <StackPanel>
+                            <Image Source="/LoanManagementSystem;component/images/WpfPage/LoanPage/add.png" Width="28" Height="28" Margin="-5" />
+                            <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="employeeDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Foreground="Black" Content="{Binding EMP_ID}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="1" Foreground="Black" Content="{Binding ID_NUM}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="2" Foreground="Black" Content="{Binding FULLNAME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Width="100" HorizontalAlignment="Left"  Margin="7,0,0,0">
+                    <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="SelectButton_Click">
+                        <StackPanel>
+                            <Image Source="/LoanManagementSystem;component/images/WpfPage/LoanPage/add.png" Width="28" Height="28" Margin="-5" />
+                            <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="loanTypeDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Foreground="Black" Content="{Binding LOAN_TYPE_ID}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="1" Foreground="Black" Content="{Binding FULLNAME}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+                <Label Grid.Column="2" Foreground="Black" Content="{Binding AMOUNT}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <Label Grid.Column="3" Foreground="Black" Content="{Binding DAYS}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"/>
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal" Width="100" HorizontalAlignment="Left"  Margin="7,0,0,0">
+                    <Button x:Name="SelectButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" Click="SelectButton_Click">
+                        <StackPanel>
+                            <Image Source="/LoanManagementSystem;component/images/WpfPage/LoanPage/add.png" Width="28" Height="28" Margin="-5" />
+                            <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <util:TemplateSelector x:Key="TemplateSelector" />
+    </Page.Resources>
+    
     <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Margin="5,5,5,5" IsExpanded="True" Background="#FF76608A" BorderBrush="#FF76608A"  >
         <Expander.Header>
             <StackPanel Orientation="Horizontal">
@@ -55,7 +139,7 @@
                     <Label Content="Search Text" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
                 </StackPanel>
                 <Grid Grid.Row="0" Grid.Column="3" Margin="0,10,0,0">
-                    <TextBox x:Name="SearchTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,-88,0.8"/>
+                    <TextBox x:Name="SearchTextBox"  Height="Auto" Width="Auto" HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,0,-88,0.8" TextChanged="SearchTextBox_TextChanged"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="5" Margin="0,0,0,0">
                     <Button x:Name="SearchButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left" Background="{x:Null}" Height="25" Margin="1,10,0,0.2" Click="SearchButton_Click">
@@ -73,7 +157,7 @@
                     <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
                         <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
                             <DockPanel Opacity="0.8" Margin="-2,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <DockPanel DockPanel.Dock="Top">
+                                <!--<DockPanel DockPanel.Dock="Top">
                                     <Label Foreground="Black" Content="Result List" HorizontalAlignment="Left" Width="139" FontWeight="Bold" FontStyle="Italic" Height="30"/>
                                 </DockPanel>
                                 <DockPanel DockPanel.Dock="Top">
@@ -91,13 +175,13 @@
                                         <Label Grid.Column="1" Foreground="Black" FontWeight="Bold" Content="Name" HorizontalAlignment="Left" Width="75" />
                                         <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Select" HorizontalAlignment="Left" Width="75" ToolTip="Today borrowing status"/>
                                     </Grid>
-                                </DockPanel>
+                                </DockPanel>-->
 
                                 <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <StackPanel>
                                         <StackPanel>
-                                            <ListView x:Name="SearchList" ItemsSource="{Binding SearchedList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                                <ListView.ItemTemplate>
+                                            <ListView x:Name="SearchList" ItemsSource="{Binding SearchedList}" ItemTemplateSelector="{StaticResource TemplateSelector}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                <!--<ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid>
                                                             <Grid.RowDefinitions>
@@ -123,7 +207,7 @@
                                                         </Grid>
                                                     </DataTemplate>
 
-                                                </ListView.ItemTemplate>
+                                                </ListView.ItemTemplate>-->
                                                 <ListView.ItemContainerStyle>
                                                     <Style TargetType="ListViewItem">
                                                         <Setter Property="BorderBrush" Value="LightGray" />

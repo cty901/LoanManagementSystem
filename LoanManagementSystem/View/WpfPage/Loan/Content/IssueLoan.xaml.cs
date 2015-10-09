@@ -108,7 +108,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
                 _selectedCustomer = value;
                 if (_selectedCustomer != null)
                 {
-                    CustomerTextBox.Text = value.FULLNAME;
+                    CustomerTextBox.Text = value.FULLNAME+" ( "+value.ID_NUM+" | "+value.FullCustomerCode+" )";
                 }
             }
         }

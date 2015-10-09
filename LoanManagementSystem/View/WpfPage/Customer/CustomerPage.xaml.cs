@@ -11,6 +11,9 @@ using LoanManagementSystem.Util;
 using LoanManagementSystem.View.WpfPage.Customer.Content;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
+using System.ComponentModel;
+using LoanManagementSystem.View.WpfPage.Loan;
+using LoanManagementSystem.View.WpfPage.Loan.Content;
 
 namespace LoanManagementSystem.View.WpfPage.Customer
 {
@@ -168,8 +171,16 @@ namespace LoanManagementSystem.View.WpfPage.Customer
         private void IssueLoanButton_Click(object sender, RoutedEventArgs e)
         {
             //logout
-            //CustomerPage.Instance.Dispatcher.Invoke(new Action(() => CustomerPage.Instance.SelectedCusLogOutButton_Click(sender, e)));
-            //DashBoardPage.Instance.Dispatcher.Invoke(new Action(() =>DashBoardPage.Instance.LoanBtn_Click(sender, e)));
+            string _customerID = Session.SelectedCustomer.ID_NUM;
+            CustomerPage.Instance.SelectedCusLogOutButton_Click(sender, e);
+            DashBoardPage.Instance.LoanBtn_Click(DashBoardPage.Instance.LoanBtn, e);
+            LoanPage.Instance.IssueLoanButton_Click(LoanPage.Instance.IssueLoanButton, e);
+            MultiSearch.Instance.SearchTextBox.Text = _customerID;
+            MultiSearch.Instance.SearchButton_Click(MultiSearch.Instance.SearchButton, e);
+            //ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
+            //ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
+            //IssueLoan.Instance.ViewMode = Mode.NEW;
+            //LoanPage.ViewMode = Mode.LOANISSUE;
         }
 
         private void LoanPaymentButton_Click(object sender, RoutedEventArgs e)

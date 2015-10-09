@@ -30,7 +30,7 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Label Content="Enter Loan ID for Quick Search" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                <Label Content="Enter Loan Code/Customer Code/Customer ID" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                 <TextBox x:Name="QuickSearchTextBox" Margin="5" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="175" TextChanged="QuickSearchButton_Click"/>
                 <Button x:Name="QuickSearchButton" Style="{StaticResource ButtonFormPrimaryAdd}"  HorizontalAlignment="left"  Margin="0" Padding="5" Width="Auto" Height="35" Click="QuickSearchButton_Click" IsDefault="True">
                     <StackPanel Orientation="Horizontal"  Margin="0">
@@ -127,6 +127,11 @@
                                                 <GridViewColumn util:GridViewColumnResize.Width="2.5*" DisplayMemberBinding="{Binding FK_CUSTOMER.FULLNAME}" >
                                                     <GridViewColumn.Header>
                                                         <GridViewColumnHeader Tag="Customer Name">Customer Name</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>
+                                                <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding FK_CUSTOMER.FullCustomerCode}" >
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Customer ID">Customer ID</GridViewColumnHeader>
                                                     </GridViewColumn.Header>
                                                 </GridViewColumn>
                                                 <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding FK_CUSTOMER.PHONE_HP1}">

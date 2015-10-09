@@ -99,10 +99,12 @@ namespace LoanManagementSystem.DBService.Implementions
 
            if (_searchText != "")
             {
+                _searchText = _searchText.ToLower();
                     customers = customers.Where
                     (e =>
                         (   
                             e.ISACTIVE == true &&
+                            (e.FIRST_NAME.ToLower() + e.LAST_NAME.ToLower()).Contains(_searchText.Replace(" ", "")) ||
                             e.FIRST_NAME.ToLower().Contains(_searchText) ||
                             e.LAST_NAME.ToLower().Contains(_searchText) ||
                             e.PHONE_HP1.ToLower().Contains(_searchText) ||
