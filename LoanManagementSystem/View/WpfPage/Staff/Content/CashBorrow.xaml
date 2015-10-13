@@ -88,7 +88,7 @@
             </StackPanel>
         </DockPanel>
 
-        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="33,50,35,5" Background="Black" Height="211">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="33,50,35,5" Background="Black" Height="260">
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
                 <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
                     <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
@@ -118,7 +118,7 @@
                             <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel>
                                     <StackPanel>
-                                        <ListView x:Name="TodayTransactionList" ItemsSource="{Binding TRANSACTION_LIST}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                        <ListView x:Name="TodayTransactionList" ItemsSource="{Binding TRANSACTION_LIST}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  Height="130" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>

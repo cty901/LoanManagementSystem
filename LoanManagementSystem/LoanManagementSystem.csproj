@@ -146,6 +146,7 @@
     <Compile Include="DBModel\Validation\AddArea.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\customer.validation.cs" />
     <Compile Include="DBModel\Validation\employee.cs.Validate.cs" />
+    <Compile Include="DBModel\Validation\employee_cash.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\loan.cs.Validate.cs" />
     <Compile Include="DBModel\Validation\payment.cs.Validate.cs" />
     <Compile Include="DBService\Implementions\AreaService.cs" />
@@ -178,6 +179,9 @@
     <Compile Include="Util\PageData.cs" />
     <Compile Include="Util\PagingCollection.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="View\WpfPage\Reports\Content\EmployeeReportPage.xaml.cs">
+      <DependentUpon>EmployeeReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WpfPage\Reports\Content\LoanReportPage.xaml.cs">
       <DependentUpon>LoanReportPage.xaml</DependentUpon>
     </Compile>
@@ -313,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WpfPage\Reports\Content\EmployeeReportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

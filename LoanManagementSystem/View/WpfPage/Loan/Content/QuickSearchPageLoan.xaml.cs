@@ -26,6 +26,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
         private bool _isSearchedPerformed = false;
         private string _searchText = "";
         bool _loanStatusActive = true;
+        public bool FromOtherPage { get; set; }
 
         private List<loan> _loanList;
         private List<area> _areaList;
@@ -97,16 +98,17 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
             {
                 AreaComboBox.SelectedIndex = 0;
             }
+            FromOtherPage = false;
         }
 
-        private void QuickSearchButton_Click(object sender, RoutedEventArgs e)
+        public void QuickSearchButton_Click(object sender, RoutedEventArgs e)
         {
             _isSearchedPerformed = true;
             _searchText = QuickSearchTextBox.Text;
             RefreshLoanListByPage(1);
         }
 
-        private void QuickSearchButton_Click(object sender, TextChangedEventArgs e)
+        public void QuickSearchButton_Click(object sender, TextChangedEventArgs e)
         {
             _isSearchedPerformed = true;
             _searchText = QuickSearchTextBox.Text;
@@ -155,7 +157,7 @@ namespace LoanManagementSystem.View.WpfPage.Loan.Content
 
         private void AreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (QuickSearchTextBox != null)
+            if (QuickSearchTextBox != null && !FromOtherPage)
             {
                 QuickSearchTextBox.Text = "";
                 RefreshLoanListByPage(1);

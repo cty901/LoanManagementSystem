@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:LoanManagementSystem.UserControls"
         Title="Loan Mangement System" WindowStartupLocation="CenterScreen" Width="800" Height="610" MinWidth="800" MinHeight="610"
         Background="#5133AB"
-        WindowTitleBrush="#000" Closing="MainWindow_Closing" >
+        WindowTitleBrush="#000" Closing="MainWindow_Closing" Loaded="MetroWindow_Loaded_1" >
     <!--<Controls:MetroWindow.Background>
         <ImageBrush ImageSource="/HRMSystem;component/images/BackGround.png"></ImageBrush>
     </Controls:MetroWindow.Background>-->

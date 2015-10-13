@@ -1,4 +1,5 @@
 ﻿using LoanManagementSystem.DBModel;
+using LoanManagementSystem.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -124,6 +125,38 @@ namespace LoanManagementSystem.DBService.Implementions
                     )).ToList();
 
             return transaction_list;
+        }
+
+        internal static Util.PagingCollection<employee_cash> GetPaginatedQuickSearchedEmployeePaymentListByPage(int page, DateTime _dateFrom, DateTime _dateTo)
+        {
+            PagingCollection<employee_cash> pager = new PagingCollection<employee_cash>();
+            int pagesize = pager.PageSize;
+            int offset = pager.PageSize * (page - 1);
+
+            var emp_paymentList = db.employee_cash.Where
+                (emPay=>
+                    (
+                        emPay.TRANSACTION_DATE_TIME >= _dateFrom.Date &&
+                        emPay.TRANSACTION_DATE_TIME<=_dateTo.Date
+
+                    )).ToList();
+
+            emp_paymentList = emp_paymentList.GroupBy(emp => new { FK_EMPLOYEE_ID = emp.FK_EMPLOYEE_ID, TYPE = emp.TYPE,TRANSACTION_DATE_TIME=emp.TRANSACTION_DATE_TIME }).Select(pay => new employee_cash
+            {
+                TRANSACTION_DATE_TIME=pay.Key.TRANSACTION_DATE_TIME.Value.Date,
+                FK_EMPLOYEE_ID = pay.Key.FK_EMPLOYEE_ID,
+                AMOUNT = pay.Sum(x => x.AMOUNT),
+                TYPE=pay.Key.TYPE
+            }).OrderBy(x=>(x.TRANSACTION_DATE_TIME.Value.Date)).ToList();
+
+            //emp_paymentList = (from p in emp_paymentList
+            //                  group p by new{ TRANSACTION_DATE_TIME = p.TRANSACTION_DATE_TIME, FK_EMPLOYEE_ID=p.FK_EMPLOYEE_ID});    
+
+            pager.Collection = emp_paymentList.Skip(offset).Take(pagesize).ToList();
+            pager.TotalCount = emp_paymentList.Count();
+            pager.CurrentPage = page;
+
+            return pager;
         }
     }
 }

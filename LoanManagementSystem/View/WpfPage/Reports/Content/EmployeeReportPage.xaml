@@ -1,0 +1,181 @@
+﻿<Page x:Class="LoanManagementSystem.View.WpfPage.Reports.EmployeeReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:util="clr-namespace:LoanManagementSystem.Util"
+      xmlns:dbmodel="clr-namespace:LoanManagementSystem.DBModel"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="430" d:DesignWidth="760"
+      Background="Black" Loaded="Page_Loaded"
+	  >
+    <Page.Resources>
+        <util:AlternationIndexToRowCountConverter x:Key="rowcountconverter" />
+        <util:SumConverter x:Key="SumConverter" />
+    </Page.Resources>
+    <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch"  Margin="5,5,5,5" IsExpanded="True" Background="#FF76608A" BorderBrush="#FF76608A" >
+        <Expander.Header>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.money.png" Margin="0,-10,0,-8" Height="30"/>
+                <Label Content="Loan Payment Summary"/>
+            </StackPanel>
+        </Expander.Header>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+            <DockPanel DockPanel.Dock="Top" Height="60">
+                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0">
+                    <Label Content="Area" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
+                    <ComboBox x:Name="AreaComboBox" DisplayMemberPath="AREA_NAME" SelectedIndex="0" SelectedValue="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5" MinWidth="150" SelectionChanged="AreaComboBox_SelectionChanged" >
+                        <ComboBox.Resources>
+                            <CollectionViewSource x:Key="comboBoxSource" Source="{Binding Path=AreaList}" />
+                        </ComboBox.Resources>
+                        <ComboBox.ItemsSource>
+                            <CompositeCollection>
+                                <dbmodel:area AREA_NAME="ALL"/>
+                                <CollectionContainer Collection="{Binding Source={StaticResource comboBoxSource}}" />
+                            </CompositeCollection>
+                        </ComboBox.ItemsSource>
+                    </ComboBox>
+                </StackPanel>-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Border CornerRadius="6" BorderBrush="White" BorderThickness="2">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                <Label Content="Date From" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Right" Margin="0,0,5,0"/>
+                                <DatePicker x:Name="FromDatePicker" VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateFrom, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="White" Padding="0" SelectedDateChanged="FromDatePicker_SelectedDateChanged"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                <Label Content="To" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Right" Margin="0,0,5,0"/>
+                                <DatePicker x:Name="ToDatePicker" VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Background="White" Padding="0" SelectedDateChanged="ToDatePicker_SelectedDateChanged"></DatePicker>
+                            </StackPanel>
+                            <Button x:Name="QuickSearchButton" Style="{StaticResource ButtonFormPrimaryAdd}"  HorizontalAlignment="left"  Margin="0" Padding="5" Width="Auto" Height="35" IsDefault="True" Click="QuickSearchButton_Click">
+                                <StackPanel Orientation="Horizontal"  Margin="0">
+                                    <Image Source="/LoanManagementSystem;component/Images/WpfPage/CustomerPage/appbar.people.magnify.png" Margin="0,-3,0,0" Height="30"/>
+                                    <Label Content="GO"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                <GroupBox HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Padding="0,0,0,0" >
+                    <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,2">
+                        <DockPanel Opacity="0.8" Margin="-2,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <DockPanel DockPanel.Dock="Top">
+                                <Label Foreground="Black" Content="Searched Employee Payments" HorizontalAlignment="Left" Width="168" FontWeight="Bold" FontStyle="Italic" Height="32"/>
+                            </DockPanel>
+
+                            <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel>
+                                    <StackPanel>
+                                        <ListView x:Name="EmployeePaymentListView" AlternationCount="10000" ItemsSource="{Binding EmployeePaymentList}" util:GridViewColumnResize.Enabled="True" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
+                                            <ListView.View>
+                                                <GridView AllowsColumnReorder="False" x:Name="EmployeePaymentGridView">
+                                                    <GridViewColumn util:GridViewColumnResize.Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex),RelativeSource={RelativeSource AncestorType=ListViewItem},Converter={StaticResource rowcountconverter}}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding Path=TRANSACTION_DATE_TIME}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Date">Date</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="2.5*" DisplayMemberBinding="{Binding FK_EMPLOYEE.FULLNAME}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Employee Name">Employee Name</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <!--<GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding LOAN_ID}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Loan ID">Loan ID</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>-->
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding FK_EMPLOYEE.EMP_ID}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Employee ID">Employee ID</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding FK_EMPLOYEE.PHONE_HP1}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Phone">Phone</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding TYPE}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding AMOUNT}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Amount">Amount</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="Height" Value="25"/>
+                                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=NeedToSave}" Value="True">
+                                                            <!--<Setter Property="Background" Value="Gainsboro"  />
+                                                        <Setter Property="FontWeight" Value="Bold" />-->
+                                                            <Setter Property="BorderBrush" Value="LightBlue"/>
+                                                            <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                                                            <Setter Property="ToolTip" Value="Please Save Changes"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                        </ListView>
+                                        <DockPanel Width="Auto">
+                                            <!--<StackPanel Orientation="Horizontal" Height="30" Margin="0,0,30,0"  HorizontalAlignment="Left">
+                                                <TextBlock Text="Grand Total: " FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                                                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="{Binding Path=LoanList, Converter={StaticResource SumConverter},ConverterParameter=AMOUNT}"/>
+                                            </StackPanel>-->
+                                            <StackPanel Orientation="Horizontal" Height="30" Margin="0,0,30,0"  HorizontalAlignment="Right">
+                                                <TextBlock Text="Total Amount: " FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                                                <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="{Binding Path=LoanList, Converter={StaticResource SumConverter},ConverterParameter=AMOUNT}"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <ListView x:Name="PagingListView" HorizontalContentAlignment="Right" ItemsSource="{Binding PagingList}" BorderBrush="{x:Null}" Background="{x:Null}" Height="30" Padding="0" Margin="0">
+                                            <ListView.ItemsPanel >
+                                                <ItemsPanelTemplate >
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0"></StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate >
+                                                    <StackPanel Orientation="Horizontal"  Margin="0">
+                                                        <Button Name="PageButton" BorderBrush="{x:Null}" Content="{Binding Page}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="18" Height="20" FontSize="10" Margin="0" Click="PaginationButton_Click" />
+                                                    </StackPanel>
+                                                    <DataTemplate.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                            <Setter Property="Style" TargetName="PageButton" Value="{StaticResource Win8WBlue}" />
+                                                        </DataTrigger>
+                                                    </DataTemplate.Triggers>
+                                                </DataTemplate>
+
+                                            </ListView.ItemTemplate>
+
+                                        </ListView>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                </GroupBox>
+
+            </DockPanel>
+        </DockPanel>
+    </Expander>  
+    
+</Page>

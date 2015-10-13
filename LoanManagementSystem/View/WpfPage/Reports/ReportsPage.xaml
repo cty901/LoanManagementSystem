@@ -26,6 +26,12 @@
                                             <Label Content="Payment"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
+                                    <Button x:Name="EmployeePaymentButton" Style="{DynamicResource ButtonFormPrimary}"  HorizontalAlignment="left"  Margin="1,2" Click="EmployeePaymentButton_Click">
+                                        <StackPanel Orientation="Horizontal"  Margin="0">
+                                            <Image Source="/LoanManagementSystem;component/Images/WpfPage/staffPage/appbar.people.checkbox.png" Margin="0,-1,0,-1" Height="30"/>
+                                            <Label Content="Emplyee"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </StackPanel>
                             </DockPanel>
                         </DockPanel>

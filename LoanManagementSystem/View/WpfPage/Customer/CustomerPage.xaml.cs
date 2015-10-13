@@ -14,6 +14,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using LoanManagementSystem.View.WpfPage.Loan;
 using LoanManagementSystem.View.WpfPage.Loan.Content;
+using LoanManagementSystem.DBModel;
 
 namespace LoanManagementSystem.View.WpfPage.Customer
 {
@@ -177,14 +178,22 @@ namespace LoanManagementSystem.View.WpfPage.Customer
             LoanPage.Instance.IssueLoanButton_Click(LoanPage.Instance.IssueLoanButton, e);
             MultiSearch.Instance.SearchTextBox.Text = _customerID;
             MultiSearch.Instance.SearchButton_Click(MultiSearch.Instance.SearchButton, e);
-            //ContentPageLoan.Instance.SearchContentFrame.Content = MultiSearch.Instance;
-            //ContentPageLoan.Instance.LoanContentFrame.Content = IssueLoan.Instance;
-            //IssueLoan.Instance.ViewMode = Mode.NEW;
-            //LoanPage.ViewMode = Mode.LOANISSUE;
         }
 
         private void LoanPaymentButton_Click(object sender, RoutedEventArgs e)
         {
+            //logout
+            customer _customer = Session.SelectedCustomer;
+            CustomerPage.Instance.SelectedCusLogOutButton_Click(sender, e);
+            DashBoardPage.Instance.LoanBtn_Click(DashBoardPage.Instance.LoanBtn, e);
+            var _quickSearchPageLoan = QuickSearchPageLoan.Instance;
+            LoanPage.Instance.ContentFrame.Content = _quickSearchPageLoan;
+            LoanPage.ViewMode = Mode.LIST;
+            _quickSearchPageLoan.FromOtherPage = true;
+            _quickSearchPageLoan.SelectedArea = null;
+            _quickSearchPageLoan.QuickSearchTextBox.Text = _customer.ID_NUM;
+            _quickSearchPageLoan.QuickSearchButton_Click(_quickSearchPageLoan.QuickSearchButton, e);
+
             //var _customer = Session.SelectedCustomer;
             //var _loan = _customer.loans;
             //SelectedCusLogOutButton_Click(sender, e);//logout

@@ -49,6 +49,11 @@ namespace LoanManagementSystem.View.WpfPage.Reports
         private void PaymentButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = PaymentReportPage.Instance;
+        }
+
+        private void EmployeePaymentButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = EmployeeReportPage.Instance;
         }      
     }
 }

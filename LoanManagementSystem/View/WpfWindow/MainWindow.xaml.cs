@@ -214,5 +214,10 @@ namespace LoanManagementSystem.View.WpfWindow
         {
            
         }
+
+        private void MetroWindow_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+        }
     }
 }
