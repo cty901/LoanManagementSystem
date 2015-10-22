@@ -192,5 +192,25 @@ namespace LoanManagementSystem.DBService.Implementions
 
             return pager;
         }
+
+        internal static List<loan> GetPaginatedQuickSearchedLoanList(string p, DateTime _dateFrom, DateTime _dateTo)
+        {
+            var loans = db.loans.Include("customer").Include("employee").Where
+                (ln =>( 
+                        ln.LOAN_STATUS==true &&
+                        (ln.customer.area.AREA_NAME==p || p=="ALL") &&
+                        ln.START_DATE >= _dateFrom.Date &&
+                        ln.START_DATE <= _dateTo.Date                        
+                      )).ToList();
+
+            return loans;
+        }
+
+        internal static List<loan> GetLoans()
+        {
+            var loans = db.loans.ToList();
+
+            return loans;
+        }
     }
 }

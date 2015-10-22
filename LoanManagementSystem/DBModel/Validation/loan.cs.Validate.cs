@@ -44,7 +44,7 @@ namespace LoanManagementSystem.DBModel
                 }
                 else
                 {
-                    return "Not Active";
+                    return "Inactive Loan";
                 }
             }
         }
@@ -65,5 +65,33 @@ namespace LoanManagementSystem.DBModel
             }
         }
 
+        public string FK_EMPLOYEE_IDNUM
+        {
+            get
+            {
+                return FK_EMPLOYEE.ID_NUM;
+            }
+        }
+        public string FK_CUSTOMER_IDNUM
+        {
+            get
+            {
+                return FK_CUSTOMER.ID_NUM;
+            }
+        }
+        public string AMOUNT_in_string
+        {
+            get
+            {
+                return AMOUNT.ToString();
+            }
+        }
+        public string INSTALLMENT_in_string
+        {
+            get
+            {
+                return INSTALLMENT.ToString();
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ using LoanManagementSystem.View.WpfPage.Customer.Content;
 using LoanManagementSystem.View.WpfWindow;
 using MahApps.Metro.Controls.Dialogs;
 using System.Drawing;
+using LoanManagementSystem.View.WpfPage.Reports.Content;
 
 namespace LoanManagementSystem.View.WpfPage.Reports
 {
@@ -54,6 +55,11 @@ namespace LoanManagementSystem.View.WpfPage.Reports
         private void EmployeePaymentButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Content = EmployeeReportPage.Instance;
+        }
+
+        private void SummaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = SummaryPage.Instance;
         }      
     }
 }

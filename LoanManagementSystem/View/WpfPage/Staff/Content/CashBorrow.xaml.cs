@@ -72,7 +72,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         {
             get
             {
-                return Convert.ToDateTime(CashBorrowDayPicker.Text);
+                return Convert.ToDateTime(CashBorrowDayPicker.Text+" "+System.DateTime.Now.TimeOfDay);
             }
             set
             {

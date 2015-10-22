@@ -1,0 +1,74 @@
+﻿<Page x:Class="LoanManagementSystem.View.WpfPage.Reports.Content.SummaryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:util="clr-namespace:LoanManagementSystem.Util"
+      xmlns:dbmodel="clr-namespace:LoanManagementSystem.DBModel"
+      xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+      mc:Ignorable="d" 
+      Background="Black"
+      d:DesignHeight="430" d:DesignWidth="770"
+	  Title="Page1" Loaded="Page_Loaded" SizeChanged="Page_SizeChanged" >
+    <ScrollViewer x:Name="ScrollBar" Margin="0,0,0,0" MinHeight="430" Height="430">
+        <Expander  HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch"  Margin="5,5,5,5" IsExpanded="True" Background="#FF76608A" BorderBrush="#FF76608A" >
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/LoanManagementSystem;component/Images/WpfPage/LoanPage/appbar.money.png" Margin="0,-10,0,-8" Height="30"/>
+                    <Label Content="Payment Summary"/>
+                </StackPanel>
+            </Expander.Header>
+
+            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                <DockPanel DockPanel.Dock="Top" Height="60">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0">
+                        <Label Content="Area" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0"/>
+                        <ComboBox x:Name="AreaComboBox" DisplayMemberPath="AREA_NAME" SelectedIndex="0" SelectedValue="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="{Binding Path=SelectedArea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5" MinWidth="150" >
+                            <ComboBox.Resources>
+                                <CollectionViewSource x:Key="comboBoxSource" Source="{Binding Path=AreaList}" />
+                            </ComboBox.Resources>
+                            <ComboBox.ItemsSource>
+                                <CompositeCollection>
+                                    <dbmodel:area AREA_NAME="ALL"/>
+                                    <CollectionContainer Collection="{Binding Source={StaticResource comboBoxSource}}" />
+                                </CompositeCollection>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Border CornerRadius="6" BorderBrush="White" BorderThickness="2">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                    <Label Content="Date From" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Right" Margin="0,0,5,0"/>
+                                    <DatePicker x:Name="FromDatePicker" VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateFrom, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="White" Padding="0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                    <Label Content="To" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Right" Margin="0,0,5,0"/>
+                                    <DatePicker x:Name="ToDatePicker" VerticalContentAlignment="Center" SelectedDate="{Binding Path=DateTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Background="White" Padding="0" ></DatePicker>
+                                </StackPanel>
+                                <Button x:Name="GenrateReportButton" Style="{StaticResource ButtonFormPrimaryAdd}"  HorizontalAlignment="left"  Margin="0" Padding="5" Width="Auto" Height="35" IsDefault="True" Click="GenrateReportButton_Click">
+                                    <StackPanel Orientation="Horizontal"  Margin="0">
+                                        <Image Source="/LoanManagementSystem;component/Images/WpfPage/CustomerPage/appbar.people.magnify.png" Margin="0,-3,0,0" Height="30"/>
+                                        <Label Content="Go" ToolTip="Click to Generate Report"  FontSize="12" Margin="0,0,5,0" Width="Auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                    <GroupBox Padding="0,0,0,0" >
+                        <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,2">
+                            <DockPanel Opacity="1" Margin="0">
+                                <Grid>
+                                    <my:CrystalReportsViewer Name="crystalReportsViewer1" Grid.Row="0" Grid.Column="0"/>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                    </GroupBox>
+
+                </DockPanel>
+            </DockPanel>
+        </Expander>
+    </ScrollViewer>
+</Page>

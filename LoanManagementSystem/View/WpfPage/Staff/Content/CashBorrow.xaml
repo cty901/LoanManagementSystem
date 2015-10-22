@@ -4,9 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:util="clr-namespace:LoanManagementSystem.Util"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="760" Background="#5133AB">
 
+    <Page.Resources>
+        <util:AlternationIndexToRowCountConverter x:Key="rowcountconverter" />
+    </Page.Resources>
+    
     <StackPanel Orientation="Vertical"  >
         <Grid Margin="10">
 
@@ -36,7 +41,7 @@
                 <Label Content="* Date" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0,0,5,0" FlowDirection="RightToLeft"/>
             </StackPanel>
             <Grid Grid.Row="0" Margin="0.6,10,0.4,34.8" Grid.RowSpan="2" Grid.Column="1">
-                <DatePicker x:Name="CashBorrowDayPicker" SelectedDate="{Binding Source={x:Static System:DateTime.Now},StringFormat='{}{0:dd-MM-yyyy}',Mode=OneWay}" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" SelectedDateFormat="Short"/>
+                <DatePicker x:Name="CashBorrowDayPicker" SelectedDate="{Binding Source={x:Static System:DateTime.Now},StringFormat='{}{0:dd-MM-yyyy HH:mm:ss}',Mode=OneWay}" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Height="Auto"  Padding="0" Background="White" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" SelectedDateFormat="Short"/>
             </Grid>
             <!--Second Row-->
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,14.2,0.4,5.8" HorizontalAlignment="Right" Height="16" Width="59" >
@@ -94,9 +99,9 @@
                     <Border Background="#FFFAFAFF" Padding="10" BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6,0,2">
                         <DockPanel Opacity="0.8" Margin="-2,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <DockPanel DockPanel.Dock="Top">
-                                <Label Foreground="Black" Content="Today Borrowing List" HorizontalAlignment="Left" Width="139" FontWeight="Bold" FontStyle="Italic" Height="30"/>
+                                <Label Foreground="Black" Content="Today Borrowing/Return Summary" HorizontalAlignment="Left" Width="199" FontWeight="Bold" FontStyle="Italic" Height="30"/>
                             </DockPanel>
-                            <DockPanel DockPanel.Dock="Top">
+                            <!--<DockPanel DockPanel.Dock="Top">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -113,13 +118,13 @@
                                     <Label Grid.Column="2" Foreground="Black" FontWeight="Bold" Content="Remark" HorizontalAlignment="Left" Width="150"/>
                                     <Label Grid.Column="3" Foreground="Black" FontWeight="Bold" Content="Delete" HorizontalAlignment="Left" Width="75" ToolTip="Today borrowing status"/>
                                 </Grid>
-                            </DockPanel>
+                            </DockPanel>-->
 
                             <DockPanel LastChildFill="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel>
                                     <StackPanel>
-                                        <ListView x:Name="TodayTransactionList" ItemsSource="{Binding TRANSACTION_LIST}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  Height="130" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                            <ListView.ItemTemplate>
+                                        <ListView x:Name="TodayTransactionList" AlternationCount="10000" util:GridViewColumnResize.Enabled="True" ItemsSource="{Binding TRANSACTION_LIST}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"  Height="130" BorderBrush="{x:Null}" Background="{x:Null}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <!--<ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>
                                                         <Grid.RowDefinitions>
@@ -147,7 +152,56 @@
                                                     </Grid>
                                                 </DataTemplate>
 
-                                            </ListView.ItemTemplate>
+                                            </ListView.ItemTemplate>-->
+                                            <ListView.View>
+                                                <GridView AllowsColumnReorder="False">
+                                                    <GridViewColumn util:GridViewColumnResize.Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex),RelativeSource={RelativeSource AncestorType=ListViewItem},Converter={StaticResource rowcountconverter}}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding TRANSACTION_DATE_TIME}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Date/Time">Date/Time</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <!--<GridViewColumn util:GridViewColumnResize.Width="40" DisplayMemberBinding="{Binding CUSTOMER_ID}" >
+                                                    <GridViewColumn.Header>
+                                                        <GridViewColumnHeader Tag="Code">Code</GridViewColumnHeader>
+                                                    </GridViewColumn.Header>
+                                                </GridViewColumn>-->
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding TYPE}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding AMOUNT}" >
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Amount">Amount</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1.5*" DisplayMemberBinding="{Binding REMARK}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Remark">Remark</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="50">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Delete">Delete</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button x:Name="DeleteTodayTransactionButton" BorderBrush="{x:Null}" Style="{StaticResource Win8}" VerticalAlignment="Center" Width="25" Height="25" Margin="0,0.5,0,0" Click="DeleteTodayTransactionButton_Click">
+                                                                    <StackPanel>
+                                                                        <Image Source="/LoanManagementSystem;component/images/WpfPage/StaffPage/money_no.png" Width="28" Height="28" Margin="-5" />
+                                                                        <Label x:Name="TransactionIDLable" Content="{Binding ID}" HorizontalAlignment="Left" Width="125" Visibility="Hidden"/>
+                                                                    </StackPanel>
+                                                                </Button>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
                                             <ListView.ItemContainerStyle>
                                                 <Style TargetType="ListViewItem">
                                                     <Setter Property="BorderBrush" Value="LightGray" />

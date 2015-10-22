@@ -46,5 +46,15 @@ namespace LoanManagementSystem.Properties {
                 this["RecentLoginUserProfPic"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;database=loandb")]
+        public string loandbConnectionString {
+            get {
+                return ((string)(this["loandbConnectionString"]));
+            }
+        }
     }
 }

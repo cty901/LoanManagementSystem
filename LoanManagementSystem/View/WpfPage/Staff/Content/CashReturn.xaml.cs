@@ -71,7 +71,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
         {
             get
             {
-                return Convert.ToDateTime(CashReturnDayPicker.Text);
+                return Convert.ToDateTime(CashReturnDayPicker.Text + " " + System.DateTime.Now.TimeOfDay);
             }
             set
             {
@@ -125,6 +125,7 @@ namespace LoanManagementSystem.View.WpfPage.Staff.Content
             {
                 await MainWindow.Instance.ShowMessageAsync("Employe_cash Return Success", "Transaction Added Success!");
                 clearReturnForm();
+                CashBorrow.Instance.setTodayTransactionList();
                 //await controller.CloseAsync();
             }
             else

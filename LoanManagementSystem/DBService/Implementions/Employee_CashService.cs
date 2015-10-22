@@ -129,6 +129,8 @@ namespace LoanManagementSystem.DBService.Implementions
 
         internal static Util.PagingCollection<employee_cash> GetPaginatedQuickSearchedEmployeePaymentListByPage(int page, DateTime _dateFrom, DateTime _dateTo)
         {
+            _dateTo = _dateTo.AddSeconds(86399);
+
             PagingCollection<employee_cash> pager = new PagingCollection<employee_cash>();
             int pagesize = pager.PageSize;
             int offset = pager.PageSize * (page - 1);
@@ -141,9 +143,9 @@ namespace LoanManagementSystem.DBService.Implementions
 
                     )).ToList();
 
-            emp_paymentList = emp_paymentList.GroupBy(emp => new { FK_EMPLOYEE_ID = emp.FK_EMPLOYEE_ID, TYPE = emp.TYPE,TRANSACTION_DATE_TIME=emp.TRANSACTION_DATE_TIME }).Select(pay => new employee_cash
+            emp_paymentList = emp_paymentList.GroupBy(emp => new { FK_EMPLOYEE_ID = emp.FK_EMPLOYEE_ID, TYPE = emp.TYPE,TRANSACTION_DATE_TIME=emp.TRANSACTION_DATE_TIME.Value.Date }).Select(pay => new employee_cash
             {
-                TRANSACTION_DATE_TIME=pay.Key.TRANSACTION_DATE_TIME.Value.Date,
+                TRANSACTION_DATE_TIME=pay.Key.TRANSACTION_DATE_TIME,
                 FK_EMPLOYEE_ID = pay.Key.FK_EMPLOYEE_ID,
                 AMOUNT = pay.Sum(x => x.AMOUNT),
                 TYPE=pay.Key.TYPE

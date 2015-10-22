@@ -78,7 +78,7 @@
                                                             <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
                                                     </GridViewColumn>
-                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding Path=TRANSACTION_DATE_TIME}">
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding Path=TRANSACTION_DATE_TIME, StringFormat='yyyy-MM-dd'}">
                                                         <GridViewColumn.Header>
                                                             <GridViewColumnHeader Tag="Date">Date</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
@@ -139,10 +139,10 @@
                                                 <TextBlock Text="Grand Total: " FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                                                 <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="{Binding Path=LoanList, Converter={StaticResource SumConverter},ConverterParameter=AMOUNT}"/>
                                             </StackPanel>-->
-                                            <StackPanel Orientation="Horizontal" Height="30" Margin="0,0,30,0"  HorizontalAlignment="Right">
+                                            <!--<StackPanel Orientation="Horizontal" Height="30" Margin="0,0,30,0"  HorizontalAlignment="Right">
                                                 <TextBlock Text="Total Amount: " FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                                                 <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="{Binding Path=LoanList, Converter={StaticResource SumConverter},ConverterParameter=AMOUNT}"/>
-                                            </StackPanel>
+                                            </StackPanel>-->
                                         </DockPanel>
                                     </StackPanel>
                                     <StackPanel>
