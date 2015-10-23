@@ -65,6 +65,14 @@ namespace LoanManagementSystem.DBModel
             }
         }
 
+        public string FK_EMPLOYEE_LASTNAME
+        {
+            get
+            {
+                return FK_EMPLOYEE.LAST_NAME;
+            }
+        }
+
         public string FK_EMPLOYEE_IDNUM
         {
             get
@@ -91,6 +99,13 @@ namespace LoanManagementSystem.DBModel
             get
             {
                 return INSTALLMENT.ToString();
+            }
+        }
+        public string StartDate_in_string
+        {
+            get
+            {
+                return START_DATE.Value.Date.ToString();
             }
         }
     }

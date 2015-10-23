@@ -16,14 +16,14 @@ namespace LoanManagementSystem.Reports.CrystalReports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class LoanCrystalReport : ReportClass {
+    public class PaymentCrystalReport : ReportClass {
         
-        public LoanCrystalReport() {
+        public PaymentCrystalReport() {
         }
         
         public override string ResourceName {
             get {
-                return "LoanCrystalReport.rpt";
+                return "PaymentCrystalReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace LoanManagementSystem.Reports.CrystalReports {
         
         public override string FullResourceName {
             get {
-                return "LoanManagementSystem.Reports.CrystalReports.LoanCrystalReport.rpt";
+                return "LoanManagementSystem.Reports.CrystalReports.PaymentCrystalReport.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace LoanManagementSystem.Reports.CrystalReports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,17 +82,9 @@ namespace LoanManagementSystem.Reports.CrystalReports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[5];
+                return this.ReportDefinition.Sections[4];
             }
         }
         
@@ -106,9 +98,9 @@ namespace LoanManagementSystem.Reports.CrystalReports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedLoanCrystalReport : Component, ICachedReport {
+    public class CachedPaymentCrystalReport : Component, ICachedReport {
         
-        public CachedLoanCrystalReport() {
+        public CachedPaymentCrystalReport() {
         }
         
         [Browsable(false)]
@@ -145,7 +137,7 @@ namespace LoanManagementSystem.Reports.CrystalReports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            LoanCrystalReport rpt = new LoanCrystalReport();
+            PaymentCrystalReport rpt = new PaymentCrystalReport();
             rpt.Site = this.Site;
             return rpt;
         }

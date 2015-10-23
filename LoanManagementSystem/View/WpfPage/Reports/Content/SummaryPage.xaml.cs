@@ -142,12 +142,18 @@ namespace LoanManagementSystem.View.WpfPage.Reports.Content
 
 
 
-            ParameterField pf = report.ParameterFields["DateFrom"];
-
+            ParameterField pfGrantedDate = report.ParameterFields["GrantedDate"];
             ParameterDiscreteValue pd1;
             pd1 = new ParameterDiscreteValue();
-            pd1.Value = from;
-            pf.CurrentValues.Add(pd1);
+            if (from.Date == to.Date)
+            {
+                pd1.Value = "on " + from.Date.ToString("d MMM yyyy");
+            }
+            else
+            {
+                pd1.Value = "from " + from.Date.ToString("d MMM yyyy") + " to " + to.Date.ToString("d MMM yyyy");
+            }           
+            pfGrantedDate.CurrentValues.Add(pd1);
 
             crystalReportsViewer1.ViewerCore.ReportSource = report;
         }
