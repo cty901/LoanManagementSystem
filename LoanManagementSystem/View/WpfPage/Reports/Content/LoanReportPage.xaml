@@ -78,6 +78,11 @@
                                                             <GridViewColumnHeader Tag="NO">No</GridViewColumnHeader>
                                                         </GridViewColumn.Header>
                                                     </GridViewColumn>
+                                                    <GridViewColumn util:GridViewColumnResize.Width="1*" DisplayMemberBinding="{Binding Path=START_DATE, StringFormat='yyyy-MM-dd'}">
+                                                        <GridViewColumn.Header>
+                                                            <GridViewColumnHeader Tag="Date">Date</GridViewColumnHeader>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
                                                     <GridViewColumn util:GridViewColumnResize.Width="2*" DisplayMemberBinding="{Binding Path=FullLoanCode}">
                                                         <GridViewColumn.Header>
                                                             <GridViewColumnHeader Tag="Loan Code">Loan Code</GridViewColumnHeader>

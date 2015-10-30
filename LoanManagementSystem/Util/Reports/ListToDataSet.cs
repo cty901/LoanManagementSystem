@@ -31,7 +31,14 @@ namespace LoanManagementSystem.Util
 
                 foreach (var propInfo in elementType.GetProperties())
                 {
-                    row[propInfo.Name] = propInfo.GetValue(item, null) ?? DBNull.Value;
+                    try
+                    {
+                        row[propInfo.Name] = propInfo.GetValue(item, null) ?? DBNull.Value;
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
                 t.Rows.Add(row);

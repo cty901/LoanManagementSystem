@@ -161,7 +161,7 @@
                     <Label Content="* Customer Code" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="Bold" FlowDirection="RightToLeft" VerticalAlignment="Top" />
                 </StackPanel>
                 <Grid Grid.Row="6" Grid.Column="4" Margin="0,5,0,5">
-                    <TextBox x:Name="CusCodeTextBox" Text="{Binding Path=CUSTOMER_ID}" TabIndex="13"  HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" VerticalAlignment="Top"  IsEnabled="False" />
+                    <TextBox x:Name="CusCodeTextBox" Text="{Binding Path=CUSTOMER_ID}" TabIndex="13"  HorizontalAlignment="Stretch" ClipToBounds="True" Margin="0,5,0,5" VerticalAlignment="Top"  IsEnabled="True" />
                 </Grid>
 
 

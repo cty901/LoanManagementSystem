@@ -8,6 +8,7 @@ using LoanManagementSystem.DBModel;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using LoanManagementSystem.Util;
+using System.Windows;
 
 namespace LoanManagementSystem.DBService.Implementions
 {
@@ -29,6 +30,11 @@ namespace LoanManagementSystem.DBService.Implementions
                         Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
                     }
                 }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
                 return 0;
             }
         }

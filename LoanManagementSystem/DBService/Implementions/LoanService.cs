@@ -193,7 +193,7 @@ namespace LoanManagementSystem.DBService.Implementions
             return pager;
         }
 
-        internal static List<loan> GetPaginatedQuickSearchedLoanList(string p, DateTime _dateFrom, DateTime _dateTo)
+        internal static List<loan> GetSearchedLoanList(string p, DateTime _dateFrom, DateTime _dateTo)
         {
             var loans = db.loans.Include("customer").Include("employee").Where
                 (ln =>( 

@@ -127,22 +127,21 @@ namespace LoanManagementSystem.View.WpfPage.Reports.Content
            // ReportDocument report = new ReportDocument();
             //report.Load(@"D:\Projects\Visual Studio 2012\LoanManagementSystem\LoanManagementSystem\Reports\CrystalReports\LoanCrystalReport.rpt");
 
-            LoanCrystalReport report = new LoanCrystalReport();
-            var loans = LoanService.GetPaginatedQuickSearchedLoanList(area,from,to);
+            LoanCrystalReport loan_report = new LoanCrystalReport();
+            PaymentCrystalReport payment_report = new PaymentCrystalReport();
 
-            //LoanManagementSystem.Reports.DataSets.loan ds = new LoanManagementSystem.Reports.DataSets.loan();
+            var loans = LoanService.GetSearchedLoanList(area,from,to);
+            var payments = PaymentService.GetSearchedPaymentList(area,from,to);
 
-            //foreach (loan l in loans)
-            //{
-            //    ds._loan.AddloanRow(l.ID);
-            //}
+            DataSet ds1 = Util.ListToDataSet.ToDataSet(loans);
+            loan_report.SetDataSource(ds1.Tables[0]);
 
-            DataSet ds = Util.ListToDataSet.ToDataSet(loans);
-            report.SetDataSource(ds.Tables[0]);
+            DataSet ds2 = Util.ListToDataSet.ToDataSet(payments);
+            payment_report.SetDataSource(ds2.Tables[0]);
 
+            loan_report.Subreports[0].SetDataSource(ds2.Tables[0]);
 
-
-            ParameterField pfGrantedDate = report.ParameterFields["GrantedDate"];
+            ParameterField pfGrantedDate = loan_report.ParameterFields["GrantedDate"];
             ParameterDiscreteValue pd1;
             pd1 = new ParameterDiscreteValue();
             if (from.Date == to.Date)
@@ -155,7 +154,13 @@ namespace LoanManagementSystem.View.WpfPage.Reports.Content
             }           
             pfGrantedDate.CurrentValues.Add(pd1);
 
-            crystalReportsViewer1.ViewerCore.ReportSource = report;
+            ParameterField pfGrantedDate1 = payment_report.ParameterFields["GrantedDate"];
+            ParameterDiscreteValue pd2;
+            pd2 = new ParameterDiscreteValue();
+            pd2 = pd1;
+            pfGrantedDate1.CurrentValues.Add(pd2);
+
+            crystalReportsViewer1.ViewerCore.ReportSource = loan_report;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

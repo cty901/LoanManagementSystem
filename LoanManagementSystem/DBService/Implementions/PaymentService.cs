@@ -131,5 +131,18 @@ namespace LoanManagementSystem.DBService.Implementions
 
             return pager;
         }
+
+        internal static List<payment> GetSearchedPaymentList(string p, DateTime _dateFrom, DateTime _dateTo)
+        {
+            var payments = db.payments.Include("loan").Where
+                (pay => (
+                        pay.loan.LOAN_STATUS == true &&
+                        (pay.loan.customer.area.AREA_NAME == p || p == "ALL") &&
+                        pay.DATE_TIME >= _dateFrom.Date &&
+                        pay.DATE_TIME <= _dateTo.Date
+                      )).ToList();
+
+            return payments;
+        }
     }
 }

@@ -105,7 +105,7 @@ namespace LoanManagementSystem.DBModel
         {
             get
             {
-                return START_DATE.Value.Date.ToString();
+                return START_DATE.Value.Date.ToString("d");
             }
         }
     }

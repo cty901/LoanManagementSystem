@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoanManagementSystem.DBService.Implementions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -37,6 +38,55 @@ namespace LoanManagementSystem.DBModel
             {
                 _date_Time = value;
                 OnPropertyChanged("DATE_TIME");
+            }
+        }
+
+        public string DATE_TIME_in_String
+        {
+            get
+            {
+                return DATE_TIME.ToString();
+            }
+        }
+
+        public loan FK_LOAN
+        {
+            get
+            {
+                return LoanService.getLoanByID(this.FK_LOAN_ID);
+            }
+        }
+
+        public string CUSTOMER_NAME
+        {
+            get
+            {
+                return this.FK_LOAN.FK_CUSTOMER.FULLNAME;
+            }
+        }
+
+        public string CUSTOMER_PHONE
+        {
+            get
+            {
+                return this.FK_LOAN.FK_CUSTOMER.PHONE_HP1;
+            }
+        }
+
+        public string Full_Loan_Code
+        {
+            get
+            {
+                return FK_LOAN.FullLoanCode;
+            }
+
+        }
+
+        public string AMOUNT_in_String
+        {
+            get
+            {
+                return AMOUNT.ToString();
             }
         }
 
